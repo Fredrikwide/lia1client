@@ -5,14 +5,15 @@ import config from '../config'
 /**
  * TODO
  * 
- * STYLEEEE
+ * GET and POST to the DB
  * 
- * Add component when you click book where you can fill in the rest of the info? That kind of just like appears below? With some fancy animation? Maybe?
+ * STYLEEEE
  * 
  */
 
-const ChooseDate = () => {
+const MakeBooking = () => {
     const [date, setDate] = useState(new Date());
+    const [showForm, setShowForm] = useState(false)
     const [availableTimes, setAvailableTimes] = useState([])
     const [formValues, setFormValues] = useState({
         date: null,
@@ -54,6 +55,16 @@ const ChooseDate = () => {
         setFormValues({...formValues, [e.target.name]: e.target.value})
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        // Send the info in FormValues to the db to save the booking
+    }
+    
+    const handleClick = (e) => {
+        e.preventDefault()
+        setShowForm(true)
+    }
+
     // Get options of seats depending on amount of seats
     let options = []
     for(let i=1; i <= config.seats; i++) {
@@ -63,33 +74,45 @@ const ChooseDate = () => {
     // Checking if the time is in the availableTimes array and that the time number is bigger than the current time number.
     const checkTime = (time) => availableTimes.includes(time) && (new Date().getHours() < time)
 
+
+    console.log(formValues)
+
     return ( 
         <>
             <p>Choose date and time</p>
-            <form>
+            <form onSubmit={handleSubmit}>
                 {/* Can't figure out how to change the date without calling setDate directly on onChange... */}
                 <Datepicker
                     onChange={setDate}
                     value={date}
                     maxDate={maxDate}
                     minDate={new Date()}
+                    required={true}
                 />
 
-                <select name="time" id="time" onChange={handleChange} value={formValues.time}>
+                <select name="time" id="time" onChange={handleChange} value={formValues.time} required>
                     <option value={''} disabled> - Time - </option>
                     <option value='18' disabled={checkTime(18) ? null : 'disabled'}>18:00</option>
                     <option value='21' disabled={checkTime(21) ? null : 'disabled'}>21:00</option>
                 </select>
 
-                <select name="seats" id="seats" onChange={handleChange} value={formValues.seats}>
+                <select name="seats" id="seats" onChange={handleChange} value={formValues.seats} required>
                     <option value={0} disabled> - Seats - </option>      
                     {options}
                 </select>
 
-                <button>Book</button>
+                {showForm ? 
+                (<>
+                    <input type="text" onChange={handleChange} name="name" placeholder="Name" required/>
+                    <input type="email" onChange={handleChange} name="email" placeholder="Email" required/>
+                    <input type="tel" onChange={handleChange} name="phone" placeholder="Phone number" required/>
+
+                    <button type="submit">Book</button>
+                </>) 
+                : (<button onClick={handleClick}>Continue</button>)}
             </form>
         </>
      );
 }
  
-export default ChooseDate;
+export default MakeBooking;
