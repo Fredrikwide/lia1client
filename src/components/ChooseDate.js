@@ -5,7 +5,9 @@ import config from '../config'
 /**
  * TODO
  * 
- * Make sure you can't book on dates or time before current time
+ * STYLEEEE
+ * 
+ * Add component when you click book where you can fill in the rest of the info? That kind of just like appears below? With some fancy animation? Maybe?
  * 
  */
 
@@ -67,6 +69,7 @@ const ChooseDate = () => {
                     onChange={setDate}
                     value={date}
                     maxDate={maxDate}
+                    minDate={new Date()}
                 />
 
                 <select name="time" id="time" onChange={handleChange} value={formValues.time}>
