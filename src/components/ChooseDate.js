@@ -5,9 +5,10 @@ import config from '../config'
 /**
  * TODO
  * 
- * Make sure you can't book on dates or time before current time
+ * STYLEEEE
  * 
- * Add max months to pre-book?
+ * Add component when you click book where you can fill in the rest of the info? That kind of just like appears below? With some fancy animation? Maybe?
+ * 
  */
 
 const ChooseDate = () => {
@@ -19,8 +20,11 @@ const ChooseDate = () => {
         seats: 0
     })
 
-    let options = []
+    // Adding 3 months to the current date
+    let maxDate = new Date()
+    maxDate.setMonth(maxDate.getMonth() + config.maxMonths)
 
+    
     useEffect(() => {
         // Each time the date changes
         // Send date to db
@@ -51,9 +55,13 @@ const ChooseDate = () => {
     }
 
     // Get options of seats depending on amount of seats
+    let options = []
     for(let i=1; i <= config.seats; i++) {
         options.push(<option key={i} value={i}>{i}</option>)
     }
+
+    // Checking if the time is in the availableTimes array and that the time number is bigger than the current time number.
+    const checkTime = (time) => availableTimes.includes(time) && (new Date().getHours() < time)
 
     return ( 
         <>
@@ -63,12 +71,14 @@ const ChooseDate = () => {
                 <Datepicker
                     onChange={setDate}
                     value={date}
+                    maxDate={maxDate}
+                    minDate={new Date()}
                 />
 
                 <select name="time" id="time" onChange={handleChange} value={formValues.time}>
                     <option value={''} disabled> - Time - </option>
-                    <option value='18' disabled={availableTimes.includes(18) ? null : 'disabled'}>18:00</option>
-                    <option value='21' disabled={availableTimes.includes(21) ? null : 'disabled'}>21:00</option>
+                    <option value='18' disabled={checkTime(18) ? null : 'disabled'}>18:00</option>
+                    <option value='21' disabled={checkTime(21) ? null : 'disabled'}>21:00</option>
                 </select>
 
                 <select name="seats" id="seats" onChange={handleChange} value={formValues.seats}>
