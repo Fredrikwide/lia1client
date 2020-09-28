@@ -1,11 +1,11 @@
 import React from 'react';
-import ChooseDate from './components/ChooseDate'
+import Jumbo from './components/navigation/Jumbo'
+import './app.scss'
 
 function App() {
   return (
     <div className="App">
-      <p>This is out awesome restaurant booking page</p>
-      <ChooseDate/>
+      <Jumbo/>
     </div>
   );
 }
