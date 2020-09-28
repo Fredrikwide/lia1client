@@ -7,7 +7,6 @@ import config from '../config'
  * 
  * Make sure you can't book on dates or time before current time
  * 
- * Add max months to pre-book?
  */
 
 const ChooseDate = () => {
@@ -19,8 +18,11 @@ const ChooseDate = () => {
         seats: 0
     })
 
-    let options = []
+    // Adding 3 months to the current date
+    let maxDate = new Date()
+    maxDate.setMonth(maxDate.getMonth() + config.maxMonths)
 
+    
     useEffect(() => {
         // Each time the date changes
         // Send date to db
@@ -51,6 +53,7 @@ const ChooseDate = () => {
     }
 
     // Get options of seats depending on amount of seats
+    let options = []
     for(let i=1; i <= config.seats; i++) {
         options.push(<option key={i} value={i}>{i}</option>)
     }
@@ -63,6 +66,7 @@ const ChooseDate = () => {
                 <Datepicker
                     onChange={setDate}
                     value={date}
+                    maxDate={maxDate}
                 />
 
                 <select name="time" id="time" onChange={handleChange} value={formValues.time}>
