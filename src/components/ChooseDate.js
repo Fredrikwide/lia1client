@@ -60,6 +60,9 @@ const ChooseDate = () => {
         options.push(<option key={i} value={i}>{i}</option>)
     }
 
+    // Checking if the time is in the availableTimes array and that the time number is bigger than the current time number.
+    const checkTime = (time) => availableTimes.includes(time) && (new Date().getHours() < time)
+
     return ( 
         <>
             <p>Choose date and time</p>
@@ -74,8 +77,8 @@ const ChooseDate = () => {
 
                 <select name="time" id="time" onChange={handleChange} value={formValues.time}>
                     <option value={''} disabled> - Time - </option>
-                    <option value='18' disabled={availableTimes.includes(18) ? null : 'disabled'}>18:00</option>
-                    <option value='21' disabled={availableTimes.includes(21) ? null : 'disabled'}>21:00</option>
+                    <option value='18' disabled={checkTime(18) ? null : 'disabled'}>18:00</option>
+                    <option value='21' disabled={checkTime(21) ? null : 'disabled'}>21:00</option>
                 </select>
 
                 <select name="seats" id="seats" onChange={handleChange} value={formValues.seats}>
