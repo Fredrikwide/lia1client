@@ -1,0 +1,118 @@
+:root {
+    --primary: rgb(255, 255, 255);
+  }
+  
+  .btn {
+  
+    padding: 8px 20px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .btn--primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    border: 1px solid var(--primary);
+  }
+  
+  .btn--outline {
+   
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    padding: 8px 20px;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease-out;
+  }
+  
+  .btn--medium {
+    
+    padding: 8px 20px;
+    font-size: 18px;
+  }
+  
+  .btn--large {
+    
+    padding: 12px 26px;
+    font-size: 20px;
+  }
+  
+  .btn--mobile {
+    text-align: center;
+    border-radius: 4px;
+    width: 80%;
+    text-decoration: none;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: rgb(36, 33, 33);
+    padding: 14px 20px;
+    border: 1px solid rgb(27, 26, 26);
+    transition: all 0.3s ease-out;
+  }
+  
+  .btn--wide {
+    
+    padding: 12px 64px;
+    font-size: 20px;
+  }
+  
+  .btn--large:hover,
+  .btn--medium:hover,
+  .btn--mobile:hover {
+    transition: all 0.3s ease-out;
+    background: rgb(36, 33, 33);
+    color: #ffffff;
+  }
+  
+  .btn--wide:hover {
+    color: rgb(8, 8, 8);
+    background-color: #ffffff;
+    outline: 3px solid black;
+    transition: all 0.2s ease-out;
+  }
+  
+  .btn-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 8px 16px;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .black {
+    background-color: #1a1b1b;
+    color: #fff;
+    border: none;
+  }
+  
+  .red {
+    background-color: #e78413;
+    color: #fff;
+    border: none;
+  }
+  
+  .primary {
+    background-color: #f5eeee;
+    color: rgb(49, 47, 47);
+    border: none;
+  }
+  
+  .primary:hover {
+    background-color: rgb(27, 26, 26);
+    color: #e2dada;
+    border: none;
+  }
+  
+  .green {
+    background: #25ce4a;
+    color: #fff;
+    border: none;
+  }
+  
+  .green:hover {
+    background-color: #242424;
+  }
