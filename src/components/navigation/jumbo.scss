@@ -1,0 +1,88 @@
+
+@font-face {
+    font-family: 'Montserrat', 'sans-serif';
+    src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
+}
+
+.outer-wrapper {
+    
+    min-height: 100vh;
+
+    .inner-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: inherit;
+        background-image: url('../../assets/pictures/restaurantHero.jpg');
+        background-size: cover;
+
+    .text-outer-wrapper {
+        
+        .text-inner-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0rem 0rem 0rem 0rem;
+            padding-left: 3rem;
+    
+            .headOneText {
+                margin-top: 2rem;
+                h1 {
+                    font-family: 'Montserrat', 'sans-serif';
+                    font-weight: 500;
+                    font-size: 6rem;
+                    color: rgb(250, 249, 249);
+                }
+            }
+        
+            .headTwoText {
+                
+        
+                h2 {
+                    line-height: 0.7;
+                    font-family: 'Montserrat', 'sans-serif';
+                    font-weight: 400;
+                    font-style: italic;
+                    font-size: 3rem;
+                    color: #fff;
+                }
+            }
+
+            .btn-wrapper {
+                background-color: rgba(255, 255, 0, 0.671);
+                border-radius: 1.4rem;
+                margin: 2rem 0rem;
+                padding: 0rem;
+                cursor: pointer;
+                
+                p {
+                    padding: 1rem 2rem;
+                    display: inline-block;
+                    font-family: 'Monstserrat', 'sans-serif';
+                    font-size: 2rem;
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    background-color: rgba(238, 238, 225, 0.527);
+                    color: rgb(54, 53, 49);
+                    border-radius: 1.4rem;
+                    margin: 2rem 0rem;
+                    padding: 0rem;
+                }
+
+              
+            }
+            
+        }
+        
+       
+
+    }
+    
+    }
+}
+
