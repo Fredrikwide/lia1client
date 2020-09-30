@@ -21,10 +21,10 @@ const HeroSection = ({
         <>
 
             <div className=
-                {
-                    lightBg ?
-                        'home__hero-section'
-                        : 'home__hero-section ImgBg'}
+
+
+                'home__hero-section'
+
             >
                 <div className="container">
                     <div className="row home__hero-row"
@@ -62,11 +62,7 @@ const HeroSection = ({
                                 </Link>
                             </div>
                         </div>
-                        <div className="col">
-                            <div className="home__hero-img-wrapper">
-                                <img src={img} alt={alt} className="home::hero-img" />
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
