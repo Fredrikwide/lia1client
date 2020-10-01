@@ -29,7 +29,8 @@ const Footer = () => {
                             type='email'
                             placeholder='Your Email'
                         />
-                        <Button buttonStyle='btn--outline'>Subscribe</Button>
+                        <Button buttonStyle='btn--medium'
+                            buttonColor='black'>Subscribe</Button>
                     </form>
                 </div>
             </section>

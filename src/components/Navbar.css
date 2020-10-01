@@ -26,14 +26,14 @@
 .container {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.301);
   z-index: 1;
-  background-color: rgba(255, 255, 255, 0.473);
-  -webkit-box-shadow: 0px 0px 21px -1px  rgba(255, 255, 255, 0.658);
-  -moz-box-shadow: 0px 0px 21px -1px  rgba(255, 255, 255, 0.658);
-  box-shadow: 0px 0px 21px -1px rgba(255, 255, 255, 0.658);
   border-radius: 4px;
   max-width: 1300px;
+  max-height: 600px;
   padding-top: 24px;
+  padding: 24px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -101,6 +101,10 @@
 @media screen and (max-width: 960px) {
   .NavbarItems {
     position: relative;
+  }
+
+  .container {
+    padding: 0;
   }
 
   .nav-menu {

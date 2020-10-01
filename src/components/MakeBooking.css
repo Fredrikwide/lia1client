@@ -1,10 +1,109 @@
+
+
+
+
 .form-wrapper {
-    border: 2px solid red;
-    width: 800px;
-    height: 400px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+ .header {
+    background-color: rgba(243, 242, 237, 0.336);
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-weight: 700;
+    color: rgb(14, 13, 13);
+    margin-top: 1rem;
+    margin: 1rem;
+   
+    
+}
+
+.date-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+.picker {
+    
+    background-color: rgb(255, 255, 255);
+    width: 12rem;
+    height: 4rem;
+    text-align: center;
+}
+
+.select-outer {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.select-inner {
+    padding: 24px;
+}
+
+.select-inner:first-of-type {
+   margin-left: 24px;
+   margin-right: 0;
+   padding-right: 0.5rem;
+}
+
+.select-inner:last-of-type {
+    margin-right: 24px;
+   margin-left: 0;
+   padding-left: 0.5rem;
+}
+
+select {
+    display: block;
+    width: 10rem;
+    height: 2.5rem;
+    text-align-last: center;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pickInfo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.568);
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.inpWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+input {
+    width: 20rem;
+    height: 2.3rem;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+
+label {
+  
+    border-radius: 4px;
+   color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif ;
+    text-transform: uppercase;
+    padding: 10px;
 }
 

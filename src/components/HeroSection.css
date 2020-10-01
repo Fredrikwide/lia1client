@@ -1,7 +1,9 @@
 .home__hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   
-  color: #fff;
   padding: 160px 0;
   
 }
@@ -9,6 +11,7 @@
 .home__hero-row {
   align-items: center;
 }
+
 
 .row {
   display: flex;
@@ -19,14 +22,7 @@
   align-content: stretch;
 }
 
-.col {
-  margin-bottom: 15px;
-  padding-right: 15px;
-  padding-left: 15px;
-  flex: 1;
-  max-width: 50%;
-  flex-basis: 50%;
-}
+
 
 .home__hero-text-wrapper {
   max-width: 540px;
@@ -97,11 +93,6 @@ img {
 
 @media screen and (max-width: 768px) {
 
-  .container {
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-  }
 
   .col {
     display: flex;

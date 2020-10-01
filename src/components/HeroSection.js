@@ -52,14 +52,17 @@ const HeroSection = ({
                                         :
                                         'home__hero-subtitle dark'
                                     }>{description}</p>
-                                <Link to="/sign-up">
-                                    <Button
-                                        buttonSize='btn--wide'
-                                        buttonColor='black'
-                                    >
-                                        {buttonLabel}
-                                    </Button>
-                                </Link>
+                                <div className="btn-wrapper">
+                                    <Link to="/book">
+
+                                        <Button
+                                            buttonSize='btn--wide'
+                                            buttonColor='black'
+                                        >
+                                            {buttonLabel}
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 

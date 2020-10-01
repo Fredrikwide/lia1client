@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Datepicker from 'react-date-picker'
 import config from '../config'
 import './MakeBooking.css'
+import { Button } from './Button'
+import './Button.css'
 
 /**
  * TODO
@@ -14,13 +16,26 @@ import './MakeBooking.css'
 
 const MakeBooking = () => {
     const [date, setDate] = useState(new Date());
+    const [datePicked, setDatePicked] = useState()
+    const [pickedTime, setPickedTime] = useState(false)
+    const [pickedSeat, setPickedSeat] = useState(false)
+    const [show, setShow] = useState(true)
     const [showForm, setShowForm] = useState(false)
     const [availableTimes, setAvailableTimes] = useState([])
     const [formValues, setFormValues] = useState({
         date: null,
-        time: '',
+        time: false,
         seats: 0
     })
+
+    useEffect(() => {
+        console.log(date)
+
+    }, [date])
+
+    useEffect(() => {
+        console.log('i rendered again')
+    }, [pickedTime])
 
     // Adding 3 months to the current date
     let maxDate = new Date()
@@ -36,25 +51,29 @@ const MakeBooking = () => {
 
         setFormValues(f => ({ ...f, date, time: '' }))
 
-        let random = Math.floor(Math.random() * 30)
 
-        if (random >= 30) {
-            setAvailableTimes([])
-        } else {
-            let random = Math.floor(Math.random() * 3)
-            if (random === 1) {
-                setAvailableTimes([18, 21])
-            } else if (random === 2) {
-                setAvailableTimes([18])
-            } else if (random === 3) {
-                setAvailableTimes([21])
-            }
-        }
     }, [date])
 
     // Handler to hopefully handle all the form changes and add them to the form state....... Except the date, I have to update that in useEffect.
+    const handleChangeTime = (e) => {
+        setFormValues({ ...formValues, time: e.target.value })
+        setPickedTime(!pickedTime)
+        console.log(formValues.time)
+    }
+
+    const handleChangeSeats = (e) => {
+        setFormValues({ ...formValues, seats: e.target.value })
+        setPickedSeat(true)
+        console.log(formValues.seats)
+    }
+
     const handleChange = (e) => {
-        setFormValues({ ...formValues, [e.target.name]: e.target.value })
+        console.log('CHAANGE')
+    }
+
+    const handleChangeDate = (e) => {
+        setDatePicked(e.target.value)
+        console.log(datePicked)
     }
 
     const handleSubmit = (e) => {
@@ -77,7 +96,6 @@ const MakeBooking = () => {
     }
 
     // Checking if the time is in the availableTimes array and that the time number is bigger than the current time number.
-    const checkTime = (time) => availableTimes.includes(time) && (new Date().getHours() < time)
 
 
 
@@ -85,11 +103,15 @@ const MakeBooking = () => {
     return (
         <>
             <div className="form-wrapper">
-                <p>Choose date and time</p>
+                <div className="header">
+                    <h1>Choose date and time</h1>
+                </div>
                 <form onSubmit={handleSubmit}>
                     {/* Can't figure out how to change the date without calling setDate directly on onChange... */}
                     <div className="date-wrapper">
+
                         <Datepicker
+                            className="picker"
                             onChange={setDate}
                             value={date}
                             maxDate={maxDate}
@@ -97,37 +119,55 @@ const MakeBooking = () => {
                             required={true}
                         />
                     </div>
-
-                    <select name="time" id="time" onChange={handleChange} value={formValues.time} required>
-                        <option value={''} disabled> - Time - </option>
-                        <option value='18' disabled={checkTime(18) ? null : 'disabled'}>18:00</option>
-                        <option value='21' disabled={checkTime(21) ? null : 'disabled'}>21:00</option>
-                    </select>
-
-                    <select name="seats" id="seats" onChange={handleChange} value={formValues.seats} required>
-                        <option value={0} disabled> - Seats - </option>
-                        {options}
-                    </select>
-
+                    <div className="select-outer">
+                        <div className="select-inner">
+                            <select name="time" id="time" onChange={handleChangeTime} value={formValues.time} required>
+                                <option value={''} disabled> - Time - </option>
+                                <option value='18.00' >18:00</option>
+                                <option value='21.00' >21:00</option>
+                            </select>
+                        </div>
+                        <div className="select-inner">
+                            <select name="seats" id="seats" onChange={handleChangeSeats} value={formValues.seats} required>
+                                <option value={0} disabled> - Seats - </option>
+                                {options}
+                            </select>
+                        </div>
+                    </div>
                     {showForm ?
                         (<>
-                            <div className="nameInpWrapper inpWrapper">
-                                <label>name</label>
-                                <input type="text" onChange={handleChange} name="name" placeholder="Name" required />
-                            </div>
-                            <div className="emailInpWrapper inpWrapper">
-                                <label>email</label>
-                                <input type="email" onChange={handleChange} name="email" placeholder="Email" required />
-                            </div>
-                            <div className="phoneInpWrapper inpWrapper">
-                                <label>phone</label>
-                                <input type="tel" onChange={handleChange} name="phone" placeholder="Phone number" required />
-                            </div>
-                            <div className="btn-wrapper">
-                                <button type="submit">Book</button>
+                            <div className="form-wrapper">
+                                <div className="nameWrapper inpWrapper">
+                                    <label>First name</label>
+                                    <input type="text" onChange={handleChange} name="firstname" placeholder="First Name" required />
+                                </div>
+                                <div className="nameWrapper inpWrapper">
+                                    <label> last name</label>
+                                    <input type="text" onChange={handleChange} name="lastname" placeholder="Last Name" required />
+                                </div>
+                                <div className="emailWrapper inpWrapper">
+                                    <label>email</label>
+                                    <input type="email" onChange={handleChange} name="email" placeholder="Email" required />
+                                </div>
+                                <div className="phoneWrapper inpWrapper">
+                                    <label>phone</label>
+                                    <input type="tel" onChange={handleChange} name="phone" placeholder="Phone number" required />
+                                </div>
+                                <div className="btn-wrapper">
+                                    <Button buttonSize='btn--medium'
+                                        buttonColor='black'
+                                        onClick={handleClick}>BOOK</Button>
+                                </div>
                             </div>
                         </>)
-                        : (<button onClick={handleClick}>Continue</button>)}
+
+                        : pickedTime && pickedSeat ? (
+                            <div className="btn-wrapper">
+                                <Button buttonSize='btn--medium'
+                                    buttonColor='black'
+                                    onClick={handleClick}>Continue</Button>
+                            </div>) : <p className="pickInfo">you must choose a date and time to continue</p>
+                    }
                 </form>
             </div>
         </>
