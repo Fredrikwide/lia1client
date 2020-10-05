@@ -3,23 +3,31 @@ import Calendar from 'react-calendar';
 import { config } from '../config';
 import './MakeBooking.css'
 import { DateContext } from '../contexts/DateContext'
+import { TimeContext } from '../contexts/TimeContext'
+import { FormContext } from '../contexts/FormContext'
+import { UpdateContext } from '../contexts/UpdateContext'
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
 import axios from 'axios'
 
+
 const DatePicker = (props) => {
 
+    const { hideMsg, setHideMsg } = useContext(UpdateContext)
+    const { pickedDate, setPickedDate } = useContext(DateContext)
+    const { date, setDate } = useContext(DateContext)
+    const { formValues, setFormValues } = useContext(FormContext)
+    const { availableFirst, setAvailableFirst } = useContext(TimeContext)
+    const { availableLast, setAvailableLast } = useContext(TimeContext)
 
-
-
-    const [date, setDate] = useContext(DateContext)
-
-    const [availableFirst, setAvailableFirst] = useContext(DateContext)
-    const [availableLast, setAvailableLast] = useContext(DateContext)
+    const [defaultDate, setDefaultDate] = useState()
 
     const endpoint = '/reservation'
     const baseApiUrl = 'http://localhost:5000'
 
+    useEffect(() => {
+        console.log('DATE IS NOW', date)
+    }, [])
 
 
     const checkAvailability = async (endpoint, date) => {
@@ -30,7 +38,7 @@ const DatePicker = (props) => {
                     return false
                 }
                 else if (response.data.data.avilable_first <= 0) {
-                    console.log('fullbokat 18')
+                    console.log('fullbokat 18', availableFirst)
 
                     setAvailableFirst(false)
 
@@ -39,7 +47,11 @@ const DatePicker = (props) => {
                     console.log('fullbokat 21')
                     setAvailableLast(false)
                 }
-                else console.log('first', availableFirst, 'last', availableLast)
+                else {
+                    setAvailableLast(true)
+                    setAvailableFirst(true)
+                    console.log('first', availableFirst, 'last', availableLast)
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -52,12 +64,15 @@ const DatePicker = (props) => {
     maxDate.setMonth(maxDate.getMonth() + config.maxMonths)
 
     const handleChangeDate = date => {
+
         setDate(date)
+        setHideMsg(true)
+        setPickedDate(true)
         const formatDate = moment(date).format('YYYY-MM-DD')
         console.log('date picked is', formatDate)
+        setFormValues({ ...formValues, date: formatDate })
+        console.log('form values', formValues)
         checkAvailability('/reservation/', formatDate)
-
-
     }
 
     return (

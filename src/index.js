@@ -1,12 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { DateProvider } from './contexts/DateContext'
+import { TimeProvider } from './contexts/TimeContext'
+import { FormProvider } from './contexts/FormContext'
+import { UpdateProvider } from './contexts/UpdateContext'
+import { BookingProvider } from './contexts/BookingContext'
 
 import App from './App';
 
-ReactDOM.render(
+render(
   <DateProvider>
-    <App />
+    <FormProvider>
+      <BookingProvider>
+        <TimeProvider>
+          <UpdateProvider>
+            <App />
+          </UpdateProvider>
+        </TimeProvider>
+      </BookingProvider>
+    </FormProvider>
   </DateProvider>,
   document.getElementById('root')
 );

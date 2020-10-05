@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { DateContext } from '../../contexts/DateContext'
+import { BookingContext } from '../../contexts/BookingContext'
+import { FormContext } from '../../contexts/FormContext'
 import { createBooking } from '../routes/fetch'
 import { Button } from '../Button'
 import '../Button.css'
@@ -7,9 +9,9 @@ import '../MakeBooking.css'
 
 const BookingForm = () => {
 
-    const [bookingMade, setBookingMade] = useContext(DateContext)
-    const [showForm, setShowForm] = useContext(DateContext)
-    const [formValues, setFormValues] = useContext(DateContext)
+    const { bookingMade, setBookingMade } = useContext(BookingContext)
+    const { formValues, setFormValues } = useContext(FormContext)
+
     const [firstName, setFirstName] = useState(false)
     const [lastName, setLastName] = useState(false)
     const [email, setEmail] = useState(false)
@@ -18,9 +20,7 @@ const BookingForm = () => {
     const [errorMsg, setErrorMsg] = useState('')
 
 
-    useEffect(() => {
-        console.log('form values', formValues)
-    }, [formValues])
+
 
     const reservations = []
 
@@ -40,19 +40,18 @@ const BookingForm = () => {
         setFormValues({ ...formValues, phone: e.target.value })
     }
 
-    const checkValues = () => {
-        if (!firstName || !lastName || !email || !phone) {
-            setDisableSubmit(true)
-            setErrorMsg('please fill in all the fields to make a reservation')
-        }
-    }
+    // const checkValues = (firstName, lastName, email, phone) => {
+    //     if(!firstName) {
+    //         setDisableSubmit(true)
+
+    //     }
+    //     else return true
+    // }
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        checkValues()
-        setShowForm(false)
         createBooking('/reservation', formValues)
         setBookingMade(true)
         reservations.push(formValues)
@@ -68,7 +67,7 @@ const BookingForm = () => {
         <>
             <div className="form-wrapper">
                 <div className="header">
-                    <h1>Choose date and time</h1>
+                    <h1>Fill in the form to make your reservation!</h1>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-wrapper">
