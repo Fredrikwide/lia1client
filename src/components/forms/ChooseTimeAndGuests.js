@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { checkAvailability } from '../routes/fetch'
 import { DateContext } from '../../contexts/DateContext'
 import { TimeContext } from '../../contexts/TimeContext'
 import { FormContext } from '../../contexts/FormContext'
-import { UpdateContext, UpdateProvider } from '../../contexts/UpdateContext'
+import { UpdateContext } from '../../contexts/UpdateContext'
 
 import { config } from '../../config/index'
 import { Button } from '../Button'
@@ -30,7 +31,6 @@ const ChooseTimeAndGuests = () => {
 
 
     const handleChangeTime = (e) => {
-
         setFormValues({ ...formValues, time: e.target.value })
         setPickedTime(true)
 
@@ -73,9 +73,9 @@ const ChooseTimeAndGuests = () => {
                             disabled >{defaultSelectTime}
                         </option>
                         <option
-                            value='18.00'  >18:00</option>
+                            value={'18.00'} disabled={!availableFirst ? true : false} >18:00</option>
                         <option
-                            value='21.00' >21:00</option>
+                            value={'21.00'} disabled={!availableLast ? true : false} >21:00</option>
 
                     </select>
                 </div>

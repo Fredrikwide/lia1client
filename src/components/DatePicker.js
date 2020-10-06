@@ -70,9 +70,9 @@ const DatePicker = (props) => {
         setPickedDate(true)
         const formatDate = moment(date).format('YYYY-MM-DD')
         console.log('date picked is', formatDate)
+        checkAvailability('/reservation/', formatDate)
         setFormValues({ ...formValues, date: formatDate })
         console.log('form values', formValues)
-        checkAvailability('/reservation/', formatDate)
     }
 
     return (

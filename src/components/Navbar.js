@@ -56,13 +56,13 @@ const Navbar = () => {
                             </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/contact" className="nav-links" onClick={closeMobileMenu}>
-                                        Contact
+                                    <Link to="/privacy" className="nav-links" onClick={closeMobileMenu}>
+                                        Privacy policy
                             </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/menu" className="nav-links" onClick={closeMobileMenu}>
-                                        Menu
+                                    <Link to="/contact" className="nav-links" onClick={closeMobileMenu}>
+                                        Contact
                             </Link>
                                 </li>
                                 <li className="nav-btn">

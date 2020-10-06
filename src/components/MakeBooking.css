@@ -76,8 +76,23 @@ select {
     font-size: 1.2rem;
     font-weight: 700;
     background-color: rgba(255, 255, 255, 0.568);
-    text-align: center;
+    text-align: justify;
+    margin-top: 20px;
     color: rgb(0, 0, 0);
+}
+
+#pickDate {
+    text-align: center;
+}
+
+.header {
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    margin: 3px;
+    text-align: center;
+    background-color: inherit;
+    margin-top: 30px;
+    padding: 8px 22px;
 }
 
 .inpWrapper {
@@ -87,23 +102,41 @@ select {
     margin: 10px;
 }
 
+
 input {
     width: 20rem;
     height: 2.3rem;
     border-radius: 4px;
     outline: none;
-    border: none;
+    border: 1px solid black;
     text-align: center;
 }
 
 label {
   
     border-radius: 4px;
-   color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
     font-size: 1.3rem;
     font-weight: 700;
     font-family: Arial, Helvetica, sans-serif ;
     text-transform: uppercase;
+    
     padding: 10px;
 }
 
+.checkBox {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.checkGDPR {
+    display: flex;
+    
+}
+
+.gdprText {
+    font-size: 0.9rem;
+    align-self: center;
+    margin: 0px 5px;
+    
+}

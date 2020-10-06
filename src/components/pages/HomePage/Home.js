@@ -1,8 +1,8 @@
 import '../../HeroSection.css'
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'
+import React from 'react';
+
 import HeroSection from '../../HeroSection'
-import HeroSectionDefault from '../../HeroSectionDefault'
+
 import { homeObjOne } from '../HomePage/Data'
 
 

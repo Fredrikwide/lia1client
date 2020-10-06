@@ -64,7 +64,7 @@ const Book = () => {
                 isHidden ? null : !hideMsg && !isHidden ?
                     <>
                         <DatePicker />
-                        <p className="pickInfo">please pick a date</p>
+                        <p className="pickInfo" id="pickDate">please pick a date</p>
                     </>
                     : <DatePicker />
             }

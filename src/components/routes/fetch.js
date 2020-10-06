@@ -1,10 +1,14 @@
 import axios from 'axios'
+// import { useContext, useEffect } from 'react'
+// import { TimeContext } from '../../contexts/TimeContext'
 const baseApiUrl = 'http://localhost:5000'
 const requestConfig = {}
 
 
-const availableFirst = true
-const availableLast = true
+
+
+
+
 export const createBooking = async (endpoint, data) => {
     await axios.post(baseApiUrl + endpoint, data, requestConfig)
         .then(response => {
@@ -23,15 +27,16 @@ export const checkAvailability = async (endpoint, date) => {
                 return false
             }
             else if (response.data.data.avilable_first <= 0) {
-                availableFirst = false
+
 
             }
             else if (response.data.data.avilable_last <= 0) {
-                availableLast = false
+
             }
-            else console.log('first', availableFirst, 'last', availableLast)
+            else console.log('first', 'last')
         })
         .catch(error => {
             console.log(error)
         })
 }
+

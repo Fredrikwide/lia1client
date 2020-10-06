@@ -20,12 +20,7 @@ const HeroSection = ({
     return (
         <>
 
-            <div className=
-
-
-                'home__hero-section'
-
-            >
+            <div className='home__hero-section'>
                 <div className="container">
                     <div className="row home__hero-row"
                         style={

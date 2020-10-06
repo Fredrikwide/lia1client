@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { DateContext } from '../../contexts/DateContext'
 import { BookingContext } from '../../contexts/BookingContext'
 import { FormContext } from '../../contexts/FormContext'
@@ -11,11 +12,6 @@ const BookingForm = () => {
 
     const { bookingMade, setBookingMade } = useContext(BookingContext)
     const { formValues, setFormValues } = useContext(FormContext)
-
-    const [firstName, setFirstName] = useState(false)
-    const [lastName, setLastName] = useState(false)
-    const [email, setEmail] = useState(false)
-    const [phone, setPhone] = useState(false)
     const [disableSubmit, setDisableSubmit] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
 
@@ -40,15 +36,6 @@ const BookingForm = () => {
         setFormValues({ ...formValues, phone: e.target.value })
     }
 
-    // const checkValues = (firstName, lastName, email, phone) => {
-    //     if(!firstName) {
-    //         setDisableSubmit(true)
-
-    //     }
-    //     else return true
-    // }
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -67,7 +54,7 @@ const BookingForm = () => {
         <>
             <div className="form-wrapper">
                 <div className="header">
-                    <h1>Fill in the form to make your reservation!</h1>
+                    <h2 className="form-header-text"> Fill in the form to make your reservation!</h2>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-wrapper">
@@ -86,7 +73,19 @@ const BookingForm = () => {
                         <div className="phoneWrapper inpWrapper">
                             <label>phone</label>
                             <input type="tel" onChange={handleChangePhone} name="phone" placeholder="Phone number" required />
+
                         </div>
+                        <div>
+                            <div className="checkGDPR">
+                                <input
+                                    type="checkbox"
+                                    className="checkBox"
+                                    required
+                                />
+                                <p className="pickInfo gdprText">I agree that my information is handled according to <Link to="/privacy">our privacy policy</Link></p>
+                            </div>
+                        </div>
+
                         <div className="btn-wrapper">
                             {!disableSubmit ?
                                 <Button
