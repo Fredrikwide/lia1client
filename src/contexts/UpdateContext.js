@@ -1,17 +1,14 @@
-import React, { useState, createContext, useEffect } from 'react'
+import React, { useState, createContext } from 'react'
 
 export const UpdateContext = createContext();
 
 
-const initialCont = false
 
-const logMessage = message => {
-    console.log(message);
-};
+
 
 export const UpdateProvider = props => {
     const [hideMsg, setHideMsg] = useState(false)
-    const [isClicked, setIsClicked] = useState(initialCont)
+    const [isClicked, setIsClicked] = useState(false)
     const [isHidden, setIsHidden] = useState(false)
 
     const updateContextValue = {
@@ -22,7 +19,6 @@ export const UpdateProvider = props => {
         setIsHidden,
         hideMsg,
         setHideMsg,
-        logMessage
     }
 
     return (

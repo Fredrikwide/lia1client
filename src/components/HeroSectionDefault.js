@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import './HeroSection.css'
 import Home from './pages/HomePage/Home'
 import Book from './Book'
-import Contact from './Contact'
+
 import Login from './forms/Login'
+import Privacy from './Privacy'
+import AdminHome from './admin/AdminHome'
 
 
 
@@ -33,8 +35,8 @@ const HeroSectionDefault = () => {
                                 ? (<Home path={path} />)
                                 : path === '/book'
                                     ? (<Book />) :
-                                    path === '/contact'
-                                        ? <Contact />
+                                    path === '/admin'
+                                        ? <AdminHome />
                                         : path === '/login'
                                             ? <Login />
                                             : <Home />

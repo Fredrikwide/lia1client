@@ -1,23 +1,27 @@
-import React, { useState, createContext, useEffect } from 'react'
+import React, { useState, createContext } from 'react'
 
 export const BookingContext = createContext();
 
-
-const initialBookingVal = false
-
-const logMessage = message => {
-    console.log(message);
-};
+const intitalValues = {
+    date: null,
+    time: null,
+    seats: 0,
+}
 
 export const BookingProvider = props => {
 
-    const [bookingMade, setBookingMade] = useState(initialBookingVal)
+    const [date, setDate] = useState(new Date());
+    const [pickedDate, setPickedDate] = useState(false)
+    const [formValues, setFormValues] = useState(intitalValues)
+
 
     const bookingContextValue = {
-
-        bookingMade,
-        setBookingMade,
-        logMessage
+        date,
+        setDate,
+        pickedDate,
+        setPickedDate,
+        formValues,
+        setFormValues,
     }
 
     return (

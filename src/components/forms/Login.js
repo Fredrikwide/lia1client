@@ -13,8 +13,7 @@ const Login = () => {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [checkPassword, setCheckPassword] = useState()
-    const [errorMsg, setErrorMsg] = useState(false)
+
 
     const handleChangeEmail = (e) => {
         setEmail(e.target.value)
@@ -24,24 +23,30 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-    const handleLogIn = async () => {
+    const handleLogIn = async (e) => {
+        e.preventDefault()
         const loginAdmin = { email, password };
-        const loginRes = await axios.post('http://localhost:5000/login/login', loginAdmin)
+        const loginRes = await axios.post('http://localhost:5000/admin/login', loginAdmin)
+
         console.log(loginRes)
         setUserData({
             token: loginRes.data.token,
             user: loginRes.data.user
         })
         localStorage.setItem('auth-token', loginRes.data.token)
+
         setLoggedIn(true)
-        navigate('/', { replace: true })
+
+        navigate('/admin', { replace: true })
 
     }
 
     return (
-        <div>
-            <h1 className="header dark">Log in</h1>
+        <form onSubmit={handleLogIn}>
             <div className="form-wrapper">
+
+                <h1 className="header dark">Log in</h1>
+
                 <div className="nameWrapper inpWrapper">
                     <label>Email</label>
                     <input
@@ -51,6 +56,7 @@ const Login = () => {
                         placeholder="enter your email"
                         required />
                 </div>
+
                 <div className="nameWrapper inpWrapper">
                     <label>Password</label>
                     <input
@@ -61,18 +67,18 @@ const Login = () => {
                         required />
                 </div>
 
-            </div>
-            <div className="btn-wrapper">
-                {!errorMsg ?
+                <div className="btn-wrapper">
                     <Button
                         type="submit"
                         buttonSize='btn--medium'
                         buttonColor='black'
-                        onClick={handleLogIn}
-                    >Sign In</Button> : <p>{errorMsg}</p>
-                }
+                        buttonStyle='btn--outline'
+                    >Sign In</Button>
+                </div>
             </div>
-        </div>
+
+
+        </form>
     )
 }
 

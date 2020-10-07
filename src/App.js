@@ -7,13 +7,14 @@ import Navbar from './components/Navbar';
 import Home from './components/pages/HomePage/Home';
 import HeroSectionDefault from './components/HeroSectionDefault';
 import Footer from './components/pages/Footer/Footer'
-import { UserProvider, UserContext } from './contexts/UserContext'
-import Axios from 'axios';
+import { UserContext } from './contexts/UserContext'
 import Login from './components/forms/Login';
+import Privacy from './components/Privacy';
+import AdminHome from './components/admin/AdminHome';
 
 const App = () => {
 
-  const { userData, setUserData } = useContext(UserContext)
+  const { setUserData, loggedIn } = useContext(UserContext)
 
 
   useEffect(() => {
@@ -23,11 +24,11 @@ const App = () => {
         localStorage.setItem('auth-token', '')
         token = '';
       }
-      const tokenRes = await axios.post('http://localhost:5000/login/tokenIsValid', null,
+      const tokenRes = await axios.post('http://localhost:5000/admin/validToken', null,
         { headers: { "x-auth-token": token } }
       )
       if (tokenRes.data) {
-        const UserRes = await axios.get('http://localhost:5000/login/', { headers: { 'x-auth-token': token } })
+        const UserRes = await axios.get('http://localhost:5000/admin/', { headers: { 'x-auth-token': token } })
         setUserData({
           token,
           user: UserRes.data
@@ -35,24 +36,30 @@ const App = () => {
       }
     }
     checkLoggedIn()
-  }, [])
+  }, [setUserData])
 
 
   return (
 
     <Router>
-      <Navbar />
+
+      {!loggedIn &&
+        <Navbar />
+      }
       <Routes>
         <div className="background-wrapper">
           <HeroSectionDefault>
             <Route path='/' element={<Home />} />
             <Route path='/book' element={<Book />} />
-            <Route path='/contact' element={<Home />} />
+            <Route path='/privacy' element={<Privacy />} />
             <Route path='/menu' element={<Home />} />
             <Route path='/login' element={<Login />} />
           </HeroSectionDefault>
         </div>
       </Routes>
+      {loggedIn &&
+        <Route path='/admin' element={<AdminHome />} />
+      }
       <Footer />
     </Router>
 

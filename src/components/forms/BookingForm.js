@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { DateContext } from '../../contexts/DateContext'
+import { Link } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
-import { FormContext } from '../../contexts/FormContext'
 import { createBooking } from '../routes/fetch'
 import { Button } from '../Button'
 import '../Button.css'
@@ -10,15 +8,9 @@ import '../MakeBooking.css'
 
 const BookingForm = () => {
 
-    const { bookingMade, setBookingMade } = useContext(BookingContext)
-    const { formValues, setFormValues } = useContext(FormContext)
-    const [disableSubmit, setDisableSubmit] = useState(false)
-    const [errorMsg, setErrorMsg] = useState('')
 
-
-
-
-    const reservations = []
+    const { formValues, setFormValues } = useContext(BookingContext)
+    const [checkGDPR, setCheckGDPR] = useState(false)
 
     const handleChangefirstName = (e) => {
         setFormValues({ ...formValues, firstname: e.target.value })
@@ -39,10 +31,9 @@ const BookingForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setFormValues({ ...formValues, acceptedGDPR: checkGDPR })
         createBooking('/reservation', formValues)
-        setBookingMade(true)
-        reservations.push(formValues)
-        console.log('booking made', formValues, 'reservations', reservations)
+        console.log('booking made', formValues)
 
         // Send the info in FormValues to the db to save the booking
     }
@@ -55,6 +46,12 @@ const BookingForm = () => {
             <div className="form-wrapper">
                 <div className="header">
                     <h2 className="form-header-text"> Fill in the form to make your reservation!</h2>
+                </div>
+                <div className="">
+                    <h3>
+                        your reservation:
+                            </h3>
+                    <p> date: {formValues.date} at {formValues.time} o'clock for {formValues.seats} people</p>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-wrapper">
@@ -80,23 +77,25 @@ const BookingForm = () => {
                                 <input
                                     type="checkbox"
                                     className="checkBox"
+                                    value={checkGDPR}
+
                                     required
                                 />
-                                <p className="pickInfo gdprText">I agree that my information is handled according to <Link to="/privacy">our privacy policy</Link></p>
+                                <p className="pickInfo gdprText">I agree that my information is handled according to <Link to="/privacy" >our privacy policy</Link></p>
                             </div>
                         </div>
 
                         <div className="btn-wrapper">
-                            {!disableSubmit ?
-                                <Button
-                                    type='submit'
-                                    buttonSize='btn--medium'
-                                    buttonColor='black'
-                                >BOOK
+
+                            <Button
+                                type='submit'
+                                buttonSize='btn--medium'
+                                buttonColor='black'
+                            >BOOK
                             </Button>
-                                : <p>{errorMsg}</p>
-                            }
+
                         </div>
+
                     </div>
                 </form>
             </div>

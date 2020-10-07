@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Calendar from 'react-calendar';
 import { config } from '../config';
 import './MakeBooking.css'
-import { DateContext } from '../contexts/DateContext'
-import { TimeContext } from '../contexts/TimeContext'
-import { FormContext } from '../contexts/FormContext'
+import { BookingContext } from '../contexts/BookingContext'
 import { UpdateContext } from '../contexts/UpdateContext'
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
@@ -13,21 +11,16 @@ import axios from 'axios'
 
 const DatePicker = (props) => {
 
-    const { hideMsg, setHideMsg } = useContext(UpdateContext)
-    const { pickedDate, setPickedDate } = useContext(DateContext)
-    const { date, setDate } = useContext(DateContext)
-    const { formValues, setFormValues } = useContext(FormContext)
-    const { availableFirst, setAvailableFirst } = useContext(TimeContext)
-    const { availableLast, setAvailableLast } = useContext(TimeContext)
+    const { setHideMsg } = useContext(UpdateContext)
 
-    const [defaultDate, setDefaultDate] = useState()
+    const { setPickedDate } = useContext(BookingContext)
+    const { date, setDate } = useContext(BookingContext)
+    const { formValues, setFormValues } = useContext(BookingContext)
 
-    const endpoint = '/reservation'
+    const { availableFirst, setAvailableFirst } = useState()
+    const { availableLast, setAvailableLast } = useState()
+
     const baseApiUrl = 'http://localhost:5000'
-
-    useEffect(() => {
-        console.log('DATE IS NOW', date)
-    }, [])
 
 
     const checkAvailability = async (endpoint, date) => {
@@ -59,7 +52,6 @@ const DatePicker = (props) => {
 
     }
 
-
     let maxDate = new Date()
     maxDate.setMonth(maxDate.getMonth() + config.maxMonths)
 
@@ -88,16 +80,5 @@ const DatePicker = (props) => {
 }
 
 export default DatePicker
-
-
-//användaren väljer datum
-
-// sätter den valt datum till ett state
-
-//kolla mot DB om datum är upptaget
-
-//om true visa komponent
-
-//om false rendera välj tid och antal
 
 
