@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { UpdateProvider } from './contexts/UpdateContext'
 import { BookingProvider } from './contexts/BookingContext'
 import { UserProvider } from './contexts/UserContext';
-
+import './App.scss';
 import App from './App';
 
 render(

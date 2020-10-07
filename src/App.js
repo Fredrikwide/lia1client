@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css';
+import './App.scss';
 import axios from 'axios'
 import Book from './components/Book';
 import Navbar from './components/Navbar';

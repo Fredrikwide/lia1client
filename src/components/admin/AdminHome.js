@@ -127,13 +127,21 @@ const AdminHome = () => {
 
                 {
                     reservations.map((reserv, index) => (
-                        <Card key={index} style={{ width: '18rem' }}>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>Name: {reserv.name}</ListGroup.Item>
-                                <ListGroup.Item>Date: {reserv.date}</ListGroup.Item>
-                                <ListGroup.Item>Time: {reserv.time}</ListGroup.Item>
-                            </ListGroup>
-                        </Card>
+                        <div key={index} className="wrapper">
+                            <Card style={{ width: '18rem' }}>
+                                <ListGroup variant="flush" className='reserv-list'>
+                                    <ListGroup.Item
+                                        className='reserv-list-item'>
+                                        Name: {reserv.name}</ListGroup.Item>
+                                    <ListGroup.Item
+                                        className='reserv-list-item'>
+                                        Date: {reserv.date}</ListGroup.Item>
+                                    <ListGroup.Item
+                                        className='reserv-list-item'>
+                                        Time: {reserv.time}</ListGroup.Item>
+                                </ListGroup>
+                            </Card>
+                        </div>
                     ))
                 }
             </div>
