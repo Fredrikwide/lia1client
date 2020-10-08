@@ -10,7 +10,7 @@ const requestConfig = {}
 
 
 export const createBooking = async (endpoint, data) => {
-    await axios.post(baseApiUrl + endpoint, data, requestConfig)
+    await axios.post(baseApiUrl + endpoint, data)
         .then(response => {
             console.log(response)
         })

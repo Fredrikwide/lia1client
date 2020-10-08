@@ -8,6 +8,7 @@ import Book from './Book'
 import Login from './forms/Login'
 import Privacy from './Privacy'
 import AdminHome from './admin/AdminHome'
+import Success from './Success'
 
 
 
@@ -38,8 +39,10 @@ const HeroSectionDefault = () => {
                                     path === '/admin'
                                         ? <AdminHome />
                                         : path === '/login'
-                                            ? <Login />
-                                            : <Home />
+                                            ? <Login /> : path === '/success' ?
+                                                <Success /> :
+
+                                                <Home />
 
                             }
                         </div>

@@ -27,7 +27,6 @@ const Login = () => {
         e.preventDefault()
         const loginAdmin = { email, password };
         const loginRes = await axios.post('http://localhost:5000/admin/login', loginAdmin)
-
         console.log(loginRes)
         setUserData({
             token: loginRes.data.token,

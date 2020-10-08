@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './Footer.css';
 import { Button } from '../../Button';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext'
 
 const Footer = () => {
-
+    const navigate = useNavigate()
     const { loggedIn, setLoggedIn } = useContext(UserContext)
     const { setUserData } = useContext(UserContext)
 
@@ -16,6 +17,8 @@ const Footer = () => {
         })
         localStorage.setItem('auth-token', '')
         setLoggedIn(false)
+        navigate('/', { replace: true })
+
     }
 
     return (

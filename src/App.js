@@ -11,10 +11,11 @@ import { UserContext } from './contexts/UserContext'
 import Login from './components/forms/Login';
 import Privacy from './components/Privacy';
 import AdminHome from './components/admin/AdminHome';
+import Success from './components/Success';
 
 const App = () => {
 
-  const { setUserData, loggedIn } = useContext(UserContext)
+  const { setUserData, loggedIn, setLoggedIn } = useContext(UserContext)
 
 
   useEffect(() => {
@@ -33,10 +34,13 @@ const App = () => {
           token,
           user: UserRes.data
         })
+        setLoggedIn(true)
       }
+
     }
     checkLoggedIn()
-  }, [setUserData])
+
+  }, [])
 
 
   return (
@@ -54,6 +58,7 @@ const App = () => {
             <Route path='/privacy' element={<Privacy />} />
             <Route path='/menu' element={<Home />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/success' element={<Success />} />
           </HeroSectionDefault>
         </div>
       </Routes>

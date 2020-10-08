@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
 
@@ -12,7 +12,8 @@ const ChooseTimeAndGuests = () => {
 
 
     const { formValues, setFormValues } = useContext(BookingContext)
-    const { isClicked, setIsClicked } = useContext(UpdateContext)
+    const { fullyBooked, fullyBooked18, fullyBooked21 } = useContext(BookingContext)
+    const { setIsClicked } = useContext(UpdateContext)
     const { setIsHidden } = useContext(UpdateContext)
 
     const [pickedTime, setPickedTime] = useState(false)
@@ -34,13 +35,14 @@ const ChooseTimeAndGuests = () => {
 
     const handleChangeSeats = (e) => {
         setDefaultSelectSeat(e.target.value)
-        setFormValues({ ...formValues, seats: e.target.value })
+        setFormValues({ ...formValues, people: e.target.value })
+        console.log('you choose:', e.target.value, 'people')
         setPickedSeat(true)
 
     }
 
     const handleClickCont = (e) => {
-        console.log('clickityCalckity is', isClicked)
+
         setIsHidden(true)
         setIsClicked(true)
 
@@ -56,6 +58,7 @@ const ChooseTimeAndGuests = () => {
                     <select
                         name="time"
                         id="time"
+                        disabled={fullyBooked ? true : false}
                         onChange={handleChangeTime}
                         value={defaultSelectTime}
                         required>
@@ -65,9 +68,13 @@ const ChooseTimeAndGuests = () => {
                             disabled >{defaultSelectTime}
                         </option>
                         <option
-                            value={'18:00'} >18:00</option>
+                            value={'18:00'}
+                            disabled={fullyBooked18 ? true : false}
+                        >18:00</option>
                         <option
-                            value={'21:00'} >21:00</option>
+                            value={'21:00'}
+                            disabled={fullyBooked21 ? true : false}
+                        >21:00</option>
 
                     </select>
                 </div>

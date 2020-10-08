@@ -1,16 +1,27 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
-import { createBooking } from '../routes/fetch'
+
 import { Button } from '../Button'
 import '../Button.css'
 import '../MakeBooking.css'
+import Axios from 'axios'
 
 const BookingForm = () => {
 
-
-    const { formValues, setFormValues } = useContext(BookingContext)
+    const navigate = useNavigate()
+    const { formValues, setFormValues, setLatestBooking } = useContext(BookingContext)
     const [checkGDPR, setCheckGDPR] = useState(false)
+
+    const postBooking = async (data) => {
+        const bookingRes = await Axios.post('http://localhost:5000/reservation', data)
+        console.log(bookingRes)
+    }
+
+    const checkBooking = async (info) => {
+        const checkAvailability = await Axios.get(`http://localhost:5000/reservation/${formValues.date}`, info)
+    }
+
 
     const handleChangefirstName = (e) => {
         setFormValues({ ...formValues, firstname: e.target.value })
@@ -32,8 +43,9 @@ const BookingForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setFormValues({ ...formValues, acceptedGDPR: checkGDPR })
-        createBooking('/reservation', formValues)
-        console.log('booking made', formValues)
+        postBooking(formValues)
+        setLatestBooking(formValues)
+        navigate('/success', { replace: true })
 
         // Send the info in FormValues to the db to save the booking
     }
@@ -69,7 +81,7 @@ const BookingForm = () => {
                         </div>
                         <div className="phoneWrapper inpWrapper">
                             <label>phone</label>
-                            <input type="tel" onChange={handleChangePhone} name="phone" placeholder="Phone number" required />
+                            <input type="tel" minLength="10" maxLength="12" onChange={handleChangePhone} name="phone" placeholder="Phone number" required />
 
                         </div>
                         <div>

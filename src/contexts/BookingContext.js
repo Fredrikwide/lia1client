@@ -5,7 +5,7 @@ export const BookingContext = createContext();
 const intitalValues = {
     date: null,
     time: null,
-    seats: 0,
+    people: 0,
 }
 
 export const BookingProvider = props => {
@@ -13,7 +13,10 @@ export const BookingProvider = props => {
     const [date, setDate] = useState(new Date());
     const [pickedDate, setPickedDate] = useState(false)
     const [formValues, setFormValues] = useState(intitalValues)
-
+    const [latestBooking, setLatestBooking] = useState({})
+    const [fullyBooked, setFullyBooked] = useState(false)
+    const [fullyBooked18, setFullyBooked18] = useState(false)
+    const [fullyBooked21, setFullyBooked21] = useState(false)
 
     const bookingContextValue = {
         date,
@@ -22,6 +25,15 @@ export const BookingProvider = props => {
         setPickedDate,
         formValues,
         setFormValues,
+        latestBooking,
+        setLatestBooking,
+        fullyBooked,
+        setFullyBooked,
+        fullyBooked18,
+        setFullyBooked18,
+        fullyBooked21,
+        setFullyBooked21,
+
     }
 
     return (
