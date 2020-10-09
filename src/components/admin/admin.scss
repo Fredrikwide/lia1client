@@ -19,22 +19,18 @@
 }
 
 .cont {
-    border: 2px solid magenta;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .outer {
-    display: flex;
-    justify-content: space-around;
     margin: 1rem;
-    border: 2px solid red;
 
 }
 
 .inner {
-    display: flex;
+    display: inline-blockxs;
     flex: 1;
     justify-content: space-around;
     align-items: center;
@@ -45,7 +41,6 @@
     justify-content: center;
     align-items: center;
     flex: 1;
-    border: 2px solid green;
 }
 
 .item-box {
@@ -53,6 +48,11 @@
     margin: 3rem;
     flex-direction: column;
     flex: 1;
+    border-bottom: 1px solid black;
+}
+
+.item-box strong{
+    border-bottom: 1px solid black;
 }
 
 .btn-box-outer {
@@ -67,5 +67,15 @@
     justify-content: center;
     align-items: center;
 
+}
+
+.no-books {
+    font-size: 20px;
+    font-style: italic;
+    color: white;
+    background-color: rgb(219, 77, 77);
+    opacity: 70%;
+    padding: 40px;
+    border-radius: 10px;
 }
 
