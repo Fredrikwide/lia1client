@@ -1,11 +1,18 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BookingContext } from '../contexts/BookingContext'
+import { UpdateContext } from '../contexts/UpdateContext'
 import { Button } from './Button'
 
 const Success = () => {
     const navigate = useNavigate()
     const { latestBooking } = useContext(BookingContext)
+    const { pageReset, setPageReset } = useContext(UpdateContext)
+
+    const handleBackHome = () => {
+        setPageReset(!pageReset)
+        navigate('/')
+    }
 
     return (
         <>
@@ -20,7 +27,7 @@ const Success = () => {
                 <h4>to change or cancel your reservation please contact us</h4>
             </div>
             <div className="btn-wrapper">
-                <Button buttonColor="black" buttonSize="btn--medium" onClick={() => navigate('/', { replace: true })}>
+                <Button buttonColor="black" buttonSize="btn--medium" onClick={handleBackHome}>
                     home
             </Button>
             </div>

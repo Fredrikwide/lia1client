@@ -45,7 +45,7 @@ const BookingForm = () => {
         setFormValues({ ...formValues, acceptedGDPR: checkGDPR })
         postBooking(formValues)
         setLatestBooking(formValues)
-        navigate('/success', { replace: true })
+        navigate('/success')
 
         // Send the info in FormValues to the db to save the booking
     }
