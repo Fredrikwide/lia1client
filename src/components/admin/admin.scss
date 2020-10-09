@@ -2,8 +2,7 @@
     
     min-height: 100vh;
     margin: 0 auto;
-    background-color: rgba(0, 0, 255, 0.315);
-    display: flex;
+    max-width: 1000px;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
@@ -13,43 +12,61 @@
     max-width: 100%;
 }
 
+.login-info {
+    text-align: center;
+   font-size: 20px;
+}
+
 .head {
-    border: 2px solid black;
+    text-align: center;
     top: 40px;
+    padding: 100px;
+}
+
+.head h1{
+    font-size: 30px;
 }
 
 .cont {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
 }
 
-.outer {
-    margin: 1rem;
-
-}
 
 .inner {
     display: inline-blockxs;
-    flex: 1;
-    justify-content: space-around;
     align-items: center;
 }
 
+/* --------------------- Calender */
 .date-outer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-width: 450px;
     flex: 1;
 }
+/* --------------------- Calender */
 
+/* --------------------- BookingCard */
 .item-box {
     display: flex;
-    margin: 3rem;
+    margin-bottom: 1rem;
     flex-direction: column;
     flex: 1;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px 0;
 }
+
+.item-box p{
+    margin: 0;
+}
+/* --------------------- BookingCard */
+    .outer {
+        margin-right: 2rem;
+        width: 450px;
+        font-size: 14px;
+        text-align: center;
+    }
 
 .item-box strong{
     border-bottom: 1px solid black;
@@ -70,6 +87,8 @@
 }
 
 .no-books {
+    text-align: center;
+    width: 450px;
     font-size: 20px;
     font-style: italic;
     color: white;
@@ -78,4 +97,5 @@
     padding: 40px;
     border-radius: 10px;
 }
+
 

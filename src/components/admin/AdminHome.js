@@ -79,7 +79,8 @@ const AdminHome = () => {
         <>
             <div className="admin-wrapper">
                 <div className="head">
-                    <h1>Hello, you are logged in as {userData.user.email}</h1>
+                    <h1> Login as, {userData.user.email}</h1>
+                    <p>{todaysDate}</p>
                 </div>
                 <div className="cont">
                     <div className="outer">
