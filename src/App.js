@@ -43,9 +43,9 @@ const App = () => {
 
   }, [])
 
-  useEffect(() => {
-    console.log('i re-rendered')
-  }, [pageReset])
+  // useEffect(() => {
+  //   console.log('i re-rendered')
+  // }, [pageReset])
 
   return (
 

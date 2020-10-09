@@ -14,7 +14,7 @@ const AdminHome = () => {
     const [date, setDate] = useState(new Date())
     const [reservations, setReservations] = useState([])
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
-    const [noBookings, setNoBookings] = useState(false)
+    const [noBookings, setNoBookings] = useState()
 
 
     let maxDate = new Date()
@@ -40,10 +40,11 @@ const AdminHome = () => {
     const handleDelete = async id => {
 
         let res = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`)
-
+        console.log(res)
         if (res.status === 200) {
+            const formattedDate = moment(date).format('YYYY-MM-DD')
             const getReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`)
+                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`)
                 setReservations(reservationRes.data.data.reservation)
             }
             getReservations()
@@ -79,24 +80,23 @@ const AdminHome = () => {
                 </div>
                 <div className="cont">
                     <div className="outer">
-                        {!noBookings ?
-                            reservations.map((booking, index) => (
-                                <div key={index} className="inner">
-                                    <div className="item-box">
-                                        <p>Name: {booking.firstname} </p>
-                                        <p>Lastname: {booking.lastname}</p>
-                                        <p>date: {moment(booking.date).format('YYYY-MM-DD')}</p>
-                                        <p>time: {booking.time}</p>
-                                        <p>seats: {booking.people}</p>
-                                        <div className="btn-box-outer">
-                                            <div className="btn">
-                                                <button onClick={() => handleDelete(booking._id)}>X</button>
-                                            </div>
+                        {reservations.map((booking, index) => (
+                            <div key={index} className="inner">
+                                <div className="item-box">
+                                    <p>Name: {booking.firstname} </p>
+                                    <p>Lastname: {booking.lastname}</p>
+                                    <p>date: {moment(booking.date).format('YYYY-MM-DD')}</p>
+                                    <p>time: {booking.time}</p>
+                                    <p>seats: {booking.people}</p>
+                                    <div className="btn-box-outer">
+                                        <div className="btn">
+                                            <button onClick={() => handleDelete(booking._id)}>X</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                            )) : <h1>Sorry no bookins on this date</h1>}
+                        ))}
                     </div>
                     <div className="date-outer">
                         <Calendar
