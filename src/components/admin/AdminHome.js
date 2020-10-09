@@ -6,6 +6,9 @@ import { config } from '../../config';
 import moment from 'moment'
 import Axios from 'axios'
 
+//import icons
+import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
+
 
 const AdminHome = () => {
 
@@ -42,8 +45,9 @@ const AdminHome = () => {
         let res = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`)
 
         if (res.status === 200) {
+            const formattedDate = moment(date).format("YYYY-MM-DD")
             const getReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`)
+                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`)
                 setReservations(reservationRes.data.data.reservation)
             }
             getReservations()
@@ -83,20 +87,11 @@ const AdminHome = () => {
                             reservations.map((booking, index) => (
                                 <div key={index} className="inner">
                                     <div className="item-box">
-                                        <p>Name: {booking.firstname} </p>
-                                        <p>Lastname: {booking.lastname}</p>
-                                        <p>date: {moment(booking.date).format('YYYY-MM-DD')}</p>
-                                        <p>time: {booking.time}</p>
-                                        <p>seats: {booking.people}</p>
-                                        <div className="btn-box-outer">
-                                            <div className="btn">
-                                                <button onClick={() => handleDelete(booking._id)}>X</button>
-                                            </div>
-                                        </div>
+                                        <p><strong>{booking.firstname} {booking.lastname}</strong> {moment(booking.date).format('DD/MM')} <strong>{booking.time}</strong> {booking.people} persons  <a className="btn"><FaPencilAlt /></a><a onClick={() => handleDelete(booking._id)}><FaRegTrashAlt/></a></p>
                                     </div>
                                 </div>
 
-                            )) : <h1>Sorry no bookins on this date</h1>}
+                            )) : <p className="no-books">Sorry no bookins on this date</p>}
                     </div>
                     <div className="date-outer">
                         <Calendar
