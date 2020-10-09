@@ -7,9 +7,6 @@ import { homeObjOne } from '../HomePage/Data'
 
 const Home = () => {
 
-
-
-
     return (
         <>
             <HeroSection {...homeObjOne} />

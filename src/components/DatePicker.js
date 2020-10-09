@@ -13,8 +13,6 @@ import { UserContext } from '../contexts/UserContext';
 const DatePicker = (props) => {
 
 
-
-
     const { setHideMsg } = useContext(UpdateContext)
 
     const { setPickedDate } = useContext(BookingContext)

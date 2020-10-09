@@ -8,6 +8,7 @@ import Home from './components/pages/HomePage/Home';
 import HeroSectionDefault from './components/HeroSectionDefault';
 import Footer from './components/pages/Footer/Footer'
 import { UserContext } from './contexts/UserContext'
+import { UpdateContext } from './contexts/UpdateContext'
 import Login from './components/forms/Login';
 import Privacy from './components/Privacy';
 import AdminHome from './components/admin/AdminHome';
@@ -16,7 +17,7 @@ import Success from './components/Success';
 const App = () => {
 
   const { setUserData, loggedIn, setLoggedIn } = useContext(UserContext)
-
+  const { pageReset } = useContext(UpdateContext)
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -42,6 +43,9 @@ const App = () => {
 
   }, [])
 
+  useEffect(() => {
+    console.log('i re-rendered')
+  }, [pageReset])
 
   return (
 

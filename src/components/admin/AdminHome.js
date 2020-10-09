@@ -11,10 +11,10 @@ const AdminHome = () => {
 
     const { userData, setUserData } = useContext(UserContext)
     const [deleted, setDeleted] = useState(false)
-    const [currId, setCurrId] = useState()
+    const [date, setDate] = useState(new Date())
     const [reservations, setReservations] = useState([])
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
-    const [newDate, setNewDate] = useState(new Date())
+    const [noBookings, setNoBookings] = useState(false)
 
 
     let maxDate = new Date()
@@ -52,9 +52,23 @@ const AdminHome = () => {
         else { return null }
     }
 
-    const handleChangeDate = newDate => {
-        setTodaysDate(newDate)
+    const handleChangeDate = date => {
+        setDate(date)
+        const formattedDate = moment(date).format('YYYY-MM-DD')
+        const getReservations = async () => {
+            const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`)
+            setReservations(reservationRes.data.data.reservation)
+            console.log(reservationRes.data.data.reservation)
+            if (reservationRes.data.data.reservation.length < 1) {
+                setNoBookings(true)
+            }
+            else {
+                setNoBookings(false)
+            }
+        }
+        getReservations()
     }
+
 
 
     return (
@@ -65,28 +79,29 @@ const AdminHome = () => {
                 </div>
                 <div className="cont">
                     <div className="outer">
-                        {reservations.map((booking, index) => (
-                            <div key={index} className="inner">
-                                <div className="item-box">
-                                    <p>Name: {booking.firstname} </p>
-                                    <p>Lastname: {booking.lastname}</p>
-                                    <p>date: {moment(booking.date).format('YYYY-MM-DD')}</p>
-                                    <p>time: {booking.time}</p>
-                                    <p>seats: {booking.people}</p>
-                                    <div className="btn-box-outer">
-                                        <div className="btn">
-                                            <button onClick={() => handleDelete(booking._id)}>X</button>
+                        {!noBookings ?
+                            reservations.map((booking, index) => (
+                                <div key={index} className="inner">
+                                    <div className="item-box">
+                                        <p>Name: {booking.firstname} </p>
+                                        <p>Lastname: {booking.lastname}</p>
+                                        <p>date: {moment(booking.date).format('YYYY-MM-DD')}</p>
+                                        <p>time: {booking.time}</p>
+                                        <p>seats: {booking.people}</p>
+                                        <div className="btn-box-outer">
+                                            <div className="btn">
+                                                <button onClick={() => handleDelete(booking._id)}>X</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        ))}
+                            )) : <h1>Sorry no bookins on this date</h1>}
                     </div>
                     <div className="date-outer">
                         <Calendar
                             onChange={handleChangeDate}
-                            value={newDate}
+                            value={date}
                             maxDate={maxDate}
                             minDate={new Date()}
 
