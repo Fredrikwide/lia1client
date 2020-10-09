@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
-
+import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
 import '../Button.css'
 import '../MakeBooking.css'
@@ -10,7 +10,15 @@ import Axios from 'axios'
 const BookingForm = () => {
 
     const navigate = useNavigate()
-    const { formValues, setFormValues, setLatestBooking } = useContext(BookingContext)
+    const { formValues, setFormValues, setLatestBooking, pickedDate, setPickedDate } = useContext(BookingContext)
+    const { isClicked,
+        setIsClicked,
+        isHidden,
+        setIsHidden,
+        hideMsg,
+        setHideMsg,
+        pageReset,
+        setPageReset } = useContext(UpdateContext)
     const [checkGDPR, setCheckGDPR] = useState(false)
 
     const postBooking = async (data) => {
@@ -39,16 +47,25 @@ const BookingForm = () => {
         setFormValues({ ...formValues, phone: e.target.value })
     }
 
+    const clearValues = () => {
+        setIsClicked(!isClicked)
+        setIsHidden(!isHidden)
+        setHideMsg(!hideMsg)
+        setPageReset(!pageReset)
+        setPickedDate(!pickedDate)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setFormValues({ ...formValues, acceptedGDPR: checkGDPR })
         postBooking(formValues)
         setLatestBooking(formValues)
+        clearValues()
         navigate('/success')
 
         // Send the info in FormValues to the db to save the booking
     }
+
 
 
 
