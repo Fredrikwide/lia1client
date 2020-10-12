@@ -10,13 +10,15 @@ import Axios from 'axios'
 //import icons
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import Editor from './Editor';
+import SingleBooking from '../SingleBooking'
 
 
 const AdminHome = () => {
     const { updatedBooking,
         setUpdatedBooking } = useContext(UpdateContext)
     const { userData, setUserData } = useContext(UserContext)
-    const [edit, setEdit] = useState(false)
+    // const { editActive, setEditActive } = useContext(UpdateContext)
+    const [dispSingleBooking, setDispSingleBooking] = useState(false)
     const [date, setDate] = useState(new Date())
     const [reservations, setReservations] = useState([])
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
@@ -32,6 +34,12 @@ const AdminHome = () => {
         const getReservations = async () => {
             const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`)
             setReservations(reservationRes.data.data.reservation)
+            if (reservationRes.data.data.reservation.length < 1) {
+                setNoBookings(true)
+            }
+            else {
+                setNoBookings(false)
+            }
         }
         getReservations()
     }, [])
@@ -90,7 +98,7 @@ const AdminHome = () => {
 
     const handleEdit = (data) => {
         setHideCal(!hideCal)
-        setEdit(!edit)
+        setDispSingleBooking(!dispSingleBooking)
         setCurrBooking(data)
     }
 
@@ -112,7 +120,8 @@ const AdminHome = () => {
                                             {moment(booking.date).format('DD/MM')}
                                             <strong>{booking.time}</strong>
                                             {booking.people} persons
-                                         <a className="btn" onClick={() => handleEdit(booking)}><FaPencilAlt /></a>
+                                         <a className="btn"
+                                                onClick={() => handleEdit(booking)}><FaPencilAlt /></a>
                                             <a onClick={() => handleDelete(booking._id)}><FaRegTrashAlt /></a></p>
                                     </div>
                                 </div>
@@ -125,7 +134,7 @@ const AdminHome = () => {
 
                         }
                         {
-                            edit ? <Editor booking={currBooking} /> : !hideCal &&
+                            dispSingleBooking ? <SingleBooking booking={currBooking} /> : !hideCal &&
                                 <div className="date-outer">
                                     <Calendar
                                         onChange={handleChangeDate}
@@ -136,9 +145,7 @@ const AdminHome = () => {
                                 </div>
                         }
                     </div>
-                    {
 
-                    }
                 </div>
 
             </div>

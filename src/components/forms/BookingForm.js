@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
+
 import { Button } from '../Button'
 import '../Button.css'
 import '../MakeBooking.css'
@@ -10,7 +11,14 @@ import Axios from 'axios'
 const BookingForm = () => {
 
     const navigate = useNavigate()
-    const { formValues, setFormValues, setLatestBooking, pickedDate, setPickedDate } = useContext(BookingContext)
+
+    const { formValues,
+        setFormValues,
+        setLatestBooking,
+        pickedDate,
+        setPickedDate }
+        = useContext(BookingContext)
+
     const { isClicked,
         setIsClicked,
         isHidden,
@@ -18,7 +26,9 @@ const BookingForm = () => {
         hideMsg,
         setHideMsg,
         pageReset,
-        setPageReset } = useContext(UpdateContext)
+        setPageReset }
+        = useContext(UpdateContext)
+
     const [checkGDPR, setCheckGDPR] = useState(false)
 
     const postBooking = async (data) => {
@@ -27,7 +37,8 @@ const BookingForm = () => {
     }
 
     const checkBooking = async (info) => {
-        const checkAvailability = await Axios.get(`http://localhost:5000/reservation/${formValues.date}`, info)
+        const checkAvailabilityRes = await Axios.get(`http://localhost:5000/reservation/${formValues.date}`, info)
+        console.log(checkAvailabilityRes)
     }
 
 
@@ -55,8 +66,14 @@ const BookingForm = () => {
         setPickedDate(!pickedDate)
     }
 
+    const handleCancelBooking = () => {
+        navigate('/book')
+        clearValues()
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        checkBooking(formValues)
         setFormValues({ ...formValues, acceptedGDPR: checkGDPR })
         postBooking(formValues)
         setLatestBooking(formValues)
@@ -113,18 +130,29 @@ const BookingForm = () => {
                                 <p className="pickInfo gdprText">I agree that my information is handled according to <Link to="/privacy" >our privacy policy</Link></p>
                             </div>
                         </div>
+                        <div className="btn-outer">
+                            <div className="btn-wrapper">
 
-                        <div className="btn-wrapper">
-
-                            <Button
-                                type='submit'
-                                buttonSize='btn--medium'
-                                buttonColor='black'
-                            >BOOK
+                                <Button
+                                    type='submit'
+                                    buttonSize='btn--medium'
+                                    buttonColor='black'
+                                >BOOK
                             </Button>
 
-                        </div>
+                            </div>
+                            <div className="btn-wrapper">
 
+                                <Button
+                                    type='button'
+                                    buttonSize='btn--medium'
+                                    buttonColor='red'
+                                    onClick={handleCancelBooking}
+                                >Cancel
+                                </Button>
+
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

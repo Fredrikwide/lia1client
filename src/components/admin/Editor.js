@@ -46,6 +46,7 @@ const Editor = (props) => {
     }
 
     const handleChangeTime = (e) => {
+        setDefaultSelectTime(e.target.value)
         setEditBookingInfo({ ...editBookingInfo, time: e.target.value })
     }
 
@@ -53,6 +54,7 @@ const Editor = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         postEditToBooking(editBookingInfo)
+
 
         // Send the info in FormValues to the db to save the booking
     }
@@ -62,19 +64,37 @@ const Editor = (props) => {
                 <div className="form-wrapper">
                     <div className="nameWrapper inpWrapper">
                         <label>First name</label>
-                        <input type="text" onChange={handleChangefirstName} name="firstname" value={editBookingInfo.firstname} />
+                        <input
+                            type="text"
+                            onChange={handleChangefirstName}
+                            name="firstname"
+                            value={editBookingInfo.firstname} />
                     </div>
                     <div className="nameWrapper inpWrapper">
                         <label> last name</label>
-                        <input type="text" onChange={handleChangelastName} name="lastname" value={editBookingInfo.lastname} />
+                        <input
+                            type="text"
+                            onChange={handleChangelastName}
+                            name="lastname"
+                            value={editBookingInfo.lastname} />
                     </div>
                     <div className="emailWrapper inpWrapper">
                         <label>email</label>
-                        <input type="email" onChange={handleChangeEmail} name="email" value={editBookingInfo.email} />
+                        <input
+                            type="email"
+                            onChange={handleChangeEmail}
+                            name="email"
+                            value={editBookingInfo.email} />
                     </div>
                     <div className="phoneWrapper inpWrapper">
                         <label>phone</label>
-                        <input type="tel" minLength="10" maxLength="12" onChange={handleChangePhone} name="phone" value={editBookingInfo.phone} />
+                        <input
+                            type="tel"
+                            minLength="10"
+                            maxLength="12"
+                            onChange={handleChangePhone}
+                            name="phone"
+                            value={editBookingInfo.phone} />
 
                     </div>
                     <select

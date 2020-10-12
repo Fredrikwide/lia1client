@@ -22,7 +22,9 @@
   align-content: stretch;
 }
 
-
+.btn-outer {
+  display: flex;
+}
 
 .home__hero-text-wrapper {
   max-width: 540px;
