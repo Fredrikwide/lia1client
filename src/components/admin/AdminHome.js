@@ -94,6 +94,12 @@ const AdminHome = () => {
         setCurrBooking(data)
     }
 
+    const showBookingInfo = (data) =>{
+        setHideCal(!hideCal)
+        setCurrBooking(data)
+        
+    }
+
     return (
         <>
             <div className="admin-wrapper">
@@ -103,27 +109,24 @@ const AdminHome = () => {
                 </div>
                 <div className="cont">
                     <div className="outer">
-                        {!noBookings ?
-                            reservations.map((booking, index) => (
-                                <div key={index} className="inner">
-                                    <div className="item-box">
-                                        <p>
-                                            <strong >{booking.firstname} {booking.lastname}</strong>
-                                            {moment(booking.date).format('DD/MM')}
-                                            <strong>{booking.time}</strong>
-                                            {booking.people} persons
-                                         <a className="btn" onClick={() => handleEdit(booking)}><FaPencilAlt /></a>
-                                            <a onClick={() => handleDelete(booking._id)}><FaRegTrashAlt /></a></p>
+                        <div className="booking-info">
+                            {!noBookings ?
+                                reservations.map((booking, index) => (
+                                    <div key={index} onClick={()=> handleEdit(booking)} className="inner">
+                                        <div className="item-box">
+                                           <p>{booking.firstname} {booking.lastname} {booking.time}</p>
+                                        </div>
                                     </div>
-                                </div>
 
 
-                            )) :
+                                )) :
 
-                            <p className="no-books">Sorry no bookins on this date</p>
+                                <p className="no-books">Sorry no bookins on this date</p>
+
 
 
                         }
+                        </div>
                         {
                             edit ? <Editor booking={currBooking} /> : !hideCal &&
                                 <div className="date-outer">
