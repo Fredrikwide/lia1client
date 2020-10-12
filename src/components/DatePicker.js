@@ -7,7 +7,7 @@ import { UpdateContext } from '../contexts/UpdateContext'
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
 import axios from 'axios'
-import { UserContext } from '../contexts/UserContext';
+
 
 
 const DatePicker = (props) => {
@@ -18,8 +18,6 @@ const DatePicker = (props) => {
     const { setPickedDate } = useContext(BookingContext)
     const { date, setDate } = useContext(BookingContext)
     const { formValues, setFormValues } = useContext(BookingContext)
-
-
     const { setFullyBooked } = useContext(BookingContext)
     const { setFullyBooked18 } = useContext(BookingContext)
     const { setFullyBooked21 } = useContext(BookingContext)
@@ -27,8 +25,9 @@ const DatePicker = (props) => {
     const baseApiUrl = 'http://localhost:5000'
 
     useEffect(() => {
+
         const checkAvailability = async () => {
-            const checkingRes = await axios.get(`http://localhost:5000/reservation/${moment(date).format('YYYY-MM-DD')}`)
+            const checkingRes = await axios.get(`${baseApiUrl}/reservation/${moment(date).format('YYYY-MM-DD')}`)
             console.log(checkingRes)
             if (checkingRes.data.data.avilable_21 < 1 && checkingRes.data.data.avilable_18 < 1) {
                 setFullyBooked(true)
@@ -68,6 +67,7 @@ const DatePicker = (props) => {
 
     return (
         <div className="date-wrapper">
+            <h1>Thank you for dining with us!</h1>
             <Calendar
                 onChange={handleChangeDate}
                 value={date}
