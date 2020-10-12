@@ -11,6 +11,7 @@ export const UpdateProvider = props => {
     const [isClicked, setIsClicked] = useState(false)
     const [isHidden, setIsHidden] = useState(false)
     const [pageReset, setPageReset] = useState(false)
+    const [updatedBooking, setUpdatedBooking] = useState(false)
 
     const updateContextValue = {
 
@@ -21,7 +22,9 @@ export const UpdateProvider = props => {
         hideMsg,
         setHideMsg,
         pageReset,
-        setPageReset
+        setPageReset,
+        updatedBooking,
+        setUpdatedBooking
     }
 
     return (
