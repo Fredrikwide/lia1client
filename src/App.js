@@ -13,6 +13,7 @@ import Login from './components/forms/Login';
 import Privacy from './components/Privacy';
 import AdminHome from './components/admin/AdminHome';
 import Success from './components/Success';
+import Error1 from './components/Error1'
 
 const App = () => {
 
@@ -29,8 +30,10 @@ const App = () => {
       const tokenRes = await axios.post('http://localhost:5000/admin/validToken', null,
         { headers: { "x-auth-token": token } }
       )
+      console.log(tokenRes)
       if (tokenRes.data) {
         const UserRes = await axios.get('http://localhost:5000/admin/', { headers: { 'x-auth-token': token } })
+        console.log(UserRes)
         setUserData({
           token,
           user: UserRes.data
@@ -43,17 +46,15 @@ const App = () => {
 
   }, [])
 
-  // useEffect(() => {
-  //   console.log('i re-rendered')
-  // }, [pageReset])
+
 
   return (
 
     <Router>
 
-      {!loggedIn &&
-        <Navbar />
-      }
+
+      <Navbar />
+
       <Routes>
         <div className="background-wrapper">
           <HeroSectionDefault>
@@ -61,14 +62,17 @@ const App = () => {
             <Route path='/book' element={<Book />} />
             <Route path='/privacy' element={<Privacy />} />
             <Route path='/menu' element={<Home />} />
-            <Route path='/login' element={<Login />} />
+            {!loggedIn &&
+              <Route path='/login' element={<Login />} />
+            }
             <Route path='/success' element={<Success />} />
           </HeroSectionDefault>
         </div>
+
+        {loggedIn ?
+          <Route path='/admin' element={<AdminHome />} /> : null
+        }
       </Routes>
-      {loggedIn &&
-        <Route path='/admin' element={<AdminHome />} />
-      }
       <Footer />
     </Router>
 

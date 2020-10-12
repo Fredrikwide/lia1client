@@ -122,7 +122,7 @@ const AdminHome = () => {
                                 reservations.map((booking, index) => (
                                     <div key={index} onClick={() => handleEdit(booking)} className="inner">
                                         <div className="item-box">
-                                            <p>{booking.firstname} {booking.lastname} {booking.time}</p>
+                                            <p>{booking.firstname} {booking.lastname} {booking.time} hello</p>
                                         </div>
                                     </div>
 

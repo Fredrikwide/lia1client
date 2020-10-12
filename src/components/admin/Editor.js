@@ -51,6 +51,8 @@ const Editor = (props) => {
     }
 
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
         postEditToBooking(editBookingInfo)
@@ -124,8 +126,9 @@ const Editor = (props) => {
                             type='submit'
                             buttonSize='btn--medium'
                             buttonColor='black'
-                        >BOOK
+                        >Save changes
                             </Button>
+
 
                     </div>
 

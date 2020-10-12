@@ -39,7 +39,7 @@ const HeroSectionDefault = () => {
                                 <Route path="/admin" element={<AdminHome />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/privacy" element={<Privacy />} />
-
+                                <Route path="/success" element={<Success />} />
                             </Routes>
                         </div>
                     </div>

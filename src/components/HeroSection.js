@@ -52,7 +52,8 @@ const HeroSection = ({
 
                                         <Button
                                             buttonSize='btn--wide'
-                                            buttonColor='black'
+                                            // buttonColor='black'
+                                            buttonStyle='btn--secondary'
                                         >
                                             {buttonLabel}
                                         </Button>

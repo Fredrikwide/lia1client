@@ -1,7 +1,8 @@
 :root {
   --primary: rgb(255, 255, 255);
+  --secondary: rgb(41, 127, 224);
+  --warning: rgb(245, 193, 24);
 }
-
 .btn {
 
   padding: 8px 20px;
@@ -17,6 +18,20 @@
   color: #ffffff;
   border: 1px solid var(--primary);
 }
+
+.btn--secondary {
+  background-color: var(--secondary);
+  color: #ffffff;
+  border: 1px solid var(--secondary);
+}
+
+.btn--warning {
+  background-color: var(--warning);
+  color: #ffffff;
+  border: 1px solid var(--warning);
+}
+
+
 
 .btn--outline {
  
@@ -89,8 +104,18 @@
   border: none;
 }
 
+.red:hover {
+  background-color: rgb(189, 98, 75);
+}
+
 .red {
-  background-color: #e78413;
+  background-color: #f02602;
+  color: #fff;
+  border: none;
+}
+
+.purple {
+  background-color: #5f19bb;
   color: #fff;
   border: none;
 }
