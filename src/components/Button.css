@@ -109,13 +109,17 @@
 }
 
 .red {
-  background-color: #f02602;
+  background-color: #ff0202;
   color: #fff;
   border: none;
 }
-
-.purple {
-  background-color: #5f19bb;
+.red:hover {
+  background-color: #770101;
+  color: #fff;
+  border: none;
+}
+.orange {
+  background-color: #e78413;
   color: #fff;
   border: none;
 }

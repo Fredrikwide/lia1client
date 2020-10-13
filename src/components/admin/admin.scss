@@ -1,3 +1,7 @@
+#root{
+    background-color: #204352;
+}
+
 .admin-wrapper {
     
     min-height: 100vh;
@@ -25,6 +29,7 @@
 
 .head h1{
     font-size: 30px;
+    color: white;
 }
 
 .cont {
@@ -43,14 +48,15 @@
     flex-wrap: wrap;
     margin-right: 2rem;
     flex-grow: 2;
-    justify-content: center;
+
     align-self: auto;
     align-content: center;
 }
 
 /* --------------------- Calender */
 .date-outer {
-    max-width: 450px;
+    width: 450px;
+    height: 300px;
     flex: 1;
 }
 /* --------------------- Calender */
@@ -62,7 +68,8 @@
     margin-bottom: 1rem;
     flex-direction: column;
     flex: 1;
-    border: 1px solid black;
+    border: 1px solid white;
+    color: white;
     border-radius: 5px;
     padding: 20px 0;
 }
@@ -108,4 +115,21 @@
     border-radius: 10px;
 }
 
+.show-booking{
+    width: 450px;
+    height: 300px;
+
+    text-align: left;
+    border: 1px solid black;
+    padding-left: 40px;
+    padding-top: 40px;
+}
+
+.show-booking h1{
+    margin-bottom: 10px;
+}
+
+.show-booking p{
+    margin-bottom: 4px;
+}
 
