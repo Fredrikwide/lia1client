@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
@@ -6,6 +6,7 @@ import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
 import '../Button.css'
 import '../MakeBooking.css'
+import moment from 'moment'
 import Axios from 'axios'
 
 const BookingForm = () => {
@@ -16,7 +17,13 @@ const BookingForm = () => {
         setFormValues,
         setLatestBooking,
         pickedDate,
-        setPickedDate }
+        setPickedDate,
+        setFullyBooked,
+        fullyBooked,
+        setFullyBooked18,
+        fullyBooked18,
+        setFullyBooked21,
+        fullyBooked21 }
         = useContext(BookingContext)
 
     const { isClicked,
@@ -30,16 +37,59 @@ const BookingForm = () => {
         = useContext(UpdateContext)
 
     const [checkGDPR, setCheckGDPR] = useState(false)
+    const [sorry, setSorry] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const baseApiUrl = 'http://localhost:5000'
 
     const postBooking = async (data) => {
-        const bookingRes = await Axios.post('http://localhost:5000/reservation', data)
-        console.log(bookingRes)
+        const bookingRes = await Axios.post(`${baseApiUrl}/reservation`, data)
+        console.log('SUCCESS')
+        console.log('res is ', bookingRes)
     }
 
-    const checkBooking = async (info) => {
-        const checkAvailabilityRes = await Axios.get(`http://localhost:5000/reservation/${formValues.date}`, info)
-        console.log(checkAvailabilityRes)
+
+    // useEffect(() => {
+    //     console.log('I RAN IN BOOKING')
+    //     const checkAvailability = async () => {
+    //         const checkingRes = await Axios.get(`${baseApiUrl}/reservation/${formValues.date}/${formValues.time}`)
+    //         console.log(checkingRes)
+    //         if (checkingRes.data.data.available) {
+    //             setSorry(false)
+    //         }
+    //         else setSorry(true)
+    //     }
+    //     checkAvailability()
+
+    // }, [])
+
+
+
+    const checkBooking = () => {
+        const checkAvailability = async () => {
+            const checkingRes = await Axios.get(`${baseApiUrl}/reservation/${formValues.date}/${formValues.time}`)
+            console.log(checkingRes)
+            if (!checkingRes.data.data.avilable) {
+                setSorry(true)
+                return
+            }
+            else if (checkingRes.data.data.avilable) {
+                console.log('im in else if')
+                setCheckGDPR(true)
+                setSorry(false)
+                setFormValues({ ...formValues, gdpr: checkGDPR })
+                postBooking(formValues)
+                setLatestBooking(formValues)
+                clearValues()
+            }
+            else {
+                console.log('helllo im done')
+            }
+        }
+        checkAvailability()
     }
+
+
 
 
     const handleChangefirstName = (e) => {
@@ -73,12 +123,8 @@ const BookingForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        checkBooking(formValues)
-        setFormValues({ ...formValues, acceptedGDPR: checkGDPR })
-        postBooking(formValues)
-        setLatestBooking(formValues)
-        clearValues()
-        navigate('/success')
+        checkBooking()
+
 
         // Send the info in FormValues to the db to save the booking
     }
@@ -99,7 +145,7 @@ const BookingForm = () => {
                             </h3>
                     <p> date: {formValues.date} at {formValues.time} o'clock for {formValues.seats} people</p>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <div className="form-wrapper">
                         <div className="nameWrapper inpWrapper">
                             <label>First name</label>
@@ -131,27 +177,32 @@ const BookingForm = () => {
                             </div>
                         </div>
                         <div className="btn-outer">
-                            <div className="btn-wrapper">
+                            {!sorry ?
+                                <>
 
-                                <Button
-                                    type='submit'
-                                    buttonSize='btn--medium'
-                                    buttonColor='black'
-                                >BOOK
+                                    <div className="btn-wrapper">
+                                        <Button
+                                            buttonType="submit"
+                                            buttonSize='btn--medium'
+                                            buttonColor='black'
+                                        >BOOK
                             </Button>
+                                    </div>
 
-                            </div>
-                            <div className="btn-wrapper">
-
-                                <Button
-                                    type='button'
-                                    buttonSize='btn--medium'
-                                    buttonColor='red'
-                                    onClick={handleCancelBooking}
-                                >Cancel
+                                    <div className="btn-wrapper">
+                                        <Button
+                                            buttonType='click'
+                                            buttonSize='btn--medium'
+                                            buttonColor='red'
+                                            onClick={handleCancelBooking}
+                                        >Cancel
                                 </Button>
-
-                            </div>
+                                    </div>
+                                </>
+                                : <div>
+                                    <h2>SORRY DUDE, THIS TIME HAS JUST BEEN BOOKED</h2>
+                                </div>
+                            }
                         </div>
                     </div>
                 </form>

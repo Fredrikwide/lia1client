@@ -6,6 +6,7 @@ const intitalValues = {
     date: null,
     time: null,
     people: 0,
+    gdpr: false
 }
 
 export const BookingProvider = props => {

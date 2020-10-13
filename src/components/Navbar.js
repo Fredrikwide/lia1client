@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { UpdateContext } from '../contexts/UpdateContext'
+
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { IoMdRestaurant } from 'react-icons/io'
 import { Button } from './Button'
 import './Navbar.css'
 import { IconContext } from 'react-icons/lib'
-import { UserContext } from '../contexts/UserContext'
+
 
 const Navbar = () => {
-    const { pageReset, setPageReset } = useContext(UpdateContext)
+
     const [click, setClick] = useState(false)
     const [button, setButton] = useState(true)
 

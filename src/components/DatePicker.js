@@ -22,6 +22,8 @@ const DatePicker = (props) => {
     const { setFullyBooked18 } = useContext(BookingContext)
     const { setFullyBooked21 } = useContext(BookingContext)
 
+
+
     const baseApiUrl = 'http://localhost:5000'
 
     useEffect(() => {
@@ -47,6 +49,7 @@ const DatePicker = (props) => {
             }
         }
         checkAvailability()
+
     }, [date])
 
 
