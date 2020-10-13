@@ -90,6 +90,16 @@
 }
 
 .red {
+  background-color: #ff0202;
+  color: #fff;
+  border: none;
+}
+.red:hover {
+  background-color: #770101;
+  color: #fff;
+  border: none;
+}
+.orange {
   background-color: #e78413;
   color: #fff;
   border: none;
