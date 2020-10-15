@@ -1,23 +1,26 @@
 import './admin.scss'
 import React, { useState, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../contexts/UserContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
 import Calendar from 'react-calendar'
 import { config } from '../../config';
 import moment from 'moment'
 import Axios from 'axios'
-
+import { checkToken } from '../../services/authToken'
+import { getUserFromToken } from '../../services/fetch'
 //import icons
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import Editor from './Editor';
-import SingleBooking from '../SingleBooking'
+import SingleBooking from './SingleBooking'
 
 
 const AdminHome = () => {
+    const navigate = useNavigate()
     const { updatedBooking,
         setUpdatedBooking } = useContext(UpdateContext)
-    const { userData, setUserData } = useContext(UserContext)
-    // const { editActive, setEditActive } = useContext(UpdateContext)
+    const { userData, setUserData, setLoggedIn } = useContext(UserContext)
+
     const [dispSingleBooking, setDispSingleBooking] = useState(false)
     const [date, setDate] = useState(new Date())
     const [reservations, setReservations] = useState([])
@@ -25,52 +28,106 @@ const AdminHome = () => {
     const [noBookings, setNoBookings] = useState()
     const [currBooking, setCurrBooking] = useState()
     const [hideCal, setHideCal] = useState(false)
+    const [token, setToken] = useState("")
 
 
     let maxDate = new Date()
     maxDate.setMonth(maxDate.getMonth() + config.maxMonths)
 
     useEffect(() => {
-        const getReservations = async () => {
-            const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`)
-            setReservations(reservationRes.data.data.reservation)
-            if (reservationRes.data.data.reservation.length < 1) {
-                setNoBookings(true)
+
+        const checking = async () => {
+            console.table(userData)
+            let res = await checkToken(userData.token)
+
+            console.log("token", res)
+            if (!res) {
+                console.log('user token not valid')
+                setLoggedIn(false)
+                navigate('/')
             }
             else {
-                setNoBookings(false)
+                let currUser = await getUserFromToken(userData.token)
+                console.log(currUser)
+                const getNewReservations = async () => {
+                    const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`, { headers: { 'x-auth-token': userData.token } })
+                    setReservations(reservationRes.data.data.reservation)
+                    if (reservationRes.data.data.reservation.length < 1) {
+                        setNoBookings(true)
+                    }
+                    else {
+                        setNoBookings(false)
+                    }
+                }
+                getNewReservations()
+
             }
+
         }
-        getReservations()
+        checking()
+
+
     }, [])
 
 
     useEffect(() => {
-        const getNewReservations = async () => {
-            const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`)
-            setReservations(reservationRes.data.data.reservation)
+        if (token) {
+            console.log('im running')
+
         }
-        getNewReservations()
+    }, [])
+
+    useEffect(() => {
+        if (token) {
+            const getReservations = async () => {
+                const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`, { headers: { 'x-auth-token': userData.token } })
+                setReservations(reservationRes.data.data.reservation)
+                if (reservationRes.data.data.reservation.length < 1) {
+                    setNoBookings(true)
+                }
+                else {
+                    setNoBookings(false)
+                }
+            }
+            getReservations()
+
+        }
+
+    }, [])
+
+
+    useEffect(() => {
+        if (token) {
+            const getNewReservations = async () => {
+                const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`, { headers: { 'x-auth-token': userData.token } })
+                setReservations(reservationRes.data.data.reservation)
+            }
+            getNewReservations()
+        }
+
     }, [todaysDate])
 
 
     useEffect(() => {
-        const formattedDate = moment(date).format('YYYY-MM-DD')
-        const getReservations = async () => {
-            const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`)
-            setReservations(reservationRes.data.data.reservation)
+        if (token) {
+            const formattedDate = moment(date).format('YYYY-MM-DD')
+            const getReservations = async () => {
+                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
+                setReservations(reservationRes.data.data.reservation)
+            }
+            getReservations()
+
         }
-        getReservations()
     }, [updatedBooking])
 
     const handleDelete = async id => {
 
-        let res = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`)
+        let res = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`, { headers: { 'x-auth-token': userData.token } })
         console.log(res)
         if (res.status === 200) {
             const formattedDate = moment(date).format('YYYY-MM-DD')
             const getReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`)
+                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
                 setReservations(reservationRes.data.data.reservation)
             }
             getReservations()
@@ -83,7 +140,7 @@ const AdminHome = () => {
         setDate(date)
         const formattedDate = moment(date).format('YYYY-MM-DD')
         const getReservations = async () => {
-            const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`)
+            const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
             setReservations(reservationRes.data.data.reservation)
             console.log(reservationRes.data.data.reservation)
             if (reservationRes.data.data.reservation.length < 1) {
@@ -112,7 +169,7 @@ const AdminHome = () => {
         <>
             <div className="admin-wrapper">
                 <div className="head">
-                    <h1> Login as, {userData.user.email}</h1>
+                    <h1> Login as, {userData.email}</h1>
                     <p>{todaysDate}</p>
                 </div>
                 <div className="cont">

@@ -44,52 +44,8 @@ const BookingForm = () => {
 
     const postBooking = async (data) => {
         const bookingRes = await Axios.post(`${baseApiUrl}/reservation`, data)
-        console.log('SUCCESS')
         console.log('res is ', bookingRes)
     }
-
-
-    // useEffect(() => {
-    //     console.log('I RAN IN BOOKING')
-    //     const checkAvailability = async () => {
-    //         const checkingRes = await Axios.get(`${baseApiUrl}/reservation/${formValues.date}/${formValues.time}`)
-    //         console.log(checkingRes)
-    //         if (checkingRes.data.data.available) {
-    //             setSorry(false)
-    //         }
-    //         else setSorry(true)
-    //     }
-    //     checkAvailability()
-
-    // }, [])
-
-
-
-    const checkBooking = () => {
-        const checkAvailability = async () => {
-            const checkingRes = await Axios.get(`${baseApiUrl}/reservation/${formValues.date}/${formValues.time}`)
-            console.log(checkingRes)
-            if (!checkingRes.data.data.avilable) {
-                setSorry(true)
-                return
-            }
-            else if (checkingRes.data.data.avilable) {
-                console.log('im in else if')
-                setCheckGDPR(true)
-                setSorry(false)
-                setFormValues({ ...formValues, gdpr: checkGDPR })
-                postBooking(formValues)
-                setLatestBooking(formValues)
-                clearValues()
-            }
-            else {
-                console.log('helllo im done')
-            }
-        }
-        checkAvailability()
-    }
-
-
 
 
     const handleChangefirstName = (e) => {
@@ -123,8 +79,13 @@ const BookingForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        checkBooking()
-
+        setCheckGDPR(true)
+        setSorry(false)
+        setFormValues({ ...formValues, gdpr: checkGDPR })
+        postBooking(formValues)
+        setLatestBooking(formValues)
+        clearValues()
+        navigate('/success')
 
         // Send the info in FormValues to the db to save the booking
     }

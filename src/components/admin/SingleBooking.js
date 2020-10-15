@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
-import Editor from './admin/Editor'
+import Editor from './Editor'
 import moment from 'moment'
-import {Button} from '../components/Button'
+import { Button } from '../Button'
 
-import { UpdateContext } from '../contexts/UpdateContext'
+import { UpdateContext } from '../../contexts/UpdateContext'
 
 const SingleBooking = (props) => {
 
@@ -22,15 +22,15 @@ const SingleBooking = (props) => {
                 <p><strong>Date:</strong> {moment(props.booking.date).format('DD/MM')}</p>
                 <p><strong>Time:</strong> {props.booking.time}</p>
                 <p><strong>Persons</strong> {props.booking.people}</p>
-                <Button 
+                <Button
                     onClick={handleClick}
                     buttonColor='orange'
-                    >edit
+                >edit
                 </Button>
-                <Button 
+                <Button
                     onClick={handleClick}
                     buttonColor='red'
-                    >delete
+                >delete
                 </Button>
 
 

@@ -2,11 +2,13 @@ import React, { useContext, useState } from 'react'
 import Axios from 'axios'
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
+import { UserContext } from '../../contexts/UserContext'
 
 const Editor = (props) => {
     console.log(props)
     const { updatedBooking,
         setUpdatedBooking } = useContext(UpdateContext)
+
     const [editBookingInfo, setEditBookingInfo] = useState({
         firstname: props.booking.firstname,
         lastname: props.booking.lastname,
@@ -15,16 +17,18 @@ const Editor = (props) => {
         date: props.booking.date,
         time: props.booking.time
     })
-
+    const { userData } = useContext(UserContext)
+    console.log('USER DATA IN EDITOR', userData)
     const [defaultSelectTime, setDefaultSelectTime] = useState('- Time -')
     const [id, setId] = useState(props.booking._id)
 
     const postEditToBooking = async (data) => {
-        const editBookingRes = await Axios.put(`http://localhost:5000/admin/reservation/${id}`, data)
-        if (editBookingRes.status === 200) {
-            setUpdatedBooking(!updatedBooking)
+        if (userData.token) {
+            const editBookingRes = await Axios.put(`http://localhost:5000/admin/reservation/${id}`, data, { headers: { 'x-auth-token': userData.token } })
+            if (editBookingRes.status === 200) {
+                setUpdatedBooking(!updatedBooking)
+            }
         }
-        else setUpdatedBooking(false)
     }
 
 
