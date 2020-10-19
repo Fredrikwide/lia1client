@@ -27,6 +27,10 @@
     padding: 100px;
 }
 
+.head p{
+    color: white;
+}
+
 .head h1{
     font-size: 30px;
     color: white;
@@ -43,7 +47,6 @@
 }
 
 .booking-info {
-    display: flex;
     width: 450px;
     flex-wrap: wrap;
     margin-right: 2rem;
@@ -63,20 +66,36 @@
 
 /* --------------------- BookingCard */
 .item-box {
-
-    width: 200px;
-    margin-bottom: 1rem;
-    flex-direction: column;
+    display: block;
     flex: 1;
-    border: 1px solid white;
     color: white;
     border-radius: 5px;
     padding: 20px 0;
+    text-align: left;
+    margin-left: 10px;
+
 }
+.inner:nth-child(odd){
+    background-color: #1b2e36
+}
+ .inner {
+     background-color:#1f4a5c;
+ }
+
+ .inner:last-child{
+     margin-bottom: 100px;
+ }
+
 
 .item-box p{
     margin: 0;
 }
+
+.item-box ul{
+    list-style: none;
+}
+
+
 /* --------------------- BookingCard */
     .outer {
         display: flex;
@@ -85,8 +104,8 @@
         text-align: center;
     }
 
-.item-box strong{
-    border-bottom: 1px solid black;
+.item-box ul li strong{
+    font-size: 14px;
 }
 
 .btn-box-outer {
@@ -115,21 +134,33 @@
     border-radius: 10px;
 }
 
+
+/** Editor mode */
+.show-booking button{
+    margin-right: 30px;
+    margin-top: 20px;
+}
+
 .show-booking{
-    width: 450px;
-    height: 300px;
+    max-width: 350px;
+    height: 350px;
+
 
     text-align: left;
-    border: 1px solid black;
-    padding-left: 40px;
-    padding-top: 40px;
+    border: 1px solid white;
+
+    padding: 28px 60px;
+
+    color: white;
 }
 
 .show-booking h1{
     margin-bottom: 10px;
+    text-decoration: underline;
 }
 
 .show-booking p{
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
+
 

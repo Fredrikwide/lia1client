@@ -66,8 +66,9 @@ const Editor = (props) => {
     }
     return (
         <>
+        <div className="edit-form">
             <form onSubmit={handleSubmit}>
-                <div className="form-wrapper">
+                <div className="form-wrapper-edit">
                     <div className="nameWrapper inpWrapper">
                         <label>First name</label>
                         <input
@@ -138,6 +139,7 @@ const Editor = (props) => {
 
                 </div>
             </form>
+        </div>
         </>
     )
 }

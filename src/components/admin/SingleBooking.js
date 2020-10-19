@@ -40,33 +40,31 @@ const SingleBooking = (props) => {
 
     return (
         <>
-            <div className="show-booking">
-                {props.booking._id &&
-                    <>
-                        <h1>Booking info</h1>
-                        <p><strong>Booking number:</strong> {props.booking._id}</p>
-                        <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
-                        <p><strong>Email:</strong> {props.booking.email}</p>
-                        <p><strong>Phone:</strong> {props.booking.phone}</p>
-                        <p><strong>Date:</strong> {moment(props.booking.date).format('DD/MM')}</p>
-                        <p><strong>Time:</strong> {props.booking.time}</p>
-                        <p><strong>Persons</strong> {props.booking.people}</p>
-                    </>
-                }
-                <Button
-                    onClick={handleEdit}
-                    buttonColor='black'
-                >edit
-                </Button>
-                <Button
-                    onClick={handleDelete}
-                    buttonColor='red'
-                >delete
-                </Button>
+            <div className="show-booking-container">
+                <div className="show-booking">
+                    <h1>Booking info</h1>
+                    <p><strong>Booking number:</strong> {props.booking._id}</p>
+                    <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
+                    <p><strong>Email:</strong> {props.booking.email}</p>
+                    <p><strong>Phone:</strong> {props.booking.phone}</p>
+                    <p><strong>Date:</strong> {moment(props.booking.date).format('DD/MM')}</p>
+                    <p><strong>Time:</strong> {props.booking.time}</p>
+                    <p><strong>Persons</strong> {props.booking.people}</p>
+                    <Button
+                        onClick={handleEdit}
+                        buttonColor='orange'
+                    >edit
+                    </Button>
+                    <Button
+                        onClick={handleDelete}
+                        buttonColor='red'
+                    >delete
+                    </Button>
 
 
+                </div>
                 {
-                    editActive && <Editor booking={props.booking} />
+                    editActive && <div className="container"><Editor booking={props.booking} /></div>
                 }
             </div>
         </>
