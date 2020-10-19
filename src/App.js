@@ -39,6 +39,9 @@ const App = () => {
         })
         setLoggedIn(true)
       }
+      else {
+        console.log('error')
+      }
     }
 
     asc()

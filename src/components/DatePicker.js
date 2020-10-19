@@ -10,11 +10,9 @@ import axios from 'axios'
 
 
 
-const DatePicker = (props) => {
-
+const DatePicker = () => {
 
     const { setHideMsg } = useContext(UpdateContext)
-
     const { setPickedDate } = useContext(BookingContext)
     const { date, setDate } = useContext(BookingContext)
     const { formValues, setFormValues } = useContext(BookingContext)
@@ -24,22 +22,22 @@ const DatePicker = (props) => {
 
 
 
-    const baseApiUrl = 'http://localhost:5000'
 
     useEffect(() => {
 
+
         const checkAvailability = async () => {
-            const checkingRes = await axios.get(`${baseApiUrl}/reservation/${moment(date).format('YYYY-MM-DD')}`)
-            console.log(checkingRes)
+            const checkingRes = await axios.get(`http://localhost:5000/reservation/${moment(date).format('YYYY-MM-DD')}`)
+
             if (checkingRes.data.data.avilable_21 < 1 && checkingRes.data.data.avilable_18 < 1) {
                 setFullyBooked(true)
             }
             else if (checkingRes.data.data.avilable_21 < 1) {
-                console.log('im booked 21')
+
                 setFullyBooked21(true)
             }
             else if (checkingRes.data.data.avilable_18 < 1) {
-                console.log('im booked 18')
+
                 setFullyBooked18(true)
             }
             else {
@@ -57,15 +55,11 @@ const DatePicker = (props) => {
     maxDate.setMonth(maxDate.getMonth() + config.maxMonths)
 
     const handleChangeDate = date => {
-
         setDate(date)
         setHideMsg(true)
         setPickedDate(true)
         const formatDate = moment(date).format('YYYY-MM-DD')
-        console.log('date picked is', formatDate)
-
         setFormValues({ ...formValues, date: formatDate })
-        console.log('form values', formValues)
     }
 
     return (

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-
+import { UserContext } from '../contexts/UserContext'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { IoMdRestaurant } from 'react-icons/io'
 import { Button } from './Button'
-import './Navbar.css'
+import './Navbar.scss'
 import { IconContext } from 'react-icons/lib'
 
 
@@ -12,6 +12,8 @@ const Navbar = () => {
 
     const [click, setClick] = useState(false)
     const [button, setButton] = useState(true)
+    const { loggedIn } = useContext(UserContext)
+
 
     const handleClick = () => {
         setClick(!click)
@@ -62,6 +64,17 @@ const Navbar = () => {
                                         Privacy policy
                             </Link>
                                 </li>
+                                {
+                                    loggedIn &&
+
+                                    < li className="nav-item">
+                                        <Link to="/admin" className="nav-links" onClick={closeMobileMenu}>
+                                            Admin
+                            </Link>
+                                    </li>
+
+
+                                }
 
                                 <li className="nav-btn">
                                     {button ? (

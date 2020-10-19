@@ -2,29 +2,27 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
-
+import moment from 'moment'
 import { Button } from '../Button'
 import '../Button.css'
 import '../MakeBooking.css'
-import moment from 'moment'
+
 import Axios from 'axios'
 
 const BookingForm = () => {
 
-    const navigate = useNavigate()
 
+    const navigate = useNavigate()
     const { formValues,
         setFormValues,
         setLatestBooking,
         pickedDate,
         setPickedDate,
-        setFullyBooked,
-        fullyBooked,
-        setFullyBooked18,
-        fullyBooked18,
-        setFullyBooked21,
-        fullyBooked21 }
+        // currTime,
+        // setCurrTime
+    }
         = useContext(BookingContext)
+
 
     const { isClicked,
         setIsClicked,
@@ -38,13 +36,33 @@ const BookingForm = () => {
 
     const [checkGDPR, setCheckGDPR] = useState(false)
     const [sorry, setSorry] = useState(false)
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [currTime, setCurrTime] = useState(moment(new Date).format('MMMM Do YYYY, h:mm:ss a'))
 
-    const baseApiUrl = 'http://localhost:5000'
 
+
+
+    // useEffect(() => {
+    //     if (moment(formValues.time).isAfter(endTime18) && moment(formValues.time).isAfter(endTime21)) {
+    //         setSorry(true)
+    //     }
+    //     else if (moment(formValues.time).isAfter(endTime21)) {
+    //         setSorry(true)
+    //     }
+    //     else if (moment(formValues.time).isAfter(endTime18)) {
+    //         setSorry(true)
+    //     }
+
+    // }, [])
+
+    // const baseApiUrl = process.env.local.REACT_APP_BASE_API_URI
+    // const reservationEndpoint = process.env.local.REACT_APP_POST_BOOKING_ENDPOINT
     const postBooking = async (data) => {
-        const bookingRes = await Axios.post(`${baseApiUrl}/reservation`, data)
+        const bookingRes = await Axios.post(`http://localhost:5000/reservation`, data)
         console.log('res is ', bookingRes)
+        if (bookingRes.status === 'fail') {
+            console.log(bookingRes.data.message)
+            setSorry(true)
+        }
     }
 
 
@@ -64,12 +82,23 @@ const BookingForm = () => {
         setFormValues({ ...formValues, phone: e.target.value })
     }
 
+    const handleGDPR = () => {
+        setCheckGDPR(!checkGDPR)
+        setFormValues({ ...formValues, gdpr: !checkGDPR })
+    }
+
     const clearValues = () => {
         setIsClicked(!isClicked)
         setIsHidden(!isHidden)
         setHideMsg(!hideMsg)
         setPageReset(!pageReset)
         setPickedDate(!pickedDate)
+        setFormValues({
+            date: null,
+            time: null,
+            people: 0,
+            gdpr: false
+        })
     }
 
     const handleCancelBooking = () => {
@@ -77,11 +106,11 @@ const BookingForm = () => {
         clearValues()
     }
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        setCheckGDPR(true)
         setSorry(false)
-        setFormValues({ ...formValues, gdpr: checkGDPR })
         postBooking(formValues)
         setLatestBooking(formValues)
         clearValues()
@@ -89,8 +118,6 @@ const BookingForm = () => {
 
         // Send the info in FormValues to the db to save the booking
     }
-
-
 
 
 
@@ -104,7 +131,7 @@ const BookingForm = () => {
                     <h3>
                         your reservation:
                             </h3>
-                    <p> date: {formValues.date} at {formValues.time} o'clock for {formValues.seats} people</p>
+                    <p> date: {formValues.date} at {formValues.time} o'clock for {formValues.people} people</p>
                 </div>
                 <form onSubmit={handleSubmit} >
                     <div className="form-wrapper">
@@ -131,7 +158,7 @@ const BookingForm = () => {
                                     type="checkbox"
                                     className="checkBox"
                                     value={checkGDPR}
-
+                                    onChange={handleGDPR}
                                     required
                                 />
                                 <p className="pickInfo gdprText">I agree that my information is handled according to <Link to="/privacy" >our privacy policy</Link></p>
@@ -145,8 +172,8 @@ const BookingForm = () => {
                                         <Button
                                             buttonType="submit"
                                             buttonSize='btn--medium'
-                                            buttonColor='black'
-                                        >BOOK
+                                            buttonColor='green'
+                                        >Confirm
                             </Button>
                                     </div>
 

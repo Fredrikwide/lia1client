@@ -9,9 +9,10 @@ import moment from 'moment'
 import Axios from 'axios'
 import { checkToken } from '../../services/authToken'
 import { getUserFromToken } from '../../services/fetch'
+import { getReservations } from '../../services/fetch'
+import { Button } from '../Button'
 //import icons
-import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
-import Editor from './Editor';
+
 import SingleBooking from './SingleBooking'
 
 
@@ -23,7 +24,7 @@ const AdminHome = () => {
 
     const [dispSingleBooking, setDispSingleBooking] = useState(false)
     const [date, setDate] = useState(new Date())
-    const [reservations, setReservations] = useState([])
+    const { reservations, setReservations } = useContext(UpdateContext)
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
     const [noBookings, setNoBookings] = useState()
     const [currBooking, setCurrBooking] = useState()
@@ -70,39 +71,26 @@ const AdminHome = () => {
     }, [])
 
 
-    useEffect(() => {
-        if (token) {
-            console.log('im running')
+    // useEffect(() => {
+    //     if (token) {
+    //         const res = getReservations(todaysDate, userData.token)
+    //         setReservations(res.data.data.reservation)
+    //         if (res.data.data.reservation.length < 1) {
+    //             setNoBookings(true)
+    //         }
+    //         else {
+    //             setNoBookings(false)
+    //         }
+    //     }
 
-        }
-    }, [])
 
-    useEffect(() => {
-        if (token) {
-            const getReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`, { headers: { 'x-auth-token': userData.token } })
-                setReservations(reservationRes.data.data.reservation)
-                if (reservationRes.data.data.reservation.length < 1) {
-                    setNoBookings(true)
-                }
-                else {
-                    setNoBookings(false)
-                }
-            }
-            getReservations()
-
-        }
-
-    }, [])
+    // }, [])
 
 
     useEffect(() => {
         if (token) {
-            const getNewReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`, { headers: { 'x-auth-token': userData.token } })
-                setReservations(reservationRes.data.data.reservation)
-            }
-            getNewReservations()
+            const res = getReservations(todaysDate, userData.token)
+            setReservations(res.data.data.reservation)
         }
 
     }, [todaysDate])
@@ -120,21 +108,6 @@ const AdminHome = () => {
         }
     }, [updatedBooking])
 
-    const handleDelete = async id => {
-
-        let res = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`, { headers: { 'x-auth-token': userData.token } })
-        console.log(res)
-        if (res.status === 200) {
-            const formattedDate = moment(date).format('YYYY-MM-DD')
-            const getReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
-                setReservations(reservationRes.data.data.reservation)
-            }
-            getReservations()
-            console.log(reservations)
-        }
-        else { return null }
-    }
 
     const handleChangeDate = date => {
         setDate(date)
@@ -153,6 +126,15 @@ const AdminHome = () => {
         getReservations()
     }
 
+    const handleSelectBooking18 = async () => {
+        setReservations(reservations.filter(res => res.time === '18:00'))
+    }
+
+    const handleSelectBooking21 = async () => {
+        setReservations(reservations.filter(res => res.time === '21:00'))
+    }
+
+
     const handleEdit = (data) => {
         setHideCal(!hideCal)
         setDispSingleBooking(!dispSingleBooking)
@@ -169,11 +151,28 @@ const AdminHome = () => {
         <>
             <div className="admin-wrapper">
                 <div className="head">
-                    <h1> Login as, {userData.email}</h1>
+                    <h1 className="header"> Logged in as, {userData.user.email}</h1>
                     <p>{todaysDate}</p>
                 </div>
                 <div className="cont">
                     <div className="outer">
+                        <div className="time-select">
+                            <div className="sortbytime">
+                                <div className="btn-wrapper">
+                                    <Button
+                                        onClick={handleSelectBooking18}
+                                        buttonColor='green'
+                                    >
+                                        18:00</Button>
+                                </div>
+                                <div className="btn-wrapper">
+                                    <Button
+                                        buttonColor='red'
+                                        onClick={handleSelectBooking21}>21:00</Button>
+                                </div>
+
+                            </div>
+                        </div>
                         <div className="booking-info">
                             {!noBookings ?
                                 reservations.map((booking, index) => (
@@ -186,7 +185,7 @@ const AdminHome = () => {
 
                                 )) :
 
-                                <p className="no-books">Sorry no bookins on this date</p>
+                                <p className="no-books">no bookings on this date</p>
 
 
 

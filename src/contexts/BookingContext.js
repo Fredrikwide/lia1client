@@ -1,5 +1,5 @@
-import React, { useState, createContext } from 'react'
-
+import React, { useState, createContext, useEffect } from 'react'
+import moment from 'moment'
 export const BookingContext = createContext();
 
 const intitalValues = {
@@ -8,6 +8,7 @@ const intitalValues = {
     people: 0,
     gdpr: false
 }
+
 
 export const BookingProvider = props => {
 
@@ -18,6 +19,12 @@ export const BookingProvider = props => {
     const [fullyBooked, setFullyBooked] = useState(false)
     const [fullyBooked18, setFullyBooked18] = useState(false)
     const [fullyBooked21, setFullyBooked21] = useState(false)
+    const [currTime, setCurrTime] = useState(moment(date).format('MMMM Do YYYY, h:mm:ss a'))
+
+    useEffect(() => {
+        console.log('current form info', formValues)
+    }, [formValues])
+
 
     const bookingContextValue = {
         date,
@@ -34,6 +41,8 @@ export const BookingProvider = props => {
         setFullyBooked18,
         fullyBooked21,
         setFullyBooked21,
+        currTime,
+        setCurrTime
 
     }
 

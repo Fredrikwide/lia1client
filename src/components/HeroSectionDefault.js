@@ -17,14 +17,8 @@ import Privacy from './Privacy'
 
 
 const HeroSectionDefault = () => {
-    const { isHidden } = useContext(UpdateContext)
-    const location = useLocation()
-    const [path, setPath] = useState(location.pathname)
-    useEffect(() => {
 
-        setPath(location.pathname)
 
-    }, [location])
 
 
     return (

@@ -13,7 +13,7 @@ const Login = () => {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-
+    const [err, setErr] = useState('')
 
     const handleChangeEmail = (e) => {
         setEmail(e.target.value)
@@ -25,18 +25,27 @@ const Login = () => {
 
     const handleLogIn = async (e) => {
         e.preventDefault()
-        const loginAdmin = { email, password };
-        const loginRes = await axios.post('http://localhost:5000/admin/login', loginAdmin)
-        console.log(loginRes)
-        setUserData({
-            token: loginRes.data.token,
-            user: loginRes.data.user
-        })
-        localStorage.setItem('auth-token', loginRes.data.token)
+        try {
+            const loginAdmin = { email, password };
+            const loginRes = await axios.post('http://localhost:5000/admin/login', loginAdmin)
+            console.log('login res is ', loginRes)
+            if (loginRes.status === 200) {
+                setUserData({
+                    token: loginRes.data.token,
+                    user: loginRes.data.user
+                })
+                localStorage.setItem('auth-token', loginRes.data.token)
 
-        setLoggedIn(true)
+                setLoggedIn(true)
 
-        navigate('/admin', { replace: true })
+                navigate('/admin', { replace: true })
+            }
+            else {
+                setErr(JSON.stringify(loginRes))
+            }
+
+        } catch (err) { console.log(err) }
+
 
     }
 
@@ -75,7 +84,11 @@ const Login = () => {
                     >Sign In</Button>
                 </div>
             </div>
-
+            {
+                err && <div className="error">
+                    <p>something is wrong {err}</p>
+                </div>
+            }
 
         </form>
     )
