@@ -159,9 +159,10 @@ const AdminHome = () => {
     return (
         <>
             <div className="admin-wrapper">
-                <div className="head">
-                    <h1 className="header"> Logged in as, {userData.user.email}</h1>
-                </div>
+                <div>
+                    <div className="head">
+                        <h1 className="header"> Logged in as, {userData.user.email}</h1>
+                    </div>
                     <div className="time-select">
                         <div className="sortbytime">
                             <div className="icon">
@@ -174,35 +175,22 @@ const AdminHome = () => {
                             </div>
                             <div className="btn-wrapper">
                                 <Button
-                                        onClick={handleSelectBooking}
-                                        buttonColor={isActive18 ? 'outline-active' : 'outline'}
-                                        value={'18:00'}
-                                    >
-                                        18:00</Button>
-                                </div>
-                                <div className="btn-wrapper">
-                                    <Button
-                                        buttonColor={isActive21 ? 'outline-active' : 'outline'}
-                                        value={'21:00'}
-                                        onClick={handleSelectBooking}>21:00</Button>
-                                </div>
-                               <p className="todays-date">Todays date: {moment(todaysDate).format('MMMM Do YYYY')}</p>
-                               <p className="todays-date">Reservations today: {reservations.length}</p>
+                                    onClick={handleSelectBooking}
+                                    buttonColor={isActive18 ? 'outline-active' : 'outline'}
+                                    value={'18:00'}
+                                >
+                                    18:00</Button>
+                            </div>
+                            <div className="btn-wrapper">
+                                <Button
+                                    buttonColor={isActive21 ? 'outline-active' : 'outline'}
+                                    value={'21:00'}
+                                    onClick={handleSelectBooking}>21:00</Button>
+                            </div>
+                            <p className="todays-date">Todays date: {moment(todaysDate).format('MMMM Do YYYY')}</p>
+                            <p className="todays-date">Reservations today: {reservations.length}</p>
                         </div>
-                        <div className="btn-wrapper">
-                            <Button
-                                onClick={handleSelectBooking}
-                                buttonColor={isActive18 ? 'outline-active' : 'outline'}
-                                value={'18:00'}
-                            >
-                                18:00</Button>
-                        </div>
-                        <div className="btn-wrapper">
-                            <Button
-                                buttonColor={isActive21 ? 'outline-active' : 'outline'}
-                                value={'21:00'}
-                                onClick={handleSelectBooking}>21:00</Button>
-                        </div>
+
 
                     </div>
                 </div>
