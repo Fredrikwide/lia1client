@@ -8,6 +8,7 @@ const COLOR = ['primary', 'black', 'red', 'green', 'orange'];
 
 export const Button = ({
     children,
+    value,
     type,
     onClick,
     buttonStyle,
@@ -30,6 +31,7 @@ export const Button = ({
             className={`btn ${checkButtonStyle} ${checkButtonSize} ${checkButtonColor} ${checkButtonType}`}
             onClick={onClick}
             type={type}
+            value={value}
         >
             {children}
         </button>

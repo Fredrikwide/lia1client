@@ -30,9 +30,14 @@ const AdminHome = () => {
     const { reservations, setReservations } = useContext(UpdateContext)
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
     const [noBookings, setNoBookings] = useState()
+    const [timeArr18, setTimeArr18] = useState([])
+    const [timeArr21, setTimeArr21] = useState([])
     const [currBooking, setCurrBooking] = useState()
     const [hideCal, setHideCal] = useState(false)
     const [token, setToken] = useState("")
+    const [isActive18, setIsActive18] = useState(false)
+    const [isActive21, setIsActive21] = useState(false)
+    const [isActiveAll, setIsActiveAll] = useState(true)
 
 
     let maxDate = new Date()
@@ -118,7 +123,7 @@ const AdminHome = () => {
         const getReservations = async () => {
             const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
             setReservations(reservationRes.data.data.reservation)
-            console.log(reservationRes.data.data.reservation)
+
             if (reservationRes.data.data.reservation.length < 1) {
                 setNoBookings(true)
             }
@@ -129,13 +134,36 @@ const AdminHome = () => {
         getReservations()
     }
 
-    const handleSelectBooking18 = () => {
-        setReservations(reservations.filter(res => res.time === '18:00'))
+    const handleSelectBooking = (e) => {
+        if (e.target.value === "18:00") {
+            const filtered18 = reservations.filter(res => res.time === e.target.value)
+            setTimeArr18(timeArr18 => [...filtered18])
+            setIsActive18(true)
+            setIsActive21(false)
+            setIsActiveAll(false)
+        }
+        else if (e.target.value === "21:00") {
+            const filtered21 = reservations.filter(res => res.time === e.target.value)
+            setTimeArr21(timeArr21 => [...filtered21])
+            setIsActive18(false)
+            setIsActive21(true)
+            setIsActiveAll(false)
+        }
+        else {
+            setIsActive18(false)
+            setIsActive21(false)
+            setIsActiveAll(true)
+        }
+
     }
 
-    const handleSelectBooking21 = () => {
-        setReservations(reservations.filter(res => res.time === '21:00'))
-    }
+
+
+    useEffect(() => {
+
+    }, [timeArr18, timeArr21])
+
+
 
 
     const handleEdit = (data) => {
@@ -144,11 +172,7 @@ const AdminHome = () => {
         setCurrBooking(data)
     }
 
-    const showBookingInfo = (data) => {
-        setHideCal(!hideCal)
-        setCurrBooking(data)
 
-    }
 
     return (
         <>
@@ -163,38 +187,61 @@ const AdminHome = () => {
                             <div className="sortbytime">
                                 <div className="btn-wrapper">
                                     <Button
-                                        onClick={handleSelectBooking18}
+                                        onClick={handleSelectBooking}
                                         buttonColor='green'
+                                        value={'18:00'}
                                     >
                                         18:00</Button>
                                 </div>
                                 <div className="btn-wrapper">
                                     <Button
                                         buttonColor='red'
-                                        onClick={handleSelectBooking21}>21:00</Button>
+                                        value={'21:00'}
+                                        onClick={handleSelectBooking}>21:00</Button>
+                                </div>
+                                <div className="btn-wrapper">
+                                    <Button
+                                        buttonColor='primary'
+                                        onClick={handleSelectBooking}>All</Button>
                                 </div>
 
                             </div>
                         </div>
                         <div className="booking-info">
-                            {!noBookings ?
+                            {!noBookings && isActiveAll ?
                                 reservations.map((booking, index) => (
                                     <div key={index} onClick={() => handleEdit(booking)} className="inner">
                                         <div className="item-box">
                                             <ul>
-                                                <li><strong>{booking.firstname} {booking.lastname}</strong> | {booking.time} | {booking.people} pepole | {booking.email} </li>
+                                                <li><strong>{booking.firstname} {booking.lastname}</strong>  {booking.time}     {booking.people} {booking.email} </li>
                                             </ul>
                                         </div>
                                     </div>
 
+                                ))
+                                : isActive18 ? timeArr18.map((res, index) => (
+                                    <div key={index} onClick={() => handleEdit(res)} className="inner">
+                                        <div className="item-box">
+                                            <ul>
+                                                <li><strong>{res.firstname} {res.lastname}</strong>  {res.time}     {res.people} {res.email} </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
+                                ))
 
-                                )) :
+                                    : isActive21 ? timeArr21.map((res, index) => (
+                                        <div key={index} onClick={() => handleEdit(res)} className="inner">
+                                            <div className="item-box">
+                                                <ul>
+                                                    <li><strong>{res.firstname} {res.lastname}</strong>  {res.time}     {res.people} {res.email} </li>
+                                                </ul>
+                                            </div>
+                                        </div>
 
-                                <p className="no-books">no bookings on this date</p>
+                                    ))
 
-
-
+                                        : <p className="no-books">no bookings on this date</p>
                             }
                         </div>
                         {
