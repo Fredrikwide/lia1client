@@ -11,6 +11,8 @@ import { checkToken } from '../../services/authToken'
 import { getUserFromToken } from '../../services/fetch'
 import { getReservations } from '../../services/fetch'
 import { Button } from '../Button'
+import { FaFilter } from 'react-icons/fa';
+
 //import icons
 
 import SingleBooking from './SingleBooking'
@@ -184,32 +186,35 @@ const AdminHome = () => {
                     <h1 className="header"> Logged in as, {userData.user.email}</h1>
                     <p>{todaysDate}</p>
                 </div>
-                <div className="cont">
-                    <div className="outer">
-                        <div className="time-select">
-                            <div className="sortbytime">
-                                <div className="btn-wrapper">
-                                    <Button
+                    <div className="time-select">
+                        <div className="sortbytime">
+                            <div className="icon">
+                                <p><FaFilter /></p>
+                            </div>
+                            <div className="btn-wrapper">
+                                <Button
+                                    buttonColor={isActiveAll ? 'outline-active' : 'outline'}
+                                    onClick={handleSelectBooking}>All</Button>
+                            </div>
+                            <div className="btn-wrapper">
+                                <Button
                                         onClick={handleSelectBooking}
-                                        buttonColor='green'
+                                        buttonColor={isActive18 ? 'outline-active' : 'outline'}
                                         value={'18:00'}
                                     >
                                         18:00</Button>
                                 </div>
                                 <div className="btn-wrapper">
                                     <Button
-                                        buttonColor='red'
+                                        buttonColor={isActive21 ? 'outline-active' : 'outline'}
                                         value={'21:00'}
                                         onClick={handleSelectBooking}>21:00</Button>
                                 </div>
-                                <div className="btn-wrapper">
-                                    <Button
-                                        buttonColor='primary'
-                                        onClick={handleSelectBooking}>All</Button>
-                                </div>
-
-                            </div>
+                               
                         </div>
+                </div>
+                <div className="cont">
+                    <div className="outer">
                         <div className="booking-info">
                             {!noBookings && isActiveAll ?
                                 reservations.map((booking, index) => (

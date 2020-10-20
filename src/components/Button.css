@@ -145,3 +145,28 @@
 .green:hover {
   background-color: #0c4d12;
 }
+
+.outline {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: white;
+}
+.outline-active {
+  background-color: white;
+  border: 1px solid white;
+  color: black;
+}
+.outline-active:hover {
+  background-color: white;
+  border: 1px solid white;
+  color: black;
+}
+
+.outline:hover {
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: black;
+  transition: all 0.4s ease-in-out;
+}
