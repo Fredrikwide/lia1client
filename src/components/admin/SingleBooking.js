@@ -25,9 +25,8 @@ const SingleBooking = (props) => {
 
 
     const handleDelete = async (id) => {
-        console.log('token is in SINGLE', userData.token)
+
         let res = await deleteReservation(id, userData.token)
-        console.log(res)
         if (res.status === 200) {
 
             const rees = await getReservations(props.booking.date, userData.token)
