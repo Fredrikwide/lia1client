@@ -4,7 +4,7 @@ import './Button.css';
 const STYLES = ['btn--primary', 'btn--outline', 'btn--secondary', 'btn--warning'];
 const SIZES = ['btn--medium', 'btn--large', 'btn--mobile', 'btn--wide'];
 const TYPES = ['click', 'submit']
-const COLOR = ['primary', 'black', 'red', 'green', 'orange'];
+const COLOR = ['primary', 'black', 'red', 'green', 'orange', 'outline', 'outline-active'];
 
 export const Button = ({
     children,

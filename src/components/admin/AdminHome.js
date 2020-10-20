@@ -12,6 +12,8 @@ import { getUserFromToken } from '../../services/fetch'
 import { getReservations } from '../../services/fetch'
 import { Button } from '../Button'
 import { BookingList } from './BookingList'
+import { FaFilter } from 'react-icons/fa';
+
 //import icons
 
 import SingleBooking from './SingleBooking'
@@ -163,24 +165,27 @@ const AdminHome = () => {
                 </div>
                 <div className="time-select">
                     <div className="sortbytime">
+                        <div className="icon">
+                            <p><FaFilter /></p>
+                        </div>
+                        <div className="btn-wrapper">
+                            <Button
+                                buttonColor={isActiveAll ? 'outline-active' : 'outline'}
+                                onClick={handleSelectBooking}>All</Button>
+                        </div>
                         <div className="btn-wrapper">
                             <Button
                                 onClick={handleSelectBooking}
-                                buttonColor='green'
+                                buttonColor={isActive18 ? 'outline-active' : 'outline'}
                                 value={'18:00'}
                             >
                                 18:00</Button>
                         </div>
                         <div className="btn-wrapper">
                             <Button
-                                buttonColor='red'
+                                buttonColor={isActive21 ? 'outline-active' : 'outline'}
                                 value={'21:00'}
                                 onClick={handleSelectBooking}>21:00</Button>
-                        </div>
-                        <div className="btn-wrapper">
-                            <Button
-                                buttonColor='primary'
-                                onClick={handleSelectBooking}>All</Button>
                         </div>
 
                     </div>
