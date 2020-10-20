@@ -6,6 +6,7 @@ import { UserContext } from '../../contexts/UserContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { getReservations } from '../../services/fetch'
 import Axios from 'axios'
+import { FaRegTimesCircle } from 'react-icons/fa';
 
 
 
@@ -48,6 +49,7 @@ const SingleBooking = (props) => {
                     {
                         props.booking._id &&
                         <>
+                            <p className="cloase"><FaRegTimesCircle /></p>
                             <h1>Booking info</h1>
                             <p><strong>Booking number:</strong> {props.booking._id}</p>
                             <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
@@ -60,12 +62,12 @@ const SingleBooking = (props) => {
                     }
                     <Button
                         onClick={handleEdit}
-                        buttonColor='orange'
+                        buttonColor='outline'
                     >edit
                     </Button>
                     <Button
                         onClick={handleDelete}
-                        buttonColor='red'
+                        buttonColor='outline'
                     >delete
                     </Button>
 

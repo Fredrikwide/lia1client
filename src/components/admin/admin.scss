@@ -2,6 +2,10 @@
     background-color: #204352;
 }
 
+.header{
+    border-bottom: 1px solid white;
+}
+
 .admin-wrapper {
     
     min-height: 100vh;
@@ -59,7 +63,7 @@
 /* --------------------- Calender */
 .date-outer {
     width: 450px;
-    height: 300px;
+    height: 50px;
     flex: 1;
 }
 /* --------------------- Calender */
@@ -82,6 +86,15 @@
      background-color:#1f4a5c;
  }
 
+ .inner-active{
+    background: #5f93ac;
+ }
+
+ .inner:hover{
+     background: #5f93ac;
+     cursor: pointer;
+ }
+
  .inner:last-child{
      margin-bottom: 100px;
  }
@@ -97,12 +110,13 @@
 
 
 /* --------------------- BookingCard */
-    .outer {
-        display: flex;
-        margin-right: 2rem;
-        font-size: 14px;
-        text-align: center;
-    }
+.outer {
+    display: flex;
+    margin-right: 2rem;
+    font-size: 14px;
+    text-align: center;
+    width: 950px;
+}
 
 .item-box ul li strong{
     font-size: 14px;
@@ -128,10 +142,9 @@
     font-size: 20px;
     font-style: italic;
     color: white;
-    background-color: rgb(219, 77, 77);
-    opacity: 70%;
+    background-color: transparent;
     padding: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 
@@ -143,7 +156,7 @@
 
 .show-booking{
     max-width: 350px;
-    height: 350px;
+    height: 400px;
 
 
     text-align: left;
@@ -177,4 +190,17 @@
     color: white;
     text-align: center;
     margin: 30px;
+}
+
+.todays-date{
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    margin: 30px;
+}
+
+.cloase{
+    text-align: right;
+    font-size: 20px;
+    cursor:pointer;
 }
