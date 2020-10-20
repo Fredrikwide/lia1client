@@ -112,7 +112,7 @@ const Editor = (props) => {
                             id="time"
                             onChange={handleChangeTime}
                             value={defaultSelectTime}
-                            required>
+                            >
 
                             <option
                                 value={defaultSelectTime}
