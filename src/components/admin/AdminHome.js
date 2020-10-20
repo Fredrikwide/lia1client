@@ -140,17 +140,23 @@ const AdminHome = () => {
     const handleSelectBooking = (e) => {
         if (e.target.value === "18:00") {
             const filtered18 = reservations.filter(res => res.time === e.target.value)
-            setTimeArr18(timeArr18 => [...filtered18])
-            setIsActive18(true)
-            setIsActive21(false)
-            setIsActiveAll(false)
+            if (!filtered18.length < 1) {
+                setTimeArr18(timeArr18 => [...filtered18])
+                setIsActive18(true)
+                setIsActive21(false)
+                setIsActiveAll(false)
+            }
+            else setNoBookings(true)
         }
         else if (e.target.value === "21:00") {
             const filtered21 = reservations.filter(res => res.time === e.target.value)
-            setTimeArr21(timeArr21 => [...filtered21])
-            setIsActive18(false)
-            setIsActive21(true)
-            setIsActiveAll(false)
+            if (!filtered21.length < 1) {
+                setTimeArr21(timeArr21 => [...filtered21])
+                setIsActive18(false)
+                setIsActive21(true)
+                setIsActiveAll(false)
+            }
+            else setNoBookings(true)
         }
         else {
             setIsActive18(false)
@@ -164,7 +170,7 @@ const AdminHome = () => {
 
     useEffect(() => {
 
-    }, [timeArr18, timeArr21])
+    }, [timeArr18, timeArr21, noBookings])
 
 
 
@@ -184,32 +190,32 @@ const AdminHome = () => {
                     <h1 className="header"> Logged in as, {userData.user.email}</h1>
                     <p>{todaysDate}</p>
                 </div>
+                <div className="time-select">
+                    <div className="sortbytime">
+                        <div className="btn-wrapper">
+                            <Button
+                                onClick={handleSelectBooking}
+                                buttonColor='green'
+                                value={'18:00'}
+                            >
+                                18:00</Button>
+                        </div>
+                        <div className="btn-wrapper">
+                            <Button
+                                buttonColor='red'
+                                value={'21:00'}
+                                onClick={handleSelectBooking}>21:00</Button>
+                        </div>
+                        <div className="btn-wrapper">
+                            <Button
+                                buttonColor='primary'
+                                onClick={handleSelectBooking}>All</Button>
+                        </div>
+
+                    </div>
+                </div>
                 <div className="cont">
                     <div className="outer">
-                        <div className="time-select">
-                            <div className="sortbytime">
-                                <div className="btn-wrapper">
-                                    <Button
-                                        onClick={handleSelectBooking}
-                                        buttonColor='green'
-                                        value={'18:00'}
-                                    >
-                                        18:00</Button>
-                                </div>
-                                <div className="btn-wrapper">
-                                    <Button
-                                        buttonColor='red'
-                                        value={'21:00'}
-                                        onClick={handleSelectBooking}>21:00</Button>
-                                </div>
-                                <div className="btn-wrapper">
-                                    <Button
-                                        buttonColor='primary'
-                                        onClick={handleSelectBooking}>All</Button>
-                                </div>
-
-                            </div>
-                        </div>
                         <div className="booking-info">
                             {!noBookings && isActiveAll ?
                                 reservations.map((booking, index) => (
