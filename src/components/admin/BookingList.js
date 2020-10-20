@@ -26,4 +26,8 @@ export const BookingList = (props) => {
             }
         </>
     )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

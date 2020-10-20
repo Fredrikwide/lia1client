@@ -9,7 +9,7 @@ import axios from 'axios'
 const Login = () => {
 
     const navigate = useNavigate()
-    const { loggedIn, setLoggedIn, setUserData } = useContext(UserContext)
+    const { setLoggedIn, setUserData } = useContext(UserContext)
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()

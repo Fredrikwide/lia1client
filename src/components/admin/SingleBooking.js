@@ -4,19 +4,15 @@ import moment from 'moment'
 import { Button } from '../Button'
 import { UserContext } from '../../contexts/UserContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
-import { getReservations } from '../../services/fetch'
-import Axios from 'axios'
-import { FaRegTimesCircle } from 'react-icons/fa';
-
-
+import { getReservations, deleteReservation } from '../../services/fetch'
 
 
 
 const SingleBooking = (props) => {
 
-    const [date, setDate] = useState(new Date())
-    const { reservations, setReservations, hideCal, setHideCal } = useContext(UpdateContext)
-    const { userData, setUserData, setLoggedIn } = useContext(UserContext)
+
+    const { reservations, setReservations, hideCal, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
+    const { userData } = useContext(UserContext)
     const { setEditActive, editActive } = useContext(UpdateContext)
     const handleEdit = () => {
         setEditActive(!editActive)
@@ -28,46 +24,51 @@ const SingleBooking = (props) => {
     }, [reservations])
 
 
-    const handleDelete = async id => {
-
-        let res = await Axios.delete(`http://localhost:5000/admin/reservation/${props.booking._id}`, { headers: { 'x-auth-token': userData.token } })
+    const handleDelete = async (id) => {
+        console.log('token is in SINGLE', userData.token)
+        let res = await deleteReservation(id, userData.token)
         console.log(res)
         if (res.status === 200) {
-            const formattedDate = moment(date).format('YYYY-MM-DD')
-            const rees = getReservations(formattedDate, userData.token)
-            setReservations(rees.data.data.reservation)
 
+            const rees = await getReservations(props.booking.date, userData.token)
+            setReservations(rees.data.data.reservation)
+            setHideCal(false)
+            setDispSingleBooking(false)
             console.log(reservations)
         }
         else { return null }
     }
+
+
+
 
     return (
         <>
             <div className="show-booking-container">
                 <div className="show-booking">
                     {
-                        props.booking._id &&
-                        <>
-                            <p className="cloase"><FaRegTimesCircle /></p>
-                            <h1>Booking info</h1>
-                            <p><strong>Booking number:</strong> {props.booking._id}</p>
-                            <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
-                            <p><strong>Email:</strong> {props.booking.email}</p>
-                            <p><strong>Phone:</strong> {props.booking.phone}</p>
-                            <p><strong>Date:</strong> {moment(props.booking.date).format('DD/MM')}</p>
-                            <p><strong>Time:</strong> {props.booking.time}</p>
-                            <p><strong>Persons</strong> {props.booking.people}</p>
-                        </>
+                        props.booking._id ?
+                            <>
+                                <h1>Booking info</h1>
+                                <p><strong>Booking number:</strong> {props.booking._id}</p>
+                                <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
+                                <p><strong>Email:</strong> {props.booking.email}</p>
+                                <p><strong>Phone:</strong> {props.booking.phone}</p>
+                                <p><strong>Date:</strong> {moment(props.booking.date).format('DD/MM')}</p>
+                                <p><strong>Time:</strong> {props.booking.time}</p>
+                                <p><strong>Persons</strong> {props.booking.people}</p>
+                            </>
+                            :
+                            <p>error</p>
                     }
                     <Button
                         onClick={handleEdit}
-                        buttonColor='outline'
+                        buttonColor='orange'
                     >edit
                     </Button>
                     <Button
-                        onClick={handleDelete}
-                        buttonColor='outline'
+                        onClick={() => handleDelete(props.booking._id)}
+                        buttonColor='red'
                     >delete
                     </Button>
 
