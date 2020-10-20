@@ -10,8 +10,8 @@ import { getReservations, deleteReservation } from '../../services/fetch'
 
 const SingleBooking = (props) => {
 
-    const [date, setDate] = useState(new Date())
-    const { reservations, setReservations, hideCal, setHideCal } = useContext(UpdateContext)
+
+    const { reservations, setReservations, hideCal, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
     const { userData } = useContext(UserContext)
     const { setEditActive, editActive } = useContext(UpdateContext)
     const handleEdit = () => {
@@ -24,15 +24,16 @@ const SingleBooking = (props) => {
     }, [reservations])
 
 
-    const handleDelete = async id => {
-
+    const handleDelete = async (id) => {
+        console.log('token is in SINGLE', userData.token)
         let res = await deleteReservation(id, userData.token)
         console.log(res)
         if (res.status === 200) {
 
-            const rees = getReservations(props.booking.date, userData.token)
+            const rees = await getReservations(props.booking.date, userData.token)
             setReservations(rees.data.data.reservation)
-
+            setHideCal(false)
+            setDispSingleBooking(false)
             console.log(reservations)
         }
         else { return null }
@@ -66,7 +67,7 @@ const SingleBooking = (props) => {
                     >edit
                     </Button>
                     <Button
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(props.booking._id)}
                         buttonColor='red'
                     >delete
                     </Button>

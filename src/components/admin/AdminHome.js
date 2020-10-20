@@ -11,30 +11,35 @@ import { checkToken } from '../../services/authToken'
 import { getUserFromToken } from '../../services/fetch'
 import { getReservations } from '../../services/fetch'
 import { Button } from '../Button'
+import { BookingList } from './BookingList'
 //import icons
 
 import SingleBooking from './SingleBooking'
 
 
 const AdminHome = () => {
+
     const navigate = useNavigate()
-    const { updatedBooking,
-        setUpdatedBooking,
+
+    const { userData, setLoggedIn } = useContext(UserContext)
+
+    const {
+
+        reservations,
+        setReservations,
+        hideCal,
+        currBooking,
         dispSingleBooking,
-        setDispSingleBooking } = useContext(UpdateContext)
+        setDispSingleBooking,
+        updatedBooking
 
-    const { userData, setUserData, setLoggedIn } = useContext(UserContext)
-
+    } = useContext(UpdateContext)
 
     const [date, setDate] = useState(new Date())
-    const { reservations, setReservations } = useContext(UpdateContext)
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
     const [noBookings, setNoBookings] = useState()
     const [timeArr18, setTimeArr18] = useState([])
     const [timeArr21, setTimeArr21] = useState([])
-    const [currBooking, setCurrBooking] = useState()
-    const [hideCal, setHideCal] = useState(false)
-    const [token, setToken] = useState("")
     const [isActive18, setIsActive18] = useState(false)
     const [isActive21, setIsActive21] = useState(false)
     const [isActiveAll, setIsActiveAll] = useState(true)
@@ -46,12 +51,8 @@ const AdminHome = () => {
     useEffect(() => {
 
         const checking = async () => {
-            console.table(userData)
             let res = await checkToken(userData.token)
-
-            console.log("token", res)
             if (!res) {
-                console.log('user token not valid')
                 setLoggedIn(false)
                 navigate('/')
             }
@@ -59,8 +60,9 @@ const AdminHome = () => {
                 let currUser = await getUserFromToken(userData.token)
                 console.log(currUser)
                 const getNewReservations = async () => {
-                    const reservationRes = await Axios.get(`http://localhost:5000/admin/${todaysDate}`, { headers: { 'x-auth-token': userData.token } })
+                    const reservationRes = await getReservations(todaysDate, userData.token)
                     setReservations(reservationRes.data.data.reservation)
+                    setDispSingleBooking(false)
                     if (reservationRes.data.data.reservation.length < 1) {
                         setNoBookings(true)
                     }
@@ -79,42 +81,16 @@ const AdminHome = () => {
     }, [])
 
 
-    useEffect(() => {
-        if (token) {
-            const res = getReservations(todaysDate, userData.token)
-            setReservations(res.data.data.reservation)
-            if (res.data.data.reservation.length < 1) {
-                setNoBookings(true)
-            }
-            else {
-                setNoBookings(false)
-            }
-        }
-
-
-    }, [])
-
 
     useEffect(() => {
-        if (token) {
-            const res = getReservations(todaysDate, userData.token)
+        const get = async () => {
+            const res = await getReservations(todaysDate, userData.token)
             setReservations(res.data.data.reservation)
         }
+        get()
 
-    }, [todaysDate])
+    }, [todaysDate, updatedBooking])
 
-
-    useEffect(() => {
-        if (token) {
-            const formattedDate = moment(date).format('YYYY-MM-DD')
-            const getReservations = async () => {
-                const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
-                setReservations(reservationRes.data.data.reservation)
-            }
-            getReservations()
-
-        }
-    }, [updatedBooking])
 
 
     const handleChangeDate = date => {
@@ -175,11 +151,6 @@ const AdminHome = () => {
 
 
 
-    const handleEdit = (data) => {
-        setHideCal(!hideCal)
-        setDispSingleBooking(!dispSingleBooking)
-        setCurrBooking(data)
-    }
 
 
 
@@ -217,40 +188,16 @@ const AdminHome = () => {
                 <div className="cont">
                     <div className="outer">
                         <div className="booking-info">
-                            {!noBookings && isActiveAll ?
-                                reservations.map((booking, index) => (
-                                    <div key={index} onClick={() => handleEdit(booking)} className="inner">
-                                        <div className="item-box">
-                                            <ul>
-                                                <li><strong>{booking.firstname} {booking.lastname}</strong> | {booking.time}  | people   {booking.people} | {booking.email}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            {
+                                !noBookings && isActiveAll
+                                    ?
+                                    <BookingList booking={reservations} />
+                                    : isActive18
+                                        ? <BookingList booking={timeArr18} />
+                                        : isActive21
+                                            ? <BookingList booking={timeArr21} />
 
-                                ))
-                                : isActive18 ? timeArr18.map((res, index) => (
-                                    <div key={index} onClick={() => handleEdit(res)} className="inner">
-                                        <div className="item-box">
-                                            <ul>
-                                                <li><strong>{res.firstname} {res.lastname}</strong>  | {res.time}  | people   {res.people} | {res.email} </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                ))
-
-                                    : isActive21 ? timeArr21.map((res, index) => (
-                                        <div key={index} onClick={() => handleEdit(res)} className="inner">
-                                            <div className="item-box">
-                                                <ul>
-                                                    <li><strong>{res.firstname} {res.lastname}</strong> | {res.time}  | people   {res.people} | {res.email} </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    ))
-
-                                        : <p className="no-books">no bookings on this date</p>
+                                            : <p className="no-books">no bookings on this date</p>
                             }
                         </div>
                         {

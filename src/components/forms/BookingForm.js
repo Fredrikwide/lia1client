@@ -37,7 +37,7 @@ const BookingForm = () => {
     const [checkGDPR, setCheckGDPR] = useState(false)
     const [sorry, setSorry] = useState(false)
     const [errorMsg, setErrorMsg] = useState('')
-    const [currTime, setCurrTime] = useState(moment(new Date).format('MMMM Do YYYY, h:mm:ss a'))
+
 
 
     const postBooking = async (data) => {

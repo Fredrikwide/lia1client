@@ -16,6 +16,7 @@ export const UpdateProvider = props => {
     const [reservations, setReservations] = useState([])
     const [dispSingleBooking, setDispSingleBooking] = useState(false)
     const [hideCal, setHideCal] = useState(false)
+    const [currBooking, setCurrBooking] = useState()
 
     const updateContextValue = {
 
@@ -36,7 +37,9 @@ export const UpdateProvider = props => {
         dispSingleBooking,
         setDispSingleBooking,
         hideCal,
-        setHideCal
+        setHideCal,
+        currBooking,
+        setCurrBooking
 
     }
 

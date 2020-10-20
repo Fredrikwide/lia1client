@@ -20,9 +20,14 @@ export const getAllReservations = async (token) => {
     return getAllReservationsRes
 }
 
+export const updateReservation = async (id, data, token) => {
+    const updateRes = await Axios.put(`http://localhost:5000/admin/reservation/${id}`, data, { headers: { 'x-auth-token': token } })
+    return updateRes
+}
+
 
 export const deleteReservation = async (id, token) => {
-    const deleteRes = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`, null, { headers: { 'x-auth-token': token } })
+    const deleteRes = await Axios.delete(`http://localhost:5000/admin/reservation/${id}`, { headers: { 'x-auth-token': token } })
     return deleteRes
 }
 
