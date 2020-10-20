@@ -123,6 +123,9 @@ const AdminHome = () => {
         const getReservations = async () => {
             const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
             setReservations(reservationRes.data.data.reservation)
+            setIsActive18(false)
+            setIsActive21(false)
+            setIsActiveAll(true)
 
             if (reservationRes.data.data.reservation.length < 1) {
                 setNoBookings(true)
@@ -213,7 +216,7 @@ const AdminHome = () => {
                                     <div key={index} onClick={() => handleEdit(booking)} className="inner">
                                         <div className="item-box">
                                             <ul>
-                                                <li><strong>{booking.firstname} {booking.lastname}</strong>  {booking.time}     {booking.people} {booking.email} </li>
+                                                <li><strong>{booking.firstname} {booking.lastname}</strong> | {booking.time}  | people   {booking.people} | {booking.email}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -223,7 +226,7 @@ const AdminHome = () => {
                                     <div key={index} onClick={() => handleEdit(res)} className="inner">
                                         <div className="item-box">
                                             <ul>
-                                                <li><strong>{res.firstname} {res.lastname}</strong>  {res.time}     {res.people} {res.email} </li>
+                                                <li><strong>{res.firstname} {res.lastname}</strong>  | {res.time}  | people   {res.people} | {res.email} </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -234,7 +237,7 @@ const AdminHome = () => {
                                         <div key={index} onClick={() => handleEdit(res)} className="inner">
                                             <div className="item-box">
                                                 <ul>
-                                                    <li><strong>{res.firstname} {res.lastname}</strong>  {res.time}     {res.people} {res.email} </li>
+                                                    <li><strong>{res.firstname} {res.lastname}</strong> | {res.time}  | people   {res.people} | {res.email} </li>
                                                 </ul>
                                             </div>
                                         </div>
