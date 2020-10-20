@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Axios from 'axios'
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
@@ -8,7 +8,7 @@ const Editor = (props) => {
     console.log(props)
     const { updatedBooking,
         setUpdatedBooking } = useContext(UpdateContext)
-
+    const { reservations, setReservations } = useContext(UpdateContext)
     const [editBookingInfo, setEditBookingInfo] = useState({
         firstname: props.booking.firstname,
         lastname: props.booking.lastname,
@@ -21,6 +21,9 @@ const Editor = (props) => {
     console.log('USER DATA IN EDITOR', userData)
     const [defaultSelectTime, setDefaultSelectTime] = useState('- Time -')
     const [id, setId] = useState(props.booking._id)
+
+
+
 
     const postEditToBooking = async (data) => {
         if (userData.token) {
@@ -66,80 +69,80 @@ const Editor = (props) => {
     }
     return (
         <>
-        <div className="edit-form">
-            <form onSubmit={handleSubmit}>
-                <div className="form-wrapper-edit">
-                    <div className="nameWrapper inpWrapper">
-                        <label>First name</label>
-                        <input
-                            type="text"
-                            onChange={handleChangefirstName}
-                            name="firstname"
-                            value={editBookingInfo.firstname} />
-                    </div>
-                    <div className="nameWrapper inpWrapper">
-                        <label> last name</label>
-                        <input
-                            type="text"
-                            onChange={handleChangelastName}
-                            name="lastname"
-                            value={editBookingInfo.lastname} />
-                    </div>
-                    <div className="emailWrapper inpWrapper">
-                        <label>email</label>
-                        <input
-                            type="email"
-                            onChange={handleChangeEmail}
-                            name="email"
-                            value={editBookingInfo.email} />
-                    </div>
-                    <div className="phoneWrapper inpWrapper">
-                        <label>phone</label>
-                        <input
-                            type="tel"
-                            minLength="10"
-                            maxLength="12"
-                            onChange={handleChangePhone}
-                            name="phone"
-                            value={editBookingInfo.phone} />
+            <div className="edit-form">
+                <form onSubmit={handleSubmit}>
+                    <div className="form-wrapper-edit">
+                        <div className="nameWrapper inpWrapper">
+                            <label>First name</label>
+                            <input
+                                type="text"
+                                onChange={handleChangefirstName}
+                                name="firstname"
+                                value={editBookingInfo.firstname} />
+                        </div>
+                        <div className="nameWrapper inpWrapper">
+                            <label> last name</label>
+                            <input
+                                type="text"
+                                onChange={handleChangelastName}
+                                name="lastname"
+                                value={editBookingInfo.lastname} />
+                        </div>
+                        <div className="emailWrapper inpWrapper">
+                            <label>email</label>
+                            <input
+                                type="email"
+                                onChange={handleChangeEmail}
+                                name="email"
+                                value={editBookingInfo.email} />
+                        </div>
+                        <div className="phoneWrapper inpWrapper">
+                            <label>phone</label>
+                            <input
+                                type="tel"
+                                minLength="10"
+                                maxLength="12"
+                                onChange={handleChangePhone}
+                                name="phone"
+                                value={editBookingInfo.phone} />
 
-                    </div>
-                    <select
-                        name="time"
-                        id="time"
-                        onChange={handleChangeTime}
-                        value={defaultSelectTime}
-                        required>
-
-                        <option
+                        </div>
+                        <select
+                            name="time"
+                            id="time"
+                            onChange={handleChangeTime}
                             value={defaultSelectTime}
-                            disabled >{defaultSelectTime}
-                        </option>
-                        <option
-                            value={'18:00'}
+                            required>
 
-                        >18:00</option>
-                        <option
-                            value={'21:00'}
+                            <option
+                                value={defaultSelectTime}
+                                disabled >{defaultSelectTime}
+                            </option>
+                            <option
+                                value={'18:00'}
 
-                        >21:00</option>
+                            >18:00</option>
+                            <option
+                                value={'21:00'}
 
-                    </select>
-                    <div className="btn-wrapper">
+                            >21:00</option>
 
-                        <Button
-                            type='submit'
-                            buttonSize='btn--medium'
-                            buttonColor='black'
-                        >Save changes
+                        </select>
+                        <div className="btn-wrapper">
+
+                            <Button
+                                type='submit'
+                                buttonSize='btn--medium'
+                                buttonColor='black'
+                            >Save changes
                             </Button>
 
 
-                    </div>
+                        </div>
 
-                </div>
-            </form>
-        </div>
+                    </div>
+                </form>
+            </div>
         </>
     )
 }

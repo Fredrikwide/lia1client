@@ -20,6 +20,7 @@ export const BookingProvider = props => {
     const [fullyBooked18, setFullyBooked18] = useState(false)
     const [fullyBooked21, setFullyBooked21] = useState(false)
     const [currTime, setCurrTime] = useState(moment(date).format('MMMM Do YYYY, h:mm:ss a'))
+    const [hideCal, setHideCal] = useState(false)
 
     useEffect(() => {
         console.log('current form info', formValues)
@@ -42,7 +43,9 @@ export const BookingProvider = props => {
         fullyBooked21,
         setFullyBooked21,
         currTime,
-        setCurrTime
+        setCurrTime,
+        hideCal,
+        setHideCal
 
     }
 

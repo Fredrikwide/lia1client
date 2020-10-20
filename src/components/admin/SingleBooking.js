@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Editor from './Editor'
 import moment from 'moment'
 import { Button } from '../Button'
@@ -11,15 +11,21 @@ import Axios from 'axios'
 
 
 const SingleBooking = (props) => {
-    const { updatedBooking,
-        setUpdatedBooking } = useContext(UpdateContext)
+    const { dispSingleBooking,
+        setDispSingleBooking } = useContext(UpdateContext)
     const [date, setDate] = useState(new Date())
-    const { reservations, setReservations } = useContext(UpdateContext)
+    const { reservations, setReservations, hideCal, setHideCal } = useContext(UpdateContext)
     const { userData, setUserData, setLoggedIn } = useContext(UserContext)
     const { setEditActive, editActive } = useContext(UpdateContext)
     const handleEdit = () => {
         setEditActive(!editActive)
     }
+
+
+    useEffect(() => {
+        console.log('helllo i ran')
+    }, [reservations])
+
 
     const handleDelete = async id => {
 
@@ -32,7 +38,8 @@ const SingleBooking = (props) => {
                 setReservations(reservationRes.data.data.reservation)
             }
             getReservations()
-
+            setDispSingleBooking(false)
+            setHideCal(!hideCal)
             console.log(reservations)
         }
         else { return null }

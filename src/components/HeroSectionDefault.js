@@ -28,7 +28,7 @@ const HeroSectionDefault = () => {
                     <div className="row home__hero-row">
                         <div className="home__hero-text-wrapper">
                             <Routes >
-                                <Route path="/" element={<Home />} />
+                                <Route path="/*" element={<Home />} />
                                 <Route path="/book" element={<Book />} />
                                 <Route path="/admin" element={<AdminHome />} />
                                 <Route path="/login" element={<Login />} />

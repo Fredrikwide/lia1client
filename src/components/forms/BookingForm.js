@@ -36,31 +36,16 @@ const BookingForm = () => {
 
     const [checkGDPR, setCheckGDPR] = useState(false)
     const [sorry, setSorry] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
     const [currTime, setCurrTime] = useState(moment(new Date).format('MMMM Do YYYY, h:mm:ss a'))
 
 
-
-
-    // useEffect(() => {
-    //     if (moment(formValues.time).isAfter(endTime18) && moment(formValues.time).isAfter(endTime21)) {
-    //         setSorry(true)
-    //     }
-    //     else if (moment(formValues.time).isAfter(endTime21)) {
-    //         setSorry(true)
-    //     }
-    //     else if (moment(formValues.time).isAfter(endTime18)) {
-    //         setSorry(true)
-    //     }
-
-    // }, [])
-
-    // const baseApiUrl = process.env.local.REACT_APP_BASE_API_URI
-    // const reservationEndpoint = process.env.local.REACT_APP_POST_BOOKING_ENDPOINT
     const postBooking = async (data) => {
         const bookingRes = await Axios.post(`http://localhost:5000/reservation`, data)
         console.log('res is ', bookingRes)
         if (bookingRes.status === 'fail') {
             console.log(bookingRes.data.message)
+            setErrorMsg(bookingRes.data.message)
             setSorry(true)
         }
     }
@@ -188,7 +173,7 @@ const BookingForm = () => {
                                     </div>
                                 </>
                                 : <div>
-                                    <h2>SORRY DUDE, THIS TIME HAS JUST BEEN BOOKED</h2>
+                                    <h2>{errorMsg}</h2>
                                 </div>
                             }
                         </div>

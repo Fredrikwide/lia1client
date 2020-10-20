@@ -19,10 +19,13 @@ import SingleBooking from './SingleBooking'
 const AdminHome = () => {
     const navigate = useNavigate()
     const { updatedBooking,
-        setUpdatedBooking } = useContext(UpdateContext)
+        setUpdatedBooking,
+        dispSingleBooking,
+        setDispSingleBooking } = useContext(UpdateContext)
+
     const { userData, setUserData, setLoggedIn } = useContext(UserContext)
 
-    const [dispSingleBooking, setDispSingleBooking] = useState(false)
+
     const [date, setDate] = useState(new Date())
     const { reservations, setReservations } = useContext(UpdateContext)
     const [todaysDate, setTodaysDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
@@ -71,20 +74,20 @@ const AdminHome = () => {
     }, [])
 
 
-    // useEffect(() => {
-    //     if (token) {
-    //         const res = getReservations(todaysDate, userData.token)
-    //         setReservations(res.data.data.reservation)
-    //         if (res.data.data.reservation.length < 1) {
-    //             setNoBookings(true)
-    //         }
-    //         else {
-    //             setNoBookings(false)
-    //         }
-    //     }
+    useEffect(() => {
+        if (token) {
+            const res = getReservations(todaysDate, userData.token)
+            setReservations(res.data.data.reservation)
+            if (res.data.data.reservation.length < 1) {
+                setNoBookings(true)
+            }
+            else {
+                setNoBookings(false)
+            }
+        }
 
 
-    // }, [])
+    }, [])
 
 
     useEffect(() => {
@@ -126,11 +129,11 @@ const AdminHome = () => {
         getReservations()
     }
 
-    const handleSelectBooking18 = async () => {
+    const handleSelectBooking18 = () => {
         setReservations(reservations.filter(res => res.time === '18:00'))
     }
 
-    const handleSelectBooking21 = async () => {
+    const handleSelectBooking21 = () => {
         setReservations(reservations.filter(res => res.time === '21:00'))
     }
 
@@ -178,9 +181,7 @@ const AdminHome = () => {
                                 reservations.map((booking, index) => (
                                     <div key={index} onClick={() => handleEdit(booking)} className="inner">
                                         <div className="item-box">
-                                            <ul>
-                                                <li><strong>{booking.firstname} {booking.lastname}</strong> | {booking.time} | {booking.people} pepole | {booking.email} </li>
-                                            </ul>
+                                            <p>{booking.firstname} {booking.lastname} {booking.time} hello</p>
                                         </div>
                                     </div>
 
@@ -194,7 +195,9 @@ const AdminHome = () => {
                             }
                         </div>
                         {
-                            dispSingleBooking ? <SingleBooking booking={currBooking} /> : !hideCal &&
+                            dispSingleBooking ?
+                                <SingleBooking booking={currBooking} />
+                                : !hideCal &&
                                 <div className="date-outer">
                                     <Calendar
                                         onChange={handleChangeDate}
