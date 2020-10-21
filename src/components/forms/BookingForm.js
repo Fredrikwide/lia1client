@@ -18,8 +18,6 @@ const BookingForm = () => {
         setLatestBooking,
         pickedDate,
         setPickedDate,
-        // currTime,
-        // setCurrTime
     }
         = useContext(BookingContext)
 

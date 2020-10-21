@@ -19,6 +19,15 @@
     cursor: pointer;
 }
 
+
+.exit svg:hover {
+    transform: rotate(360deg);
+    transition: all 1s ease-out;
+    
+}
+
+
+
 .select-time-box {
     display: flex;
     justify-content: space-around;
@@ -48,7 +57,11 @@
     display: inline;
 }
 
-.inp-box p{
-    text-align: left;
-    margin-right: 10px;
+.inp-box {
+
+    .p {
+        text-align: left;
+        margin-right: 10px;
+
+    }
 }

@@ -16,7 +16,7 @@ const Success = () => {
 
     return (
         <>
-            <div className="header dark">
+            <div className="thank-you-cont">
                 <h1>Thank you {latestBooking.firstname} for booking a table</h1>
                 <h3>Your reservation info:</h3>
                 <p>name: <br /> {latestBooking.firstname} {latestBooking.lastname}</p>
