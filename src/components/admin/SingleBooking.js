@@ -68,12 +68,12 @@ const SingleBooking = (props) => {
                         <>
                             <Button
                                 onClick={handleEdit}
-                                buttonColor='orange'
+                                buttonColor='outline'
                             >edit
                             </Button>
                             <Button
                                 onClick={() => handleDelete(props.booking._id)}
-                                buttonColor='red'
+                                buttonColor='outline'
                             >delete
                             </Button>
                         </>

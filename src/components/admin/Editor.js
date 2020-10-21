@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import './admin.scss'
+import './Editor.scss'
+import { FaRegTimesCircle } from 'react-icons/fa';
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
 import { UserContext } from '../../contexts/UserContext'
@@ -19,13 +21,14 @@ const Editor = (props) => {
         email: props.booking.email,
         phone: props.booking.phone,
         date: props.booking.date,
-        time: props.booking.time
+        time: props.booking.time,
+        seats:  props.booking.people
     })
     const { userData } = useContext(UserContext)
 
 
-    const [defaultSelectTime, setDefaultSelectTime] = useState('- Time -')
-    const [defaultSelectSeat, setDefaultSelectSeat] = useState('- Seat -')
+    const [defaultSelectTime, setDefaultSelectTime] = useState(editBookingInfo.time)
+    const [defaultSelectSeat, setDefaultSelectSeat] = useState(editBookingInfo.seats)
 
     useEffect(() => {
         console.log('helllo i ran')
@@ -84,6 +87,7 @@ const Editor = (props) => {
         <>
             <div className="edit-form">
                 <form onSubmit={handleSubmit}>
+                    <p className="exit"><FaRegTimesCircle /></p>
                     <h1>Booking info</h1>
                     <p><strong>Booking number:</strong> {props.booking._id}</p>
                     <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
@@ -124,7 +128,10 @@ const Editor = (props) => {
                             value={editBookingInfo.phone} />
 
                     </div>
-                    <p><strong>Time:</strong> {props.booking.time}</p>
+                    <div className="time-persons">
+                        <p><strong>Time:</strong> {props.booking.time}</p>
+                        <p><strong>Persons</strong> {props.booking.people}</p>
+                    </div>
                     <div className="select-time-box">
                         <div className="select-inner">
                             <select
@@ -149,7 +156,7 @@ const Editor = (props) => {
 
                             </select>
                         </div>
-                        <p><strong>Persons</strong> {props.booking.people}</p>
+                        
                         <div className="select-inner">
                             <select
                                 name="seats"
