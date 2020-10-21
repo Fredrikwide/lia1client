@@ -48,7 +48,7 @@ const Navbar = () => {
 
                             <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
                                 <IoMdRestaurant className="navbar-icon" />
-                        LOGO
+                        Cafe Disco
                     </Link>
                             <div className="menu-icon" onClick={handleClick}>
                                 {click ? <FaTimes /> : <FaBars />}

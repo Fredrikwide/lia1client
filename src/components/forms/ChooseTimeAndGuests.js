@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
 
@@ -24,6 +24,10 @@ const ChooseTimeAndGuests = () => {
 
     const [seats, setSeats] = useState([1, 2, 3, 4, 5, 6])
 
+    useEffect(() => {
+        console.log('booked ', fullyBooked, '18', fullyBooked18, '21', fullyBooked21)
+
+    }, [fullyBooked, fullyBooked18, fullyBooked21])
 
 
     const handleChangeTime = (e) => {
@@ -49,8 +53,8 @@ const ChooseTimeAndGuests = () => {
     return (
         <>
 
-            <div className="select-outer">
-                <div className="select-inner">
+            <div className="select-outer-cont">
+                <div className="select-inner-cont">
                     <select
                         name="time"
                         id="time"
@@ -75,12 +79,13 @@ const ChooseTimeAndGuests = () => {
                     </select>
                 </div>
 
-                <div className="select-inner">
+                <div className="select-inner-cont">
                     <select
                         name="seats"
                         id="seats"
                         onChange={handleChangeSeats}
                         value={defaultSelectSeat}
+                        disabled={fullyBooked ? true : false}
                         required>
                         <option
                             value={defaultSelectSeat}
@@ -110,8 +115,11 @@ const ChooseTimeAndGuests = () => {
                             buttonColor='black'
                             onClick={handleClickCont}>Continue</Button>
                     </div>)
-                    :
-                    <p className="pickInfo">you must choose a time and seats to continue</p>
+                    : fullyBooked
+                        ?
+                        <p className="pickInfo">sorry fully booked on this date</p>
+                        :
+                        <p className="pickInfo">you must choose a time and seats to continue</p>
             }
 
         </>
