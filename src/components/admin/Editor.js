@@ -19,13 +19,14 @@ const Editor = (props) => {
         email: props.booking.email,
         phone: props.booking.phone,
         date: props.booking.date,
-        time: props.booking.time
+        time: props.booking.time,
+        seats: props.booking.people
     })
     const { userData } = useContext(UserContext)
 
 
-    const [defaultSelectTime, setDefaultSelectTime] = useState('- Time -')
-    const [defaultSelectSeat, setDefaultSelectSeat] = useState('- Seat -')
+    const [defaultSelectTime, setDefaultSelectTime] = useState(editBookingInfo.time)
+    const [defaultSelectSeat, setDefaultSelectSeat] = useState(editBookingInfo.seats)
 
     useEffect(() => {
         console.log('helllo i ran')
@@ -39,7 +40,7 @@ const Editor = (props) => {
             setReservations(rees.data.data.reservation)
             setEditActive(false)
             setHideCal(false)
-            setDispSingleBooking(false)
+            setEditActive(false)
             console.log(reservations)
         }
         else { return null }
@@ -77,7 +78,7 @@ const Editor = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         await handleUpdate(props.booking._id, editBookingInfo, userData.token)
-        setEditActive(false)
+
     }
 
     return (
@@ -86,7 +87,7 @@ const Editor = (props) => {
                 <form onSubmit={handleSubmit}>
                     <h1>Booking info</h1>
                     <p><strong>Booking number:</strong> {props.booking._id}</p>
-                    <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
+                    <p><strong>Name:</strong> {editBookingInfo.firstname} {editBookingInfo.lastname}</p>
                     <div>
                         <div className="inp-box">
                             <input
@@ -105,7 +106,7 @@ const Editor = (props) => {
                             />
                         </div>
                     </div>
-                    <p><strong>Email:</strong> {props.booking.email}</p>
+                    <p><strong>Email:</strong> {editBookingInfo.email}</p>
                     <div className="inp-box">
                         <input
                             type="email"
@@ -113,7 +114,7 @@ const Editor = (props) => {
                             name="email"
                             value={editBookingInfo.email} />
                     </div>
-                    <p><strong>Phone:</strong> {props.booking.phone}</p>
+                    <p><strong>Phone:</strong> {editBookingInfo.phone}</p>
                     <div className="inp-box">
                         <input
                             type="tel"
@@ -124,9 +125,9 @@ const Editor = (props) => {
                             value={editBookingInfo.phone} />
 
                     </div>
-                    <p><strong>Time:</strong> {props.booking.time}</p>
                     <div className="select-time-box">
                         <div className="select-inner">
+                            <p><strong>Time:</strong> {editBookingInfo.time}</p>
                             <select
                                 name="time"
                                 id="time"
@@ -149,8 +150,8 @@ const Editor = (props) => {
 
                             </select>
                         </div>
-                        <p><strong>Persons</strong> {props.booking.people}</p>
                         <div className="select-inner">
+                            <p><strong>Persons</strong> {props.booking.people}</p>
                             <select
                                 name="seats"
                                 id="seats"

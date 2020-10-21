@@ -108,6 +108,16 @@
     list-style: none;
 }
 
+.select-time-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.select-inner {
+    display: flex;
+    flex-direction: column;
+}
 
 /* --------------------- BookingCard */
 .outer {

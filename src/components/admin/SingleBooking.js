@@ -58,11 +58,10 @@ const SingleBooking = (props) => {
                                 <p><strong>Time:</strong> {props.booking.time}</p>
                                 <p><strong>Persons</strong> {props.booking.people}</p>
                             </>
-                            : editActive ?
+                            : editActive &&
 
-                                <Editor booking={props.booking} />
-                                :
-                                <p>error</p>
+                            <Editor booking={props.booking} />
+
                     }
                     {!editActive &&
                         <>
