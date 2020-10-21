@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
 
@@ -36,19 +36,15 @@ const ChooseTimeAndGuests = () => {
     const handleChangeSeats = (e) => {
         setDefaultSelectSeat(e.target.value)
         setFormValues({ ...formValues, people: e.target.value })
-        console.log('you choose:', e.target.value, 'people')
+
         setPickedSeat(true)
 
     }
 
     const handleClickCont = (e) => {
-
         setIsHidden(true)
         setIsClicked(true)
-
     }
-
-
 
     return (
         <>

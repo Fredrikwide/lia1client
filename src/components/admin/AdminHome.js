@@ -1,23 +1,21 @@
 import './admin.scss'
 import React, { useState, useContext, useEffect } from 'react'
+import moment from 'moment'
+import Axios from 'axios'
+import Calendar from 'react-calendar'
+
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../contexts/UserContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
-import Calendar from 'react-calendar'
 import { config } from '../../config';
-import moment from 'moment'
-import Axios from 'axios'
 import { checkToken } from '../../services/authToken'
 import { getUserFromToken } from '../../services/fetch'
 import { getReservations } from '../../services/fetch'
 import { Button } from '../Button'
 import { BookingList } from './BookingList'
-import { FaFilter } from 'react-icons/fa';
-
-//import icons
+import { FaFilter } from 'react-icons/fa'
 
 import SingleBooking from './SingleBooking'
-
 
 const AdminHome = () => {
 
@@ -42,6 +40,8 @@ const AdminHome = () => {
     const [noBookings, setNoBookings] = useState()
     const [timeArr18, setTimeArr18] = useState([])
     const [timeArr21, setTimeArr21] = useState([])
+    const [firstTime, setFirstTime] = useState('18:00')
+    const [lastTime, setLastTime] = useState('21:00')
     const [isActive18, setIsActive18] = useState(false)
     const [isActive21, setIsActive21] = useState(false)
     const [isActiveAll, setIsActiveAll] = useState(true)
@@ -73,15 +73,10 @@ const AdminHome = () => {
                     }
                 }
                 getNewReservations()
-
             }
-
         }
         checking()
-
-
     }, [])
-
 
 
     useEffect(() => {
@@ -116,7 +111,7 @@ const AdminHome = () => {
     }
 
     const handleSelectBooking = (e) => {
-        if (e.target.value === "18:00") {
+        if (e.target.value === firstTime) {
             const filtered18 = reservations.filter(res => res.time === e.target.value)
             if (!filtered18.length < 1) {
                 setTimeArr18(timeArr18 => [...filtered18])
@@ -126,7 +121,7 @@ const AdminHome = () => {
             }
             else setNoBookings(true)
         }
-        else if (e.target.value === "21:00") {
+        else if (e.target.value === lastTime) {
             const filtered21 = reservations.filter(res => res.time === e.target.value)
             if (!filtered21.length < 1) {
                 setTimeArr21(timeArr21 => [...filtered21])
@@ -151,11 +146,6 @@ const AdminHome = () => {
     }, [timeArr18, timeArr21, noBookings])
 
 
-
-
-
-
-
     return (
         <>
             <div className="admin-wrapper">
@@ -177,14 +167,14 @@ const AdminHome = () => {
                                 <Button
                                     onClick={handleSelectBooking}
                                     buttonColor={isActive18 ? 'outline-active' : 'outline'}
-                                    value={'18:00'}
+                                    value={firstTime}
                                 >
                                     18:00</Button>
                             </div>
                             <div className="btn-wrapper">
                                 <Button
                                     buttonColor={isActive21 ? 'outline-active' : 'outline'}
-                                    value={'21:00'}
+                                    value={lastTime}
                                     onClick={handleSelectBooking}>21:00</Button>
                             </div>
                             <p className="todays-date">Todays date: {moment(todaysDate).format('MMMM Do YYYY')}</p>

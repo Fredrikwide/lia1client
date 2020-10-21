@@ -23,7 +23,7 @@ export const BookingProvider = props => {
 
 
     useEffect(() => {
-        console.log('current form info', formValues)
+
     }, [formValues])
 
 

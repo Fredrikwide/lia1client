@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import Axios from 'axios'
+import './admin.scss'
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
 import { UserContext } from '../../contexts/UserContext'
@@ -7,12 +7,12 @@ import { updateReservation, getReservations } from '../../services/fetch'
 
 const Editor = (props) => {
 
-    const { updatedBooking,
+    const {
         setUpdatedBooking,
         reservations,
         setReservations } = useContext(UpdateContext)
-    const { setEditActive, editActive, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
-
+    const { setEditActive, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
+    const [seats, setSeats] = useState([1, 2, 3, 4, 5, 6])
     const [editBookingInfo, setEditBookingInfo] = useState({
         firstname: props.booking.firstname,
         lastname: props.booking.lastname,
@@ -23,7 +23,9 @@ const Editor = (props) => {
     })
     const { userData } = useContext(UserContext)
 
+
     const [defaultSelectTime, setDefaultSelectTime] = useState('- Time -')
+    const [defaultSelectSeat, setDefaultSelectSeat] = useState('- Seat -')
 
     useEffect(() => {
         console.log('helllo i ran')
@@ -41,19 +43,6 @@ const Editor = (props) => {
             console.log(reservations)
         }
         else { return null }
-    }
-
-
-    const postEditToBooking = async (id, data, token) => {
-        console.log('id', id)
-        const editBookingRes = await updateReservation(id, data, token)
-        if (editBookingRes.status === 200) {
-            setEditActive(false)
-            setDispSingleBooking(false)
-            setHideCal(false)
-            setUpdatedBooking(true)
-        }
-
     }
 
 
@@ -79,89 +68,126 @@ const Editor = (props) => {
     }
 
 
+    const handleChangeSeats = (e) => {
+        setDefaultSelectSeat(e.target.value)
+        setEditBookingInfo({ ...editBookingInfo, people: e.target.value })
+    }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         await handleUpdate(props.booking._id, editBookingInfo, userData.token)
-
-
-        // Send the info in FormValues to the db to save the booking
+        setEditActive(false)
     }
+
     return (
         <>
             <div className="edit-form">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-wrapper-edit">
-                        <div className="nameWrapper inpWrapper">
-                            <label>First name</label>
+                    <h1>Booking info</h1>
+                    <p><strong>Booking number:</strong> {props.booking._id}</p>
+                    <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>
+                    <div>
+                        <div className="inp-box">
                             <input
                                 type="text"
                                 onChange={handleChangefirstName}
                                 name="firstname"
-                                value={editBookingInfo.firstname} />
+                                value={editBookingInfo.firstname}
+                            />
                         </div>
-                        <div className="nameWrapper inpWrapper">
-                            <label> last name</label>
+                        <div className="inp-box">
                             <input
                                 type="text"
                                 onChange={handleChangelastName}
                                 name="lastname"
-                                value={editBookingInfo.lastname} />
+                                value={editBookingInfo.lastname}
+                            />
                         </div>
-                        <div className="emailWrapper inpWrapper">
-                            <label>email</label>
-                            <input
-                                type="email"
-                                onChange={handleChangeEmail}
-                                name="email"
-                                value={editBookingInfo.email} />
-                        </div>
-                        <div className="phoneWrapper inpWrapper">
-                            <label>phone</label>
-                            <input
-                                type="tel"
-                                minLength="10"
-                                maxLength="12"
-                                onChange={handleChangePhone}
-                                name="phone"
-                                value={editBookingInfo.phone} />
+                    </div>
+                    <p><strong>Email:</strong> {props.booking.email}</p>
+                    <div className="inp-box">
+                        <input
+                            type="email"
+                            onChange={handleChangeEmail}
+                            name="email"
+                            value={editBookingInfo.email} />
+                    </div>
+                    <p><strong>Phone:</strong> {props.booking.phone}</p>
+                    <div className="inp-box">
+                        <input
+                            type="tel"
+                            minLength="10"
+                            maxLength="12"
+                            onChange={handleChangePhone}
+                            name="phone"
+                            value={editBookingInfo.phone} />
 
-                        </div>
-                        <select
-                            name="time"
-                            id="time"
-                            onChange={handleChangeTime}
-                            value={defaultSelectTime}
+                    </div>
+                    <p><strong>Time:</strong> {props.booking.time}</p>
+                    <div className="select-time-box">
+                        <div className="select-inner">
+                            <select
+                                name="time"
+                                id="time"
+                                onChange={handleChangeTime}
+                                value={defaultSelectTime}
                             >
 
-                            <option
-                                value={defaultSelectTime}
-                                disabled >{defaultSelectTime}
-                            </option>
-                            <option
-                                value={'18:00'}
+                                <option
+                                    value={defaultSelectTime}
+                                    disabled >{defaultSelectTime}
+                                </option>
+                                <option
+                                    value={'18:00'}
 
-                            >18:00</option>
-                            <option
-                                value={'21:00'}
+                                >18:00</option>
+                                <option
+                                    value={'21:00'}
 
-                            >21:00</option>
+                                >21:00</option>
 
-                        </select>
-                        <div className="btn-wrapper">
+                            </select>
+                        </div>
+                        <p><strong>Persons</strong> {props.booking.people}</p>
+                        <div className="select-inner">
+                            <select
+                                name="seats"
+                                id="seats"
+                                onChange={handleChangeSeats}
+                                value={defaultSelectSeat}
+                            >
+                                <option
+                                    value={defaultSelectSeat}
+                                    disabled>
+                                    {defaultSelectSeat}
+                                </option>
+                                {
+                                    seats.map((seat, index) =>
+                                        (<option
+                                            key={index}
+                                            value={seat}
+                                        >
+                                            {seat}
+                                        </option>)
+                                    )
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div className="btn-wrapper">
 
-                            <Button
-                                type='submit'
-                                buttonSize='btn--medium'
-                                buttonColor='black'
-                            >Save changes
+                        <Button
+                            type='submit'
+                            buttonSize='btn--medium'
+                            buttonColor='black'
+                        >Save changes
                             </Button>
 
 
-                        </div>
-
                     </div>
+
+
                 </form>
             </div>
         </>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Routes, Route, Router } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+
 import './HeroSection.css'
 import Home from './pages/HomePage/Home'
 import Book from './Book'
@@ -9,7 +9,7 @@ import Login from './forms/Login'
 
 import AdminHome from './admin/AdminHome'
 import Success from './Success'
-import { UpdateContext } from '../contexts/UpdateContext'
+
 import Privacy from './Privacy'
 
 
