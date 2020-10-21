@@ -1,7 +1,5 @@
 
 
-
-
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -17,6 +15,12 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 24px;
+}
+
+
+.date-wrapper h1 {
+    padding: 10px;
+    margin-bottom: 16px;
 }
 .picker {
     

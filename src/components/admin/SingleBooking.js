@@ -15,7 +15,7 @@ const SingleBooking = (props) => {
     const { userData } = useContext(UserContext)
     const { setEditActive, editActive } = useContext(UpdateContext)
     const handleEdit = () => {
-        setEditActive(!editActive)
+        setEditActive(true)
     }
 
 
@@ -47,7 +47,7 @@ const SingleBooking = (props) => {
             <div className="show-booking-container">
                 <div className="show-booking">
                     {
-                        props.booking._id ?
+                        !editActive && props.booking._id ?
                             <>
                                 <h1>Booking info</h1>
                                 <p><strong>Booking number:</strong> {props.booking._id}</p>
@@ -58,24 +58,30 @@ const SingleBooking = (props) => {
                                 <p><strong>Time:</strong> {props.booking.time}</p>
                                 <p><strong>Persons</strong> {props.booking.people}</p>
                             </>
-                            :
-                            <p>error</p>
-                    }
-                    <Button
-                        onClick={handleEdit}
-                        buttonColor='orange'
-                    >edit
-                    </Button>
-                    <Button
-                        onClick={() => handleDelete(props.booking._id)}
-                        buttonColor='red'
-                    >delete
-                    </Button>
+                            : editActive ?
 
+                                <Editor booking={props.booking} />
+                                :
+                                <p>error</p>
+                    }
+                    {!editActive &&
+                        <>
+                            <Button
+                                onClick={handleEdit}
+                                buttonColor='orange'
+                            >edit
+                            </Button>
+                            <Button
+                                onClick={() => handleDelete(props.booking._id)}
+                                buttonColor='red'
+                            >delete
+                            </Button>
+                        </>
+                    }
 
                 </div>
                 {
-                    editActive && <div className="container"><Editor booking={props.booking} /></div>
+
                 }
             </div>
         </>

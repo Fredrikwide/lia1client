@@ -13,5 +13,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  -webkit-backdrop-filter: grayscale(100%); /* Chrome, Safari, Opera */
+  backdrop-filter: grayscale(100%);
   
 }

@@ -13,7 +13,8 @@ const Login = () => {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [err, setErr] = useState('')
+    const [err, setErr] = useState(false)
+    const [errorMessage, setErrorMessage] = useState([])
 
     const handleChangeEmail = (e) => {
         setEmail(e.target.value)
@@ -25,10 +26,11 @@ const Login = () => {
 
     const handleLogIn = async (e) => {
         e.preventDefault()
+
         try {
             const loginAdmin = { email, password };
             const loginRes = await axios.post('http://localhost:5000/admin/login', loginAdmin)
-            console.log('login res is ', loginRes)
+
             if (loginRes.status === 200) {
                 setUserData({
                     token: loginRes.data.token,
@@ -40,18 +42,19 @@ const Login = () => {
 
                 navigate('/admin', { replace: true })
             }
-            else {
-                setErr(JSON.stringify(loginRes))
-            }
 
-        } catch (err) { console.log(err) }
+        } catch (err) {
+            setErrorMessage(err.response.data.data.message)
+            setErr(true)
+
+        }
 
 
     }
 
     return (
         <form onSubmit={handleLogIn}>
-            <div className="form-wrapper">
+            <div className={!err ? 'form-wrapper' : 'from-wrapper-error'}>
 
                 <h1 className="header dark">Log in</h1>
 
@@ -86,7 +89,7 @@ const Login = () => {
             </div>
             {
                 err && <div className="error">
-                    <p>something is wrong {err}</p>
+                    <p>{errorMessage}</p>
                 </div>
             }
 
