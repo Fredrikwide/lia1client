@@ -1,3 +1,7 @@
+$breakpoint-first: 960px;
+$breakpoint-second: 770px;
+
+
 #root{
     background-color: #204352;
 }
@@ -213,4 +217,60 @@
     text-align: right;
     font-size: 20px;
     cursor:pointer;
+}
+
+
+
+/** --------- Media queri -----------*/
+
+@media (max-width: $breakpoint-first) {
+  .outer{
+      display: block;
+  }
+
+  .booking-info {
+      margin: 0 auto;
+  }
+
+  .date-outer {
+    margin: 0 auto;
+  }
+
+  .react-calendar{
+    margin: 20px auto;
+  }
+
+  .show-booking {
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: $breakpoint-second) {
+    .sortbytime{
+        display: block;
+
+        .btn-wrapper {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+    }
+
+    .booking-info {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .date-outer{
+        max-width: 300px;
+        margin: 20px auto;
+      }
+    
+      .show-booking {
+        max-width: 300px;
+        margin: 20px auto;
+      }
+
+      .head h1{
+          font-size: 15px;
+      }
 }
