@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import './admin.scss'
+import './Editor.scss'
+import { FaRegTimesCircle } from 'react-icons/fa';
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { Button } from '../Button'
 import { UserContext } from '../../contexts/UserContext'
@@ -85,6 +87,7 @@ const Editor = (props) => {
         <>
             <div className="edit-form">
                 <form onSubmit={handleSubmit}>
+                    <p className="exit"><FaRegTimesCircle /></p>
                     <h1>Booking info</h1>
                     <p><strong>Booking number:</strong> {props.booking._id}</p>
                     <p><strong>Name:</strong> {editBookingInfo.firstname} {editBookingInfo.lastname}</p>
@@ -124,6 +127,10 @@ const Editor = (props) => {
                             name="phone"
                             value={editBookingInfo.phone} />
 
+                    </div>
+                    <div className="time-persons">
+                        <p><strong>Time:</strong> {props.booking.time}</p>
+                        <p><strong>Persons</strong> {props.booking.people}</p>
                     </div>
                     <div className="select-time-box">
                         <div className="select-inner">

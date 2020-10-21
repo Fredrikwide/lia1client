@@ -62,8 +62,8 @@
 
 /* --------------------- Calender */
 .date-outer {
-    width: 450px;
-    height: 50px;
+    max-width: 450px;
+    margin-bottom: 20px;
     flex: 1;
 }
 /* --------------------- Calender */
@@ -166,7 +166,6 @@
 
 .show-booking{
     max-width: 350px;
-    height: 400px;
 
 
     text-align: left;
@@ -175,6 +174,7 @@
     padding: 28px 60px;
 
     color: white;
+    margin-bottom: 20px;
 }
 
 .show-booking h1{

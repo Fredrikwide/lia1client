@@ -1,0 +1,54 @@
+.edit-form {
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-form input{
+    max-width: 210px;
+    margin: 10px auto;
+
+    background-color: #204352;
+    border: 1px solid white;
+    color: white;
+}
+.exit {
+    text-align: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.select-time-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.select-inner{
+    padding: 0;
+    margin: 0;
+}
+
+.select-inner:first-of-type{
+    margin-left: 0;
+}
+
+.select-inner select{
+    max-width: 100px;
+    margin: 0;
+
+    background-color: #204352;
+    border: 1px solid white;
+    color: white;
+    
+}
+
+.time-persons{
+    display: inline;
+}
+
+.inp-box p{
+    text-align: left;
+    margin-right: 10px;
+}
