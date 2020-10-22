@@ -13,17 +13,19 @@ export const BookingList = (props) => {
 
     return (
         <>
-            {
-                props.booking.map((booking, index) => (
-                    <div key={index} onClick={() => handleEdit(booking)} className="inner">
-                        <div className="item-box">
-                            <ul>
-                                <li><strong>{booking.firstname} {booking.lastname}</strong>  | {booking.time}  | people   {booking.people} | {booking.email} </li>
-                            </ul>
-                        </div>
-                    </div>
-                ))
-            }
+            <div onClick={() => handleEdit(booking)} className="inner">
+                <div className="item-box">
+                    <ul>
+                        {
+                            props.booking.map((booking, index) => (
+
+                                <li key={index}><strong>{booking.firstname} {booking.lastname}</strong>  | {booking.time}  | people   {booking.people} | {booking.email} </li>
+
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
         </>
     )
 }
