@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/lia1client/static/css/main.610b8579.chunk.css",
+    "main.js": "/lia1client/static/js/main.4c7932d6.chunk.js",
+    "main.js.map": "/lia1client/static/js/main.4c7932d6.chunk.js.map",
+    "runtime-main.js": "/lia1client/static/js/runtime-main.795935f5.js",
+    "runtime-main.js.map": "/lia1client/static/js/runtime-main.795935f5.js.map",
+    "static/css/2.3bf0a6c9.chunk.css": "/lia1client/static/css/2.3bf0a6c9.chunk.css",
+    "static/js/2.b0107dde.chunk.js": "/lia1client/static/js/2.b0107dde.chunk.js",
+    "static/js/2.b0107dde.chunk.js.map": "/lia1client/static/js/2.b0107dde.chunk.js.map",
+    "index.html": "/lia1client/index.html",
+    "precache-manifest.51fa22667bb407b857b97229f4a5f62c.js": "/lia1client/precache-manifest.51fa22667bb407b857b97229f4a5f62c.js",
+    "service-worker.js": "/lia1client/service-worker.js",
+    "static/css/2.3bf0a6c9.chunk.css.map": "/lia1client/static/css/2.3bf0a6c9.chunk.css.map",
+    "static/css/main.610b8579.chunk.css.map": "/lia1client/static/css/main.610b8579.chunk.css.map",
+    "static/js/2.b0107dde.chunk.js.LICENSE.txt": "/lia1client/static/js/2.b0107dde.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/lia1client/static/media/restaurantHero.d11d4356.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.795935f5.js",
+    "static/css/2.3bf0a6c9.chunk.css",
+    "static/js/2.b0107dde.chunk.js",
+    "static/css/main.610b8579.chunk.css",
+    "static/js/main.4c7932d6.chunk.js"
+  ]
+}
