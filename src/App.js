@@ -60,7 +60,7 @@ const App = () => {
       <Routes>
         <div className="background-wrapper">
           <HeroSectionDefault>
-            <Route path='/' element={<Home />} />
+            <Route path='/lia1client' element={<Home />} />
             <Route path='/book' element={<Book />} />
             <Route path='/privacy' element={<Privacy />} />
             <Route path='/menu' element={<Home />} />
