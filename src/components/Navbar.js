@@ -46,7 +46,7 @@ const Navbar = () => {
                     <div className="nav-wrapper">
                         <div className="navbar-container">
 
-                            <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+                            <Link to="/lia1client" className="navbar-logo" onClick={closeMobileMenu}>
                                 <IoMdRestaurant className="navbar-icon" />
                         Cafe Disco
                     </Link>
@@ -55,7 +55,7 @@ const Navbar = () => {
                             </div>
                             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                                    <Link to="/lia1client" className="nav-links" onClick={closeMobileMenu}>
                                         Home
                             </Link>
                                 </li>

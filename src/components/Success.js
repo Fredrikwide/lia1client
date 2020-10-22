@@ -13,7 +13,7 @@ const Success = () => {
 
     const handleBackHome = () => {
         setPageReset(!pageReset)
-        navigate('/')
+        navigate('/lia1client')
     }
 
     return (
