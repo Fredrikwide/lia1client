@@ -10,10 +10,10 @@ import { updateReservation, getReservations } from '../../services/fetch'
 const Editor = (props) => {
 
     const {
-        setUpdatedBooking,
+
         reservations,
         setReservations } = useContext(UpdateContext)
-    const { setEditActive, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
+    const { setEditActive, setHideCal } = useContext(UpdateContext)
     const [seats, setSeats] = useState([1, 2, 3, 4, 5, 6])
     const [editBookingInfo, setEditBookingInfo] = useState({
         firstname: props.booking.firstname,

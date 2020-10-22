@@ -3,27 +3,54 @@ import { UpdateContext } from '../../contexts/UpdateContext'
 
 export const BookingList = (props) => {
 
-    const { hideCal, setHideCal, dispSingleBooking, setDispSingleBooking, setCurrBooking } = useContext(UpdateContext)
+    const { setHideCal, setDispSingleBooking, setCurrBooking } = useContext(UpdateContext)
+
+
+
 
     const handleEdit = (data) => {
-        setHideCal(!hideCal)
-        setDispSingleBooking(!dispSingleBooking)
+
+        setHideCal(true)
+        setDispSingleBooking(true)
         setCurrBooking(data)
     }
 
+
+
     return (
         <>
-            {
-                props.booking.map((booking, index) => (
-                    <div key={index} onClick={() => handleEdit(booking)} className="inner">
-                        <div className="item-box">
-                            <ul>
-                                <li><strong>{booking.firstname} {booking.lastname}</strong>  | {booking.time}  | people   {booking.people} | {booking.email} </li>
-                            </ul>
-                        </div>
-                    </div>
-                ))
-            }
+            <div className="item-box">
+                <ul className='list-group'>
+                    {
+                        props.booking.map((booking, index) => (
+
+                            <li className='list-item'
+                                onClick={() => handleEdit(booking)}
+                                key={index}>
+                                <div className='inner-text'>
+                                    <strong>
+                                        {booking.firstname}  {booking.lastname}
+
+                                    </strong>
+                                    <p>
+                                        {booking.time}
+                                    </p>
+
+                                    <p>
+                                        <span>people</span>
+
+                                        {booking.people}
+                                    </p>
+                                    <p>
+                                        {booking.email}
+                                    </p>
+                                </div>
+                            </li>
+
+                        ))
+                    }
+                </ul>
+            </div>
         </>
     )
 }

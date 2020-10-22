@@ -33,6 +33,6 @@ export const deleteReservation = async (id, token) => {
 
 export const getUserFromToken = async (token) => {
     const UserRes = await Axios.get('http://localhost:5000/admin/', { headers: { 'x-auth-token': token } })
-    console.log("user resp is", UserRes.data)
+
     return UserRes
 }
