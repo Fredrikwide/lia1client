@@ -11,7 +11,7 @@ import { FaRegTimesCircle } from 'react-icons/fa';
 const SingleBooking = (props) => {
 
 
-    const { reservations, setReservations, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
+    const { setReservations, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
     const { userData } = useContext(UserContext)
     const { setEditActive, editActive } = useContext(UpdateContext)
     const handleEdit = () => {
@@ -19,22 +19,17 @@ const SingleBooking = (props) => {
     }
 
 
-    useEffect(() => {
-        console.log('helllo i ran')
-    }, [reservations])
-
-
     const handleDelete = async (id) => {
-        console.log('token is in SINGLE', userData.token)
+
         let res = await deleteReservation(id, userData.token)
-        console.log(res)
+
         if (res.status === 200) {
 
             const rees = await getReservations(props.booking.date, userData.token)
             setReservations(rees.data.data.reservation)
             setHideCal(false)
             setDispSingleBooking(false)
-            console.log(reservations)
+
         }
         else { return null }
     }

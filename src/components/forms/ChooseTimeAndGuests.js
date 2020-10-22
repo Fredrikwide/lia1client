@@ -25,7 +25,7 @@ const ChooseTimeAndGuests = () => {
     const [seats, setSeats] = useState([1, 2, 3, 4, 5, 6])
 
     useEffect(() => {
-        console.log('booked ', fullyBooked, '18', fullyBooked18, '21', fullyBooked21)
+
 
     }, [fullyBooked, fullyBooked18, fullyBooked21])
 

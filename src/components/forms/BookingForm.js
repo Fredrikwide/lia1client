@@ -2,12 +2,11 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BookingContext } from '../../contexts/BookingContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
-
+import { postReservation } from '../../services/fetch'
 import { Button } from '../Button'
 import '../Button.css'
 import '../MakeBooking.css'
 
-import Axios from 'axios'
 
 const BookingForm = () => {
 
@@ -39,10 +38,8 @@ const BookingForm = () => {
 
 
     const postBooking = async (data) => {
-        const bookingRes = await Axios.post(`http://localhost:5000/reservation`, data)
-        console.log('res is ', bookingRes)
+        const bookingRes = postReservation(data)
         if (bookingRes.status === 'fail') {
-            console.log(bookingRes.data.message)
             setErrorMsg(bookingRes.data.message)
             setSorry(true)
         }

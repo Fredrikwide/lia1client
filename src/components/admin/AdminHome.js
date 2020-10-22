@@ -93,7 +93,7 @@ const AdminHome = () => {
         setDate(date)
         const formattedDate = moment(date).format('YYYY-MM-DD')
         const getReservations = async () => {
-            const reservationRes = await Axios.get(`http://localhost:5000/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
+            const reservationRes = await Axios.get(`https://booking-app-lia1.herokuapp.com/admin/${formattedDate}`, { headers: { 'x-auth-token': userData.token } })
             setReservations(reservationRes.data.data.reservation)
             setIsActive18(false)
             setIsActive21(false)
