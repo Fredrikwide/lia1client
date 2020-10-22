@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Editor from './Editor'
 import moment from 'moment'
 import { Button } from '../Button'
 import { UserContext } from '../../contexts/UserContext'
 import { UpdateContext } from '../../contexts/UpdateContext'
 import { getReservations, deleteReservation } from '../../services/fetch'
-
-
+import './Editor.scss'
+import { FaRegTimesCircle } from 'react-icons/fa';
 
 const SingleBooking = (props) => {
 
 
-    const { reservations, setReservations, hideCal, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
+    const { reservations, setReservations, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
     const { userData } = useContext(UserContext)
     const { setEditActive, editActive } = useContext(UpdateContext)
     const handleEdit = () => {
@@ -38,7 +38,10 @@ const SingleBooking = (props) => {
         }
         else { return null }
     }
-
+    const handleClose = () => {
+        setDispSingleBooking(false)
+        setHideCal(false)
+    }
 
 
 
@@ -49,6 +52,7 @@ const SingleBooking = (props) => {
                     {
                         !editActive && props.booking._id ?
                             <>
+                                <p className="exit" onClick={handleClose}><FaRegTimesCircle /></p>
                                 <h1>Booking info</h1>
                                 <p><strong>Booking number:</strong> {props.booking._id}</p>
                                 <p><strong>Name:</strong> {props.booking.firstname} {props.booking.lastname}</p>

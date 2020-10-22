@@ -29,10 +29,10 @@ const App = () => {
         token = '';
       }
       const resp = await checkToken(token)
-      console.log('checking resp in app', resp)
+
       if (resp) {
         const userRes = await getUserFromToken(token)
-        console.log("user resp in app", userRes, 'token is ', token)
+
         setUserData({
           token,
           user: userRes.data
