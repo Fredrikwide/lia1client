@@ -10,10 +10,10 @@ import { updateReservation, getReservations } from '../../services/fetch'
 const Editor = (props) => {
 
     const {
-        setUpdatedBooking,
+
         reservations,
         setReservations } = useContext(UpdateContext)
-    const { setEditActive, setHideCal, setDispSingleBooking } = useContext(UpdateContext)
+    const { setEditActive, setHideCal } = useContext(UpdateContext)
     const [seats, setSeats] = useState([1, 2, 3, 4, 5, 6])
     const [editBookingInfo, setEditBookingInfo] = useState({
         firstname: props.booking.firstname,
@@ -83,11 +83,15 @@ const Editor = (props) => {
 
     }
 
+    const handleClose = () => {
+        setEditActive(false)
+    }
+
     return (
         <>
             <div className="edit-form">
                 <form onSubmit={handleSubmit}>
-                    <p className="exit"><FaRegTimesCircle /></p>
+                    <p className="exit" onClick={handleClose}><FaRegTimesCircle /></p>
                     <h1>Booking info</h1>
                     <p><strong>Booking number:</strong> {props.booking._id}</p>
                     <p><strong>Name:</strong> {editBookingInfo.firstname} {editBookingInfo.lastname}</p>
@@ -128,10 +132,7 @@ const Editor = (props) => {
                             value={editBookingInfo.phone} />
 
                     </div>
-                    <div className="time-persons">
-                        <p><strong>Time:</strong> {props.booking.time}</p>
-                        <p><strong>Persons</strong> {props.booking.people}</p>
-                    </div>
+
                     <div className="select-time-box">
                         <div className="select-inner">
                             <p><strong>Time:</strong> {editBookingInfo.time}</p>

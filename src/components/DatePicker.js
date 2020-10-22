@@ -16,28 +16,30 @@ const DatePicker = () => {
     const { setPickedDate } = useContext(BookingContext)
     const { date, setDate } = useContext(BookingContext)
     const { formValues, setFormValues } = useContext(BookingContext)
-    const { setFullyBooked } = useContext(BookingContext)
-    const { setFullyBooked18 } = useContext(BookingContext)
-    const { setFullyBooked21 } = useContext(BookingContext)
+    const { fullyBooked, setFullyBooked } = useContext(BookingContext)
+    const { fullyBooked18, setFullyBooked18 } = useContext(BookingContext)
+    const { fullyBooked21, setFullyBooked21 } = useContext(BookingContext)
+
+
 
 
 
 
     useEffect(() => {
-
-
+        console.log('rendered')
         const checkAvailability = async () => {
             const checkingRes = await axios.get(`http://localhost:5000/reservation/${moment(date).format('YYYY-MM-DD')}`)
-
-            if (checkingRes.data.data.avilable_21 < 1 && checkingRes.data.data.avilable_18 < 1) {
+            console.log(checkingRes.data.data)
+            if (checkingRes.data.data.first < 1 && checkingRes.data.data.last < 1) {
+                console.log(fullyBooked)
                 setFullyBooked(true)
             }
-            else if (checkingRes.data.data.avilable_21 < 1) {
-
+            else if (checkingRes.data.data.first < 1) {
+                console.log(fullyBooked18)
                 setFullyBooked21(true)
             }
-            else if (checkingRes.data.data.avilable_18 < 1) {
-
+            else if (checkingRes.data.data.last < 1) {
+                console.log(fullyBooked21)
                 setFullyBooked18(true)
             }
             else {
@@ -59,6 +61,7 @@ const DatePicker = () => {
         setHideMsg(true)
         setPickedDate(true)
         const formatDate = moment(date).format('YYYY-MM-DD')
+        console.log(formatDate)
         setFormValues({ ...formValues, date: formatDate })
     }
 
@@ -66,6 +69,7 @@ const DatePicker = () => {
         <div className="date-wrapper">
             <h1>Thank you for dining with us!</h1>
             <Calendar
+
                 onChange={handleChangeDate}
                 value={date}
                 maxDate={maxDate}

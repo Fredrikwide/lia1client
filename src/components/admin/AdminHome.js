@@ -59,8 +59,7 @@ const AdminHome = () => {
                 navigate('/')
             }
             else {
-                let currUser = await getUserFromToken(userData.token)
-                console.log(currUser)
+                // let currUser = await getUserFromToken(userData.token)
                 const getNewReservations = async () => {
                     const reservationRes = await getReservations(todaysDate, userData.token)
                     setReservations(reservationRes.data.data.reservation)

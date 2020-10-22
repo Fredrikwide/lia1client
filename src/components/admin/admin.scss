@@ -85,9 +85,11 @@ $breakpoint-second: 770px;
 }
 .inner:nth-child(odd){
     background-color: #1b2e36
+   
 }
  .inner {
      background-color:#1f4a5c;
+     
  }
 
  .inner-active{
@@ -103,10 +105,6 @@ $breakpoint-second: 770px;
      margin-bottom: 100px;
  }
 
-
-.item-box p{
-    margin: 0;
-}
 
 .item-box ul{
     list-style: none;
@@ -132,8 +130,32 @@ $breakpoint-second: 770px;
     width: 950px;
 }
 
-.item-box ul li strong{
+.inner-text {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+
+    p {
+        flex: 50%;
+        justify-content: space-evenly;
+        text-align: center;
+
+    &:last-of-type {
+        margin-right: 16px;
+    }
+        span {
+            flex: 50%;
+            padding-right: 20px;
+        }
+    }
+
+    
+}
+
+.item-box strong{
     font-size: 14px;
+    margin-left: 22px;
 }
 
 .btn-box-outer {
@@ -170,7 +192,7 @@ $breakpoint-second: 770px;
 
 .show-booking{
     max-width: 350px;
-
+    position: sticky;
 
     text-align: left;
     border: 1px solid white;
@@ -189,7 +211,6 @@ $breakpoint-second: 770px;
 .show-booking p{
     margin-bottom: 6px;
 }
-
 
 
 .sortbytime{
@@ -213,19 +234,22 @@ $breakpoint-second: 770px;
     margin: 30px;
 }
 
-.cloase{
-    text-align: right;
-    font-size: 20px;
-    cursor:pointer;
-}
+
 
 
 
 /** --------- Media queri -----------*/
 
-@media (max-width: $breakpoint-first) {
+@media screen and (max-width: $breakpoint-first) {
   .outer{
       display: block;
+  }
+
+  .inner .item-box {
+   
+     max-width: 80%;
+     font-size: 1em;
+
   }
 
   .booking-info {
@@ -245,7 +269,7 @@ $breakpoint-second: 770px;
   }
 }
 
-@media (max-width: $breakpoint-second) {
+@media screen and (max-width: $breakpoint-second) {
     .sortbytime{
         display: block;
 
