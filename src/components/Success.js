@@ -18,11 +18,7 @@ const Success = () => {
 
     return (
         <>
-<<<<<<< HEAD
             <div className="success-info">
-=======
-            <div className="thank-you-cont">
->>>>>>> master
                 <h1>Thank you {latestBooking.firstname} for booking a table</h1>
                 <h3>Your reservation info:</h3>
                 <div className="booking-info">

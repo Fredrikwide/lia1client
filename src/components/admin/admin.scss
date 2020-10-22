@@ -83,12 +83,13 @@ $breakpoint-second: 770px;
     margin-left: 10px;
 
 }
-.inner:nth-child(odd){
+.inner ul li:nth-child(odd){
     background-color: #1b2e36
    
 }
- .inner {
+ .inner ul li {
      background-color:#1f4a5c;
+     padding: 20px;
      
  }
 
@@ -96,12 +97,12 @@ $breakpoint-second: 770px;
     background: #5f93ac;
  }
 
- .inner:hover{
+ .inner ul li:hover{
      background: #5f93ac;
      cursor: pointer;
  }
 
- .inner:last-child{
+ .inner ul li:last-child{
      margin-bottom: 100px;
  }
 
