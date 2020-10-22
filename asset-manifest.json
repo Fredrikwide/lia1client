@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/lia1client/static/css/main.610b8579.chunk.css",
-    "main.js": "/lia1client/static/js/main.2d83263e.chunk.js",
-    "main.js.map": "/lia1client/static/js/main.2d83263e.chunk.js.map",
+    "main.js": "/lia1client/static/js/main.cd73384a.chunk.js",
+    "main.js.map": "/lia1client/static/js/main.cd73384a.chunk.js.map",
     "runtime-main.js": "/lia1client/static/js/runtime-main.795935f5.js",
     "runtime-main.js.map": "/lia1client/static/js/runtime-main.795935f5.js.map",
     "static/css/2.3bf0a6c9.chunk.css": "/lia1client/static/css/2.3bf0a6c9.chunk.css",
     "static/js/2.b9cb4410.chunk.js": "/lia1client/static/js/2.b9cb4410.chunk.js",
     "static/js/2.b9cb4410.chunk.js.map": "/lia1client/static/js/2.b9cb4410.chunk.js.map",
     "index.html": "/lia1client/index.html",
-    "precache-manifest.efcd16ee1762fd3258ca527859575d1d.js": "/lia1client/precache-manifest.efcd16ee1762fd3258ca527859575d1d.js",
+    "precache-manifest.e368f198ccffd3906a61f688166f0e4a.js": "/lia1client/precache-manifest.e368f198ccffd3906a61f688166f0e4a.js",
     "service-worker.js": "/lia1client/service-worker.js",
     "static/css/2.3bf0a6c9.chunk.css.map": "/lia1client/static/css/2.3bf0a6c9.chunk.css.map",
     "static/css/main.610b8579.chunk.css.map": "/lia1client/static/css/main.610b8579.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.3bf0a6c9.chunk.css",
     "static/js/2.b9cb4410.chunk.js",
     "static/css/main.610b8579.chunk.css",
-    "static/js/main.2d83263e.chunk.js"
+    "static/js/main.cd73384a.chunk.js"
   ]
 }
