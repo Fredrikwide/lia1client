@@ -5,6 +5,7 @@ const base_url = 'https://booking-app-lia1.herokuapp.com/'
 const get_res_url = `${base_url}reservation/`
 const admin_url = `${base_url}admin/`
 const reservation_url = `${base_url}admin/reservation/`
+const login_url = `${admin_url}/login`
 
 export const getReservationByDate = async (date) => {
     const getByDate = await Axios.get(`${get_res_url}${date}`)
@@ -42,4 +43,9 @@ export const getUserFromToken = async (token) => {
     const UserRes = await Axios.get(`${admin_url}`, { headers: { 'x-auth-token': token } })
 
     return UserRes
+}
+
+export const login = async (info) => {
+    const loginRes = await Axios.post(login_url, info)
+    return loginRes
 }

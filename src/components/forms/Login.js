@@ -3,8 +3,7 @@ import { UserContext } from '../../contexts/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../Button'
 import '../Button.css'
-import axios from 'axios'
-
+import { login } from '../../services/fetch'
 
 const Login = () => {
 
@@ -29,7 +28,7 @@ const Login = () => {
 
         try {
             const loginAdmin = { email, password };
-            const loginRes = await axios.post('http://localhost:5000/admin/login', loginAdmin)
+            const loginRes = await login(loginAdmin)
 
             if (loginRes.status === 200) {
                 setUserData({
